@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HKy7Vd6OTrkFiesVs78nHtpOdbGr51Tako9Z6GR94HNAOrgjlFzvbwv7QpPvH6r6ZwwOWZ2bxVHDPtNfKPpfYQ==",
+  "dgSpecHash": "qVyCMr015S+RGfWT8cPOk/YdO4eM39VxcFADZd4F8YmHlKzQ7U6Ybszmy/z0omf6hQhtjZ3UMMJpS11YDDf9HQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj",
+  "projectFilePath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fuji\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\fuji\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",

@@ -16,9 +16,6 @@ public class Student
 
     public string? StudentCardNumber { get; set; }
 
-    //public Guid ShcoolId { get; set; }
-    //public virtual School School { get; set; } = null!;
-
     [ForeignKey(nameof(Parent))]
     public Guid ParentId { get; set; }
     public virtual Parent Parent { get; set; } = null!;

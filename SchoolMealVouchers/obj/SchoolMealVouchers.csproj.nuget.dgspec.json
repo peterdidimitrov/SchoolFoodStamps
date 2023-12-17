@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fuji\\Desktop\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj": {}
+    "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fuji\\Desktop\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj": {
+    "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj",
+        "projectUniqueName": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj",
         "projectName": "SchoolMealVouchers",
-        "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj",
+        "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolMealVouchers\\SchoolMealVouchers.csproj",
         "packagesPath": "C:\\Users\\fuji\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchers\\SchoolMealVouchers\\obj\\",
+        "outputPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolMealVouchers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

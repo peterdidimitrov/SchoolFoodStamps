@@ -8,7 +8,7 @@ public class Parent
     public Parent()
     {
         this.Students = new HashSet<Student>();
-        this.BoughtVouchers = new HashSet<Voucher>();
+        //this.BoughtVouchers = new HashSet<Voucher>();
         this.VoucherParents = new HashSet<VoucherParent>();
     }
     [Key]
@@ -29,6 +29,6 @@ public class Parent
     public User User { get; set; } = null!;
 
     public virtual ICollection<Student> Students { get; set; }
-    public virtual ICollection<Voucher> BoughtVouchers { get; set; }
+    //public virtual ICollection<Voucher> BoughtVouchers { get; set; }
     public virtual ICollection<VoucherParent> VoucherParents { get; set; }
 }

@@ -16,7 +16,7 @@ public class SoftJailDbContext : DbContext
     }
 
     public virtual DbSet<User> Users { get; set; } = null!;
-    public virtual DbSet<School> Shcools { get; set; } = null!;
+    public virtual DbSet<School> Schools { get; set; } = null!;
     public virtual DbSet<Student> Students { get; set; } = null!;
     public virtual DbSet<CateringCompany> CateringCompanies { get; set; } = null!;
     public virtual DbSet<Parent> Parents { get; set; } = null!;
@@ -44,20 +44,9 @@ public class SoftJailDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
-        builder.Entity<School>()
-            .HasOne(s => s.CateringCompany)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Entity<School>()
-            .HasOne(s => s.User)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Restrict);
-
-        //builder.Entity<Student>()
-        //    .HasOne(s => s.School)
-        //    .WithMany()
-        //    .HasForeignKey(s => s.ShcoolId)
+        //builder.Entity<School>()
+        //    .HasOne(s => s.User)
+        //    .WithOne()
         //    .OnDelete(DeleteBehavior.Restrict);
     }
 }

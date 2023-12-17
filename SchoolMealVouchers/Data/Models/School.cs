@@ -25,12 +25,7 @@ public class School
 
     [ForeignKey(nameof(User))]
     public Guid UserId { get; set; }
-    public User User { get; set; } = null!;
-
-
-    [ForeignKey(nameof(CateringCompany))]
-    public Guid CateringCompanyId { get; set; }
-    public CateringCompany CateringCompany { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 
     public virtual ICollection<Student> Students { get; set; }
 }
