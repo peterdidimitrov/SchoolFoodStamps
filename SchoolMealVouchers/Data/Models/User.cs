@@ -3,12 +3,15 @@
 using SchoolMealVouchers.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
+using SchoolMealVouchers.Data.Constances;
+
 public class User
 {
     [Key]
     public Guid Id { get; set; }
 
     [Required]
+    [MaxLength(ConstancesForUser.UserNameMaxLength)]
     public string UserName { get; set; } = null!;
 
     [Required]

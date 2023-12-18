@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SchoolMealVouchers")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1a40f1e75b140b8053b56b598a3d6e6b5c68ba2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e811454853b9ec3b4e6ff1b7a2bb8af37449b952")]
 [assembly: System.Reflection.AssemblyProductAttribute("SchoolMealVouchers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SchoolMealVouchers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

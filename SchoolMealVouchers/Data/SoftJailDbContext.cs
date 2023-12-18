@@ -2,7 +2,6 @@
 
 using Microsoft.EntityFrameworkCore;
 using SchoolMealVouchers.Data.Models;
-using System.Reflection.Emit;
 
 public class SoftJailDbContext : DbContext
 {
@@ -44,9 +43,14 @@ public class SoftJailDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
-        //builder.Entity<School>()
-        //    .HasOne(s => s.User)
-        //    .WithOne()
-        //    .OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<Student>()
+            .HasOne(s => s.School)
+            .WithMany(s => s.Students)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<School>()
+            .HasOne(s => s.CateringCompany)
+            .WithMany(s => s.Schools)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

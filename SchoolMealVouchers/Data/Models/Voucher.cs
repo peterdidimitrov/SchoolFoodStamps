@@ -1,7 +1,6 @@
 ﻿namespace SchoolMealVouchers.Data.Models;
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 public class Voucher
 {
@@ -10,4 +9,7 @@ public class Voucher
 
     [Required]
     public DateTime Date { get; set; }
+
+    [Required]
+    public decimal Price { get; set; }
 }
