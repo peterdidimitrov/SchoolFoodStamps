@@ -1,0 +1,12 @@
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\bin\Debug\net8.0\SchoolFoodStamps.Data.Models.deps.json
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\bin\Debug\net8.0\SchoolFoodStamps.Data.Models.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\bin\Debug\net8.0\SchoolFoodStamps.Data.Models.pdb
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.AssemblyInfoInputs.cache
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.AssemblyInfo.cs
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.csproj.CoreCompileInputs.cache
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.sourcelink.json
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\refint\SchoolFoodStamps.Data.Models.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.pdb
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\ref\SchoolFoodStamps.Data.Models.dll

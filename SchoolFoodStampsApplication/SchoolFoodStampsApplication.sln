@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Web", "SchoolFoodStamps.Web\SchoolFoodStamps.Web.csproj", "{631792EF-0553-4212-A178-4A9911415F53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Common", "SchoolFoodStamps.Common\SchoolFoodStamps.Common.csproj", "{E9A9CF95-C758-4BBC-8F3E-621D169311CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D59DE4C0-4332-4E88-BCE8-3B144E9BE9F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A85C84C0-C0A7-4F59-A82F-A58C882D719C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Data", "SchoolFoodStamps.Data\SchoolFoodStamps.Data.csproj", "{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Data.Models", "SchoolFoodStamps.Data.Models\SchoolFoodStamps.Data.Models.csproj", "{56DF8478-842F-4F00-B537-A15E39495987}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Web.ViewModels", "SchoolFoodStamps.Web.ViewModels\SchoolFoodStamps.Web.ViewModels.csproj", "{FEA3F0A8-6B16-487B-8A64-75A48112A758}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{631792EF-0553-4212-A178-4A9911415F53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{631792EF-0553-4212-A178-4A9911415F53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{631792EF-0553-4212-A178-4A9911415F53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{631792EF-0553-4212-A178-4A9911415F53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A9CF95-C758-4BBC-8F3E-621D169311CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A9CF95-C758-4BBC-8F3E-621D169311CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A9CF95-C758-4BBC-8F3E-621D169311CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A9CF95-C758-4BBC-8F3E-621D169311CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56DF8478-842F-4F00-B537-A15E39495987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56DF8478-842F-4F00-B537-A15E39495987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56DF8478-842F-4F00-B537-A15E39495987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56DF8478-842F-4F00-B537-A15E39495987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEA3F0A8-6B16-487B-8A64-75A48112A758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA3F0A8-6B16-487B-8A64-75A48112A758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA3F0A8-6B16-487B-8A64-75A48112A758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA3F0A8-6B16-487B-8A64-75A48112A758}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{631792EF-0553-4212-A178-4A9911415F53} = {D59DE4C0-4332-4E88-BCE8-3B144E9BE9F0}
+		{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7} = {A85C84C0-C0A7-4F59-A82F-A58C882D719C}
+		{56DF8478-842F-4F00-B537-A15E39495987} = {A85C84C0-C0A7-4F59-A82F-A58C882D719C}
+		{FEA3F0A8-6B16-487B-8A64-75A48112A758} = {D59DE4C0-4332-4E88-BCE8-3B144E9BE9F0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A91AAB0-C41D-4150-9208-40C39F4B6DE1}
+	EndGlobalSection
+EndGlobal

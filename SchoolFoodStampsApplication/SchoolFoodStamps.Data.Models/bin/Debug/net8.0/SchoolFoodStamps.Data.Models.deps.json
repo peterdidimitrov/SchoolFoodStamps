@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SchoolFoodStamps.Data.Models/1.0.0": {
+        "runtime": {
+          "SchoolFoodStamps.Data.Models.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SchoolFoodStamps.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
