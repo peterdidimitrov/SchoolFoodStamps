@@ -16,18 +16,18 @@ namespace SchoolFoodStamps.Data.Models
 
         public int StatusId { get; set; }
 
-        public virtual FoodStampStatus Status { get; set; }
+        public virtual FoodStampStatus Status { get; set; } = null!;
 
         public Guid ChildId { get; set; }
 
-        public virtual Child Child { get; set; }
+        public virtual Child Child { get; set; } = null!;
 
         public int MenuId { get; set; }
 
-        public virtual Menu Menu { get; set; }
+        public virtual Menu Menu { get; set; } = null!;
 
-        public string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
 
-        public virtual IdentityUser User { get; set; }
+        public virtual IdentityUser User { get; set; } = null!;
     }
 }

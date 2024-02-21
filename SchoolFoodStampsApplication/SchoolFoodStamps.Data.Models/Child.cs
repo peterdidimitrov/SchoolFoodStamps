@@ -6,14 +6,14 @@ namespace SchoolFoodStamps.Data.Models
     {
         public Guid Id { get; set; }
 
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         public DateTime DateOfBirth { get; set; }
 
-        public string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
 
-        public virtual IdentityUser User { get; set; }
+        public virtual IdentityUser User { get; set; } = null!;
     }
 }

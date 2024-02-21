@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
+    "net6.0": {
       "Humanizer/2.14.1": {
         "type": "package",
         "dependencies": {
@@ -2473,7 +2473,7 @@
           "lib/netstandard2.0/_._": {}
         },
         "build": {
-          "buildTransitive/net7.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
+          "buildTransitive/net6.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
         },
         "runtimeTargets": {
           "runtimes/alpine-arm/native/libe_sqlite3.so": {
@@ -2488,7 +2488,7 @@
             "assetType": "native",
             "rid": "alpine-x64"
           },
-          "runtimes/browser-wasm/nativeassets/net7.0/e_sqlite3.a": {
+          "runtimes/browser-wasm/nativeassets/net6.0/e_sqlite3.a": {
             "assetType": "native",
             "rid": "browser-wasm"
           },
@@ -4099,7 +4099,7 @@
       },
       "SchoolFoodStamps.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
+        "framework": ".NETCoreApp,Version=v6.0",
         "compile": {
           "bin/placeholder/SchoolFoodStamps.Common.dll": {}
         },
@@ -11499,7 +11499,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
+    "net6.0": [
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.27",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.27",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.27",
@@ -11511,40 +11511,39 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Peter\\.nuget\\packages\\": {},
+    "C:\\Users\\fuji\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj",
+      "projectUniqueName": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj",
       "projectName": "SchoolFoodStamps.Data.Models",
-      "projectPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj",
-      "packagesPath": "C:\\Users\\Peter\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\obj\\",
+      "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj",
+      "packagesPath": "C:\\Users\\fuji\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Peter\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fuji\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Common\\SchoolFoodStamps.Common.csproj": {
-              "projectPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Common\\SchoolFoodStamps.Common.csproj"
+            "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Common\\SchoolFoodStamps.Common.csproj": {
+              "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Common\\SchoolFoodStamps.Common.csproj"
             }
           }
         }
@@ -11553,16 +11552,11 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
@@ -11611,7 +11605,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

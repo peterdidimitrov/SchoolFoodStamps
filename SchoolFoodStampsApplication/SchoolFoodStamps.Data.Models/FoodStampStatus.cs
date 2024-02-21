@@ -8,7 +8,7 @@
         }
         public int Id { get; set; }
 
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public ICollection<FoodStamp> FoodStamps { get; set; }
     }
