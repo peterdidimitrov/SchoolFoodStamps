@@ -13,3 +13,6 @@ C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodSt
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net8.0\SchoolFoodStamps.Data.pdb
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net8.0\SchoolFoodStamps.Data.genruntimeconfig.cache
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net8.0\ref\SchoolFoodStamps.Data.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\bin\Debug\net8.0\SchoolFoodStamps.Common.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\bin\Debug\net8.0\SchoolFoodStamps.Common.pdb
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net8.0\SchoolFo.050F4A2A.Up2Date

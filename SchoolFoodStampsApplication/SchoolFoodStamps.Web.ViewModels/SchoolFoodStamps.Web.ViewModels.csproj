@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolFoodStamps.Common\SchoolFoodStamps.Common.csproj" />
+  </ItemGroup>
+
 </Project>

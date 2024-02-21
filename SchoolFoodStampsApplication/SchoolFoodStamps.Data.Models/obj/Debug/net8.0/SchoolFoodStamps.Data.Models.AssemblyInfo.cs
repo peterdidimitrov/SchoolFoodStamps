@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SchoolFoodStamps.Data.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d78b394fe4e4501f2a95661d51ec6f5b527a417")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0751214caf2a82cbdf93215f40530f45955b4941")]
 [assembly: System.Reflection.AssemblyProductAttribute("SchoolFoodStamps.Data.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SchoolFoodStamps.Data.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

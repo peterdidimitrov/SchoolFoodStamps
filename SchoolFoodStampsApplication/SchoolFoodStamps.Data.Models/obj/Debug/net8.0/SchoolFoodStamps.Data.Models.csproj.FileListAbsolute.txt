@@ -10,3 +10,9 @@ C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodSt
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\refint\SchoolFoodStamps.Data.Models.dll
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.pdb
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\ref\SchoolFoodStamps.Data.Models.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\bin\Debug\net8.0\SchoolFoodStamps.Common.dll
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\bin\Debug\net8.0\SchoolFoodStamps.Common.pdb
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.csproj.AssemblyReference.cache
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFo.9DC2F737.Up2Date
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\bin\Debug\net8.0\SchoolFoodStamps.Data.Models.runtimeconfig.json
+C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data.Models\obj\Debug\net8.0\SchoolFoodStamps.Data.Models.genruntimeconfig.cache
