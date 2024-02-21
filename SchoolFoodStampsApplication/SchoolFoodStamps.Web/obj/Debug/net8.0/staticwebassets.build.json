@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JWI18A32G8uhIqodz2jYWxFNPfsOS31+9TOhm0/7xTY=",
+  "Hash": "CkjQGaV4+pbsaqM2aULCNjPjwJNQTM3xbvMVCT971O8=",
   "Source": "SchoolFoodStamps.Web",
   "BasePath": "_content/SchoolFoodStamps.Web",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\wwwroot\\images\\favicon-32x32.png",
+      "SourceId": "SchoolFoodStamps.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\wwwroot\\",
+      "BasePath": "_content/SchoolFoodStamps.Web",
+      "RelativePath": "images/favicon-32x32.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\favicon-32x32.png"
     },
     {
       "Identity": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\wwwroot\\js\\site.js",

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
@@ -6,20 +7,22 @@ namespace SchoolFoodStamps.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> _logger, SignInManager<IdentityUser>  _signInManager)
         {
-            _logger = logger;
+            this.logger = _logger;
+            this.signInManager = _signInManager;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 
