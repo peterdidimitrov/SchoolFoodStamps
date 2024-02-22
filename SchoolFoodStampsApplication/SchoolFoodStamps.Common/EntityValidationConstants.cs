@@ -22,16 +22,24 @@
         public static class Dish
         {
             public const int NameMaxLength = 100;
-            public const int NameMinLength = 3;
+            public const int NameMinLength = 2;
 
             public const int DescriptionMaxLength = 500;
-            public const int DescriptionMinLength = 3;
+            public const int DescriptionMinLength = 10;
         }
 
         public static class Allergen
         {
             public const int NameMaxLength = 100;
             public const int NameMinLength = 3;
+        }
+        public static class Child
+        {
+            public const int FirstNameMaxLenght = 100;
+            public const int FirstNameMinLenght = 2;
+
+            public const int LastNameMaxLenght = 100;
+            public const int LastNameMinLenght = 2;
         }
 
         public static class ErrorMessages

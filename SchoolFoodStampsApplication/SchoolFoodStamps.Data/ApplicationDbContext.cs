@@ -24,28 +24,28 @@ namespace SchoolFoodStamps.Data
             //.HasForeignKey(ab => ab.BuyerId)
             //.OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder
-                .Entity<FoodStampStatus>()
-                .HasData(new FoodStampStatus()
-                {
-                    Id = 1,
-                    Name = "Valid"
-                },
-                new FoodStampStatus()
-                {
-                    Id = 2,
-                    Name = "Used"
-                },
-                new FoodStampStatus()
-                {
-                    Id = 3,
-                    Name = "Expired"
-                },
-                new FoodStampStatus()
-                {
-                    Id = 4,
-                    Name = "Renewed"
-                });
+            //modelBuilder
+            //    .Entity<FoodStampStatus>()
+            //    .HasData(new FoodStampStatus()
+            //    {
+            //        Id = 1,
+            //        Name = "Valid"
+            //    },
+            //    new FoodStampStatus()
+            //    {
+            //        Id = 2,
+            //        Name = "Used"
+            //    },
+            //    new FoodStampStatus()
+            //    {
+            //        Id = 3,
+            //        Name = "Expired"
+            //    },
+            //    new FoodStampStatus()
+            //    {
+            //        Id = 4,
+            //        Name = "Renewed"
+            //    });
 
             base.OnModelCreating(modelBuilder);
         }
