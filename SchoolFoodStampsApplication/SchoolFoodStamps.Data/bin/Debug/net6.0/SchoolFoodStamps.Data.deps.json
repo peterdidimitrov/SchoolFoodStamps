@@ -15,7 +15,8 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "6.0.27",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.27",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.16",
-          "SchoolFoodStamps.Common": "1.0.0"
+          "SchoolFoodStamps.Common": "1.0.0",
+          "SchoolFoodStamps.Data.Models": "1.0.0"
         },
         "runtime": {
           "SchoolFoodStamps.Data.dll": {}
@@ -2760,6 +2761,20 @@
         "runtime": {
           "SchoolFoodStamps.Common.dll": {}
         }
+      },
+      "SchoolFoodStamps.Data.Models/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.27",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.27",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.27",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.27",
+          "Microsoft.EntityFrameworkCore.Sqlite": "6.0.27",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.16",
+          "SchoolFoodStamps.Common": "1.0.0"
+        },
+        "runtime": {
+          "SchoolFoodStamps.Data.Models.dll": {}
+        }
       }
     }
   },
@@ -4394,6 +4409,11 @@
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
     "SchoolFoodStamps.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SchoolFoodStamps.Data.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
