@@ -10,7 +10,7 @@ namespace SchoolFoodStamps.Data.Models
     {
         public CateringCompany()
         {
-            this.FoodStamps = new HashSet<FoodStamp>();
+            //this.FoodStamps = new HashSet<FoodStamp>();
             this.Schools = new HashSet<School>();
         }
 
@@ -37,7 +37,7 @@ namespace SchoolFoodStamps.Data.Models
         [ForeignKey(nameof(UserId))]
         public virtual IdentityUser User { get; set; } = null!;
 
-        public virtual ICollection<FoodStamp> FoodStamps { get; set; }
+        //public virtual ICollection<FoodStamp> FoodStamps { get; set; }
 
         public virtual ICollection<School> Schools { get; set; }
     }

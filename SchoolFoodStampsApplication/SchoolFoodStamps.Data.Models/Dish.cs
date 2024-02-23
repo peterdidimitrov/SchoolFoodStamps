@@ -1,36 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static SchoolFoodStamps.Common.EntityValidationConstants.Dish;
+﻿//using Microsoft.EntityFrameworkCore;
+//using System.ComponentModel.DataAnnotations;
+//using System.ComponentModel.DataAnnotations.Schema;
+//using static SchoolFoodStamps.Common.EntityValidationConstants.Dish;
 
-namespace SchoolFoodStamps.Data.Models
-{
-    [Comment("Dish table")]
-    public class Dish
-    {
-        [Key]
-        [Comment("Dish identifier")]
-        public int Id { get; set; }
+//namespace SchoolFoodStamps.Data.Models
+//{
+//    [Comment("Dish table")]
+//    public class Dish
+//    {
+//        [Key]
+//        [Comment("Dish identifier")]
+//        public int Id { get; set; }
 
-        [Required]
-        [Comment("Dish name")]
-        [MaxLength(NameMaxLength)]
-        public string Name { get; set; } = string.Empty;
+//        [Required]
+//        [Comment("Dish name")]
+//        [MaxLength(NameMaxLength)]
+//        public string Name { get; set; } = string.Empty;
 
-        [Required]
-        [Comment("Dish description")]
-        [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; } = string.Empty;
+//        [Required]
+//        [Comment("Dish description")]
+//        [MaxLength(DescriptionMaxLength)]
+//        public string Description { get; set; } = string.Empty;
 
-        [Required]
-        [Comment("Dish weight")]
-        public double Weight { get; set; }
+//        [Required]
+//        [Comment("Dish weight")]
+//        public double Weight { get; set; }
 
-        [Required]
-        [Comment("Menu identifier")]
-        public int MenuId { get; set; }
+//        [Required]
+//        [Comment("Menu identifier")]
+//        public int MenuId { get; set; }
 
-        [ForeignKey(nameof(MenuId))]
-        public virtual Menu Menu { get; set; } = null!;
-    }
-}
+//        [ForeignKey(nameof(MenuId))]
+//        public virtual Menu Menu { get; set; } = null!;
+//    }
+//}

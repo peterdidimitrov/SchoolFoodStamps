@@ -586,3 +586,5 @@ C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodSt
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Web\obj\Debug\net6.0\SchoolFoodStamps.Web.pdb
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Web\obj\Debug\net6.0\SchoolFoodStamps.Web.genruntimeconfig.cache
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Web\obj\Debug\net6.0\ref\SchoolFoodStamps.Web.dll
+C:\Users\fuji\Desktop\SchoolMealVouchersProject\SchoolMealVouchers\SchoolFoodStampsApplication\SchoolFoodStamps.Web\bin\Debug\net6.0\SchoolFoodStamps.Data.Models.dll
+C:\Users\fuji\Desktop\SchoolMealVouchersProject\SchoolMealVouchers\SchoolFoodStampsApplication\SchoolFoodStamps.Web\bin\Debug\net6.0\SchoolFoodStamps.Data.Models.pdb

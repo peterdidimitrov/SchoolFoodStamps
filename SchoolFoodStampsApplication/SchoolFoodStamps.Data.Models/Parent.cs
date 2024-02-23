@@ -9,11 +9,11 @@ namespace SchoolFoodStamps.Data.Models
     [Comment("Parent table")]
     public class Parent
     {
-        public Parent()
-        {
-            this.Children = new HashSet<Child>();
-            this.FoodStamps = new HashSet<FoodStamp>();
-        }
+        //public Parent()
+        //{
+        //    this.Children = new HashSet<Child>();
+        //    this.FoodStamps = new HashSet<FoodStamp>();
+        //}
 
         [Key]
         [Comment("Parent identifier")]
@@ -39,8 +39,8 @@ namespace SchoolFoodStamps.Data.Models
         [ForeignKey(nameof(UserId))]
         public virtual IdentityUser User { get; set; } = null!;
 
-        public virtual ICollection<Child> Children { get; set; }
+        //public virtual ICollection<Child> Children { get; set; }
 
-        public virtual ICollection<FoodStamp> FoodStamps { get; set; }
+        //public virtual ICollection<FoodStamp> FoodStamps { get; set; }
     }
 }

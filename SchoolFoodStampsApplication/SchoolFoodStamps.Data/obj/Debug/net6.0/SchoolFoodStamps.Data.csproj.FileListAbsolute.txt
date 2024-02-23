@@ -36,3 +36,5 @@ C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodSt
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net6.0\SchoolFoodStamps.Data.pdb
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net6.0\SchoolFoodStamps.Data.genruntimeconfig.cache
 C:\Users\Peter\Desktop\SchoolFoodStamps\SchoolFoodStampsApplication\SchoolFoodStamps.Data\obj\Debug\net6.0\ref\SchoolFoodStamps.Data.dll
+C:\Users\fuji\Desktop\SchoolMealVouchersProject\SchoolMealVouchers\SchoolFoodStampsApplication\SchoolFoodStamps.Data\bin\Debug\net6.0\SchoolFoodStamps.Data.Models.dll
+C:\Users\fuji\Desktop\SchoolMealVouchersProject\SchoolMealVouchers\SchoolFoodStampsApplication\SchoolFoodStamps.Data\bin\Debug\net6.0\SchoolFoodStamps.Data.Models.pdb

@@ -9,10 +9,10 @@ namespace SchoolFoodStamps.Data.Models
     [Comment("School table")]
     public class School
     {
-        public School()
-        {
-            this.Children = new HashSet<Child>();
-        }
+        //public School()
+        //{
+        //    this.Children = new HashSet<Child>();
+        //}
 
         [Key]
         [Comment("School identifier")]
@@ -44,6 +44,6 @@ namespace SchoolFoodStamps.Data.Models
         [ForeignKey(nameof(UserId))]
         public virtual IdentityUser User { get; set; } = null!;
 
-        public virtual ICollection<Child> Children { get; set; }
+        //public virtual ICollection<Child> Children { get; set; }
     }
 }

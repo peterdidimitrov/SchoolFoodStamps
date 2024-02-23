@@ -2,6 +2,15 @@
 {
     public static class EntityValidationConstants
     {
+        //public static class ApplicationUser
+        //{
+        //    public const int FirstNameMaxLenght = 100;
+        //    public const int FirstNameMinLenght = 2;
+
+        //    public const int LastNameMaxLenght = 100;
+        //    public const int LastNameMinLenght = 2;
+        //}
+        
         public static class FoodStamp
         {
             public const string DateFormat = "dddd, dd MMMM yyyy";
