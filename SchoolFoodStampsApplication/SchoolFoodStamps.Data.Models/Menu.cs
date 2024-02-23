@@ -17,11 +17,13 @@ namespace SchoolFoodStamps.Data.Models
         public int Id { get; set; }
 
         [Required]
-        //[MaxLength(DayOfWeekMaxLength)]
+        [Comment("Menu day of week")]
         public DayOfWeek DayOfWeek { get; set; }
 
+        [Comment("Menu date of creation")]
         public DateTime DateOfCreation { get; set; }
 
+        [Comment("Menu date of modify")]
         public DateTime DateOfModify { get; set; }
 
         public virtual ICollection<Dish> Dishes { get; set; }

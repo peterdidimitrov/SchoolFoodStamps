@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Dish;
 
 namespace SchoolFoodStamps.Data.Models
@@ -23,12 +24,13 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("Dish weight")]
-        public int Weight { get; set; }
+        public double Weight { get; set; }
 
         [Required]
         [Comment("Menu identifier")]
         public int MenuId { get; set; }
 
+        [ForeignKey(nameof(MenuId))]
         public virtual Menu Menu { get; set; } = null!;
     }
 }

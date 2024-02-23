@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Child;
 
 namespace SchoolFoodStamps.Data.Models
@@ -24,12 +24,28 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("Child date of birth")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+
+        [Required]
+        [Comment("Child class")]
+        public int ClassNumber { get; set; }
+
+        [Required]
+        [Comment("Child class")]
+        public char ClassLetter { get; set; }
 
         [Required]
         [Comment("User identifier")]
-        public string UserId { get; set; } = string.Empty;
+        public Guid ParentId { get; set; }
 
-        public virtual IdentityUser User { get; set; } = null!;
+        [ForeignKey(nameof(ParentId))]
+        public virtual Parent Parent { get; set; } = null!;
+
+        [Required]
+        [Comment("School identifier")]
+        public Guid SchoolId { get; set; }
+
+        [ForeignKey(nameof(SchoolId))]
+        public virtual School School { get; set; } = null!;
     }
 }
