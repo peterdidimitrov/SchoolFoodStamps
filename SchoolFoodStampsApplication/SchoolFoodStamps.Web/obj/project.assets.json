@@ -11576,6 +11576,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.16",
       "SchoolFoodStamps.Common >= 1.0.0",
       "SchoolFoodStamps.Data >= 1.0.0",
+      "SchoolFoodStamps.Data.Models >= 1.0.0",
       "SchoolFoodStamps.Web.ViewModels >= 1.0.0"
     ]
   },
@@ -11613,6 +11614,9 @@
           "projectReferences": {
             "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Common\\SchoolFoodStamps.Common.csproj": {
               "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Common\\SchoolFoodStamps.Common.csproj"
+            },
+            "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj": {
+              "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj"
             },
             "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj": {
               "projectPath": "C:\\Users\\fuji\\Desktop\\SchoolMealVouchersProject\\SchoolMealVouchers\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj"

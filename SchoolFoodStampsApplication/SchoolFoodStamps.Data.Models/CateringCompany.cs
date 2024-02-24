@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +9,7 @@ namespace SchoolFoodStamps.Data.Models
     {
         public CateringCompany()
         {
-            //this.FoodStamps = new HashSet<FoodStamp>();
+            this.FoodStamps = new HashSet<FoodStamp>();
             this.Schools = new HashSet<School>();
         }
 
@@ -32,12 +31,12 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("User identifier")]
-        public string UserId { get; set; } = null!;
+        public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
-        //public virtual ICollection<FoodStamp> FoodStamps { get; set; }
+        public virtual ICollection<FoodStamp> FoodStamps { get; set; }
 
         public virtual ICollection<School> Schools { get; set; }
     }

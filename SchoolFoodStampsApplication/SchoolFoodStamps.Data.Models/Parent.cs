@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Parent;
@@ -9,11 +8,11 @@ namespace SchoolFoodStamps.Data.Models
     [Comment("Parent table")]
     public class Parent
     {
-        //public Parent()
-        //{
-        //    this.Children = new HashSet<Child>();
-        //    this.FoodStamps = new HashSet<FoodStamp>();
-        //}
+        public Parent()
+        {
+            this.Children = new HashSet<Child>();
+            this.FoodStamps = new HashSet<FoodStamp>();
+        }
 
         [Key]
         [Comment("Parent identifier")]
@@ -34,13 +33,13 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("User identifier")]
-        public string UserId { get; set; } = null!;
+        public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
-        //public virtual ICollection<Child> Children { get; set; }
+        public virtual ICollection<Child> Children { get; set; }
 
-        //public virtual ICollection<FoodStamp> FoodStamps { get; set; }
+        public virtual ICollection<FoodStamp> FoodStamps { get; set; }
     }
 }

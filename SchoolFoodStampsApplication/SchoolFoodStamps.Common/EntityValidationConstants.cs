@@ -1,31 +1,14 @@
 ﻿namespace SchoolFoodStamps.Common
 {
     public static class EntityValidationConstants
-    {
-        //public static class ApplicationUser
-        //{
-        //    public const int FirstNameMaxLenght = 100;
-        //    public const int FirstNameMinLenght = 2;
-
-        //    public const int LastNameMaxLenght = 100;
-        //    public const int LastNameMinLenght = 2;
-        //}
-        
+    {   
         public static class FoodStamp
         {
             public const string DateFormat = "dddd, dd MMMM yyyy";
         }
 
-        public static class Status
-        {
-            public const int NameMaxLength = 100;
-            public const int NameMinLength = 3;
-        }
-
         public static class Menu
         {
-            public const int DayOfWeekMaxLength = 9;
-            public const int DayOfWeekMinLength = 6;
             public const string DateFormat = "MM/dd/yyyy hh:mm tt";
         }
 

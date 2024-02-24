@@ -17,6 +17,7 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.16",
           "SchoolFoodStamps.Common": "1.0.0",
           "SchoolFoodStamps.Data": "1.0.0",
+          "SchoolFoodStamps.Data.Models": "1.0.0",
           "SchoolFoodStamps.Web.ViewModels": "1.0.0"
         },
         "runtime": {

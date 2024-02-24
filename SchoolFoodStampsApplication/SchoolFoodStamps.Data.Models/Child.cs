@@ -1,51 +1,58 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
-//using static SchoolFoodStamps.Common.EntityValidationConstants.Child;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using static SchoolFoodStamps.Common.EntityValidationConstants.Child;
 
-//namespace SchoolFoodStamps.Data.Models
-//{
-//    [Comment("Child table")]
-//    public class Child
-//    {
-//        [Key]
-//        [Comment("Child identifier")]
-//        public Guid Id { get; set; }
+namespace SchoolFoodStamps.Data.Models
+{
+    [Comment("Child table")]
+    public class Child
+    {
+        public Child()
+        {
+            this.FoodStamps = new HashSet<FoodStamp>();
+        }
 
-//        [Required]
-//        [Comment("Child first name")]
-//        [MaxLength(FirstNameMaxLenght)]
-//        public string FirstName { get; set; } = string.Empty;
+        [Key]
+        [Comment("Child identifier")]
+        public Guid Id { get; set; }
 
-//        [Required]
-//        [Comment("Child last name")]
-//        [MaxLength(LastNameMaxLenght)]
-//        public string LastName { get; set; } = string.Empty;
+        [Required]
+        [Comment("Child first name")]
+        [MaxLength(FirstNameMaxLenght)]
+        public string FirstName { get; set; } = string.Empty;
 
-//        [Required]
-//        [Comment("Child date of birth")]
-//        public DateTime? DateOfBirth { get; set; }
+        [Required]
+        [Comment("Child last name")]
+        [MaxLength(LastNameMaxLenght)]
+        public string LastName { get; set; } = string.Empty;
 
-//        [Required]
-//        [Comment("Child class")]
-//        public int ClassNumber { get; set; }
+        [Required]
+        [Comment("Child date of birth")]
+        public DateTime? DateOfBirth { get; set; }
 
-//        [Required]
-//        [Comment("Child class")]
-//        public char ClassLetter { get; set; }
+        [Required]
+        [Comment("Child class")]
+        public int ClassNumber { get; set; }
 
-//        //[Required]
-//        //[Comment("Parent identifier")]
-//        //public Guid ParentId { get; set; }
+        [Required]
+        [Comment("Child class")]
+        public char ClassLetter { get; set; }
 
-//        //[ForeignKey(nameof(ParentId))]
-//        //public virtual Parent Parent { get; set; } = null!;
+        [Required]
+        [Comment("Parent identifier")]
+        public Guid ParentId { get; set; }
 
-//        //[Required]
-//        //[Comment("School identifier")]
-//        //public Guid SchoolId { get; set; }
+        [ForeignKey(nameof(ParentId))]
+        public virtual Parent Parent { get; set; } = null!;
 
-//        //[ForeignKey(nameof(SchoolId))]
-//        //public virtual School School { get; set; } = null!;
-//    }
-//}
+        [Required]
+        [Comment("School identifier")]
+        public Guid SchoolId { get; set; }
+
+        [ForeignKey(nameof(SchoolId))]
+        public virtual School School { get; set; } = null!;
+
+        public virtual ICollection<FoodStamp> FoodStamps { get; set; }
+    }
+}

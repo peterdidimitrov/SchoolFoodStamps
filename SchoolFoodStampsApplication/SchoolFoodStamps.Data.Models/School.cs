@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static SchoolFoodStamps.Common.EntityValidationConstants.School;
@@ -9,10 +8,10 @@ namespace SchoolFoodStamps.Data.Models
     [Comment("School table")]
     public class School
     {
-        //public School()
-        //{
-        //    this.Children = new HashSet<Child>();
-        //}
+        public School()
+        {
+            this.Children = new HashSet<Child>();
+        }
 
         [Key]
         [Comment("School identifier")]
@@ -39,11 +38,11 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("User identifier")]
-        public string UserId { get; set; } = null!;
+        public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
-        //public virtual ICollection<Child> Children { get; set; }
+        public virtual ICollection<Child> Children { get; set; }
     }
 }
