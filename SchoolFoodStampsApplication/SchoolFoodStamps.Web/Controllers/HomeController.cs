@@ -8,9 +8,9 @@ namespace SchoolFoodStamps.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public HomeController(ILogger<HomeController> _logger, SignInManager<IdentityUser>  _signInManager)
+        public HomeController(ILogger<HomeController> _logger, SignInManager<ApplicationUser>  _signInManager)
         {
             this.logger = _logger;
             this.signInManager = _signInManager;
