@@ -12,8 +12,8 @@ using SchoolFoodStamps.Data;
 namespace SchoolFoodStamps.Data.Migrations
 {
     [DbContext(typeof(SchoolFoodStampsDbContext))]
-    [Migration("20240224181130_CreateChildTable")]
-    partial class CreateChildTable
+    [Migration("20240226135402_CreateTablesInDb")]
+    partial class CreateTablesInDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,28 @@ namespace SchoolFoodStamps.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Allergen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("DishId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DishId");
+
+                    b.ToTable("Allergens");
+                });
 
             modelBuilder.Entity("ApplicationUser", b =>
                 {
@@ -233,19 +255,26 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasComment("Catering company identifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Catering company address");
 
                     b.Property<string>("IdentificationNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasComment("Catering company Identification Number");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Catering company name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Catering company phone number");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")
@@ -270,11 +299,11 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Property<string>("ClassLetter")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Child class");
+                        .HasComment("Child class letter in school");
 
-                    b.Property<int>("ClassNumber")
-                        .HasColumnType("int")
-                        .HasComment("Child class");
+                    b.Property<byte>("ClassNumber")
+                        .HasColumnType("tinyint")
+                        .HasComment("Child class number in school");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .IsRequired()
@@ -312,6 +341,130 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.HasComment("Child table");
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Dish", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Dish identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("Dish description");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int")
+                        .HasComment("Menu identifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Dish name");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float")
+                        .HasComment("Dish weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("Dishes");
+
+                    b.HasComment("Dish table");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.FoodStamp", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Food stamp identifier");
+
+                    b.Property<Guid>("CateringCompanyId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Catering identifier");
+
+                    b.Property<Guid>("ChildId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Child identifier");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Food stamp expiry date");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Food stamp issue date");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int")
+                        .HasComment("Menu identifier");
+
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Parent identifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Food stamp price");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("Food stamp status");
+
+                    b.Property<DateTime>("UseDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Food stamp use date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CateringCompanyId");
+
+                    b.HasIndex("ChildId");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("FoodStamps");
+
+                    b.HasComment("Food stamp table");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Menu identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateOfCreation")
+                        .HasColumnType("datetime2")
+                        .HasComment("Menu date of creation");
+
+                    b.Property<DateTime>("DateOfModify")
+                        .HasColumnType("datetime2")
+                        .HasComment("Menu date of modify");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int")
+                        .HasComment("Menu day of week");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menus");
+
+                    b.HasComment("Menu table");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Parent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -320,7 +473,8 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasComment("Parent identifier");
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Parent address");
 
                     b.Property<string>("FirstName")
@@ -334,6 +488,11 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasComment("Parent last name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Parent phone number");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")
@@ -374,6 +533,11 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasComment("School name");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("School phone number");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("User identifier");
@@ -387,6 +551,13 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.ToTable("Schools");
 
                     b.HasComment("School table");
+                });
+
+            modelBuilder.Entity("Allergen", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", null)
+                        .WithMany("Allergens")
+                        .HasForeignKey("DishId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -470,6 +641,52 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Navigation("School");
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Dish", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.Menu", "Menu")
+                        .WithMany("Dishes")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Menu");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.FoodStamp", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.CateringCompany", "CateringCompany")
+                        .WithMany("FoodStamps")
+                        .HasForeignKey("CateringCompanyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("SchoolFoodStamps.Data.Models.Child", "Child")
+                        .WithMany("FoodStamps")
+                        .HasForeignKey("ChildId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("SchoolFoodStamps.Data.Models.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("SchoolFoodStamps.Data.Models.Parent", "Parent")
+                        .WithMany("FoodStamps")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CateringCompany");
+
+                    b.Navigation("Child");
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Parent", b =>
                 {
                     b.HasOne("ApplicationUser", "User")
@@ -502,12 +719,31 @@ namespace SchoolFoodStamps.Data.Migrations
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
                 {
+                    b.Navigation("FoodStamps");
+
                     b.Navigation("Schools");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Child", b =>
+                {
+                    b.Navigation("FoodStamps");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Dish", b =>
+                {
+                    b.Navigation("Allergens");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Menu", b =>
+                {
+                    b.Navigation("Dishes");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Parent", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("FoodStamps");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.School", b =>

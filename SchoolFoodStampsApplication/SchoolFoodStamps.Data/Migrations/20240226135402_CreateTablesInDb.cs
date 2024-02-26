@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SchoolFoodStamps.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class CreateTablesInDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,22 @@ namespace SchoolFoodStamps.Data.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Menus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "Menu day of week"),
+                    DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Menu date of creation"),
+                    DateOfModify = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Menu date of modify")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menus", x => x.Id);
+                },
+                comment: "Menu table");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -159,9 +175,10 @@ namespace SchoolFoodStamps.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Catering company name"),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Catering company address"),
-                    IdentificationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false, comment: "Catering company Identification Number"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Catering company name"),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Catering company address"),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "Catering company phone number"),
+                    IdentificationNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Catering company Identification Number"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier")
                 },
                 constraints: table =>
@@ -183,7 +200,8 @@ namespace SchoolFoodStamps.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Parent identifier"),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Parent first name"),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Parent last name"),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Parent address"),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Parent address"),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "Parent phone number"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier")
                 },
                 constraints: table =>
@@ -199,12 +217,35 @@ namespace SchoolFoodStamps.Data.Migrations
                 comment: "Parent table");
 
             migrationBuilder.CreateTable(
+                name: "Dishes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "Dish identifier")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Dish name"),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false, comment: "Dish description"),
+                    Weight = table.Column<double>(type: "float", nullable: false, comment: "Dish weight"),
+                    MenuId = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dishes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dishes_Menus_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "Menus",
+                        principalColumn: "Id");
+                },
+                comment: "Dish table");
+
+            migrationBuilder.CreateTable(
                 name: "Schools",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "School identifier"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "School name"),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "School address"),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "School phone number"),
                     IdentificationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CateringCompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier")
@@ -225,6 +266,100 @@ namespace SchoolFoodStamps.Data.Migrations
                         principalColumn: "Id");
                 },
                 comment: "School table");
+
+            migrationBuilder.CreateTable(
+                name: "Allergens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DishId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Allergens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Allergens_Dishes_DishId",
+                        column: x => x.DishId,
+                        principalTable: "Dishes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Children",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Child identifier"),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Child first name"),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Child last name"),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Child date of birth"),
+                    ClassNumber = table.Column<byte>(type: "tinyint", nullable: false, comment: "Child class number in school"),
+                    ClassLetter = table.Column<string>(type: "nvarchar(1)", nullable: false, comment: "Child class letter in school"),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Parent identifier"),
+                    SchoolId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "School identifier")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Children", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Children_Parents_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Parents",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Children_Schools_SchoolId",
+                        column: x => x.SchoolId,
+                        principalTable: "Schools",
+                        principalColumn: "Id");
+                },
+                comment: "Child table");
+
+            migrationBuilder.CreateTable(
+                name: "FoodStamps",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Food stamp identifier"),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Food stamp price"),
+                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp issue date"),
+                    UseDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp use date"),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp expiry date"),
+                    Status = table.Column<int>(type: "int", nullable: false, comment: "Food stamp status"),
+                    ChildId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Child identifier"),
+                    MenuId = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier"),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Parent identifier"),
+                    CateringCompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering identifier")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FoodStamps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FoodStamps_CateringCompanies_CateringCompanyId",
+                        column: x => x.CateringCompanyId,
+                        principalTable: "CateringCompanies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_FoodStamps_Children_ChildId",
+                        column: x => x.ChildId,
+                        principalTable: "Children",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_FoodStamps_Menus_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "Menus",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_FoodStamps_Parents_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Parents",
+                        principalColumn: "Id");
+                },
+                comment: "Food stamp table");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Allergens_DishId",
+                table: "Allergens",
+                column: "DishId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -271,6 +406,41 @@ namespace SchoolFoodStamps.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Children_ParentId",
+                table: "Children",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Children_SchoolId",
+                table: "Children",
+                column: "SchoolId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dishes_MenuId",
+                table: "Dishes",
+                column: "MenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FoodStamps_CateringCompanyId",
+                table: "FoodStamps",
+                column: "CateringCompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FoodStamps_ChildId",
+                table: "FoodStamps",
+                column: "ChildId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FoodStamps_MenuId",
+                table: "FoodStamps",
+                column: "MenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FoodStamps_ParentId",
+                table: "FoodStamps",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parents_UserId",
                 table: "Parents",
                 column: "UserId");
@@ -289,6 +459,9 @@ namespace SchoolFoodStamps.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Allergens");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -304,13 +477,25 @@ namespace SchoolFoodStamps.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "FoodStamps");
+
+            migrationBuilder.DropTable(
+                name: "Dishes");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Children");
+
+            migrationBuilder.DropTable(
+                name: "Menus");
+
+            migrationBuilder.DropTable(
                 name: "Parents");
 
             migrationBuilder.DropTable(
                 name: "Schools");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "CateringCompanies");

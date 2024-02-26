@@ -32,11 +32,11 @@ namespace SchoolFoodStamps.Data.Models
         public DateTime? DateOfBirth { get; set; }
 
         [Required]
-        [Comment("Child class")]
-        public int ClassNumber { get; set; }
+        [Comment("Child class number in school")]
+        public byte ClassNumber { get; set; }
 
         [Required]
-        [Comment("Child class")]
+        [Comment("Child class letter in school")]
         public char ClassLetter { get; set; }
 
         [Required]

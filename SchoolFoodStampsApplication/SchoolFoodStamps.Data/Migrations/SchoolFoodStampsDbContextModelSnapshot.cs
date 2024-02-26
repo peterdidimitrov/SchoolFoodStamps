@@ -253,19 +253,26 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasComment("Catering company identifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Catering company address");
 
                     b.Property<string>("IdentificationNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasComment("Catering company Identification Number");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Catering company name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Catering company phone number");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")
@@ -290,11 +297,11 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Property<string>("ClassLetter")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Child class");
+                        .HasComment("Child class letter in school");
 
-                    b.Property<int>("ClassNumber")
-                        .HasColumnType("int")
-                        .HasComment("Child class");
+                    b.Property<byte>("ClassNumber")
+                        .HasColumnType("tinyint")
+                        .HasComment("Child class number in school");
 
                     b.Property<DateTime?>("DateOfBirth")
                         .IsRequired()
@@ -464,7 +471,8 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasComment("Parent identifier");
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasComment("Parent address");
 
                     b.Property<string>("FirstName")
@@ -478,6 +486,11 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasComment("Parent last name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("Parent phone number");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")
@@ -517,6 +530,11 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasComment("School name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasComment("School phone number");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")

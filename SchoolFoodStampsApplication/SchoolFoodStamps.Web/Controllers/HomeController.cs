@@ -18,10 +18,10 @@ namespace SchoolFoodStamps.Web.Controllers
 
         public IActionResult Index()
         {
-            if (signInManager.IsSignedIn(User))
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
+            //if (signInManager.IsSignedIn(User))
+            //{
+            //    return RedirectToAction("Index", "Dashboard");
+            //}
 
             return View();
         }

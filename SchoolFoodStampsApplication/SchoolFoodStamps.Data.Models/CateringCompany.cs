@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static SchoolFoodStamps.Common.EntityValidationConstants.CateringCompany;
 
 namespace SchoolFoodStamps.Data.Models
 {
@@ -19,14 +20,20 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("Catering company name")]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
-        [Required]
         [Comment("Catering company address")]
+        [MaxLength(AddressMaxLength)]
         public string? Address { get; set; }
+
+        [Comment("Catering company phone number")]
+        [MaxLength(PhoneNumberMaxLength)]
+        public string? PhoneNumber { get; set; }
 
         [Required]
         [Comment("Catering company Identification Number")]
+        [MaxLength(IdentificationNumberMaxLength)]
         public string IdentificationNumber { get; set; } = null!;
 
         [Required]

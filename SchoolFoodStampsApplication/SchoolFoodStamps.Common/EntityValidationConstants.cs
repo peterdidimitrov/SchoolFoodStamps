@@ -2,6 +2,21 @@
 {
     public static class EntityValidationConstants
     {   
+        public static class CateringCompany
+        {
+            public const int NameMaxLength = 100;
+            public const int NameMinLength = 2;
+
+            public const int AddressMaxLength = 100;
+            public const int AddressMinLength = 5;
+
+            public const int PhoneNumberMaxLength = 20;
+            public const int PhoneNumberMinLength = 9;
+
+            public const int IdentificationNumberMaxLength = 20;
+            public const int IdentificationNumberMinLength = 9;
+        }
+
         public static class FoodStamp
         {
             public const string DateFormat = "dddd, dd MMMM yyyy";
@@ -34,6 +49,12 @@
 
             public const int LastNameMaxLenght = 100;
             public const int LastNameMinLenght = 2;
+
+            public const int AddressMaxLength = 100;
+            public const int AddressMinLength = 5;
+
+            public const int PhoneNumberMaxLength = 20;
+            public const int PhoneNumberMinLength = 9;
         }
 
         public static class Child
@@ -54,6 +75,9 @@
 
             public const int AddressMaxLenght = 100;
             public const int AddressMinLenght = 5;
+
+            public const int PhoneNumberMaxLength = 20;
+            public const int PhoneNumberMinLength = 9;
         }
 
         public static class ErrorMessages

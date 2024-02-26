@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations;
 using SchoolFoodStamps.Data.Models;
+using System.Reflection;
 
 namespace SchoolFoodStamps.Data
 {
@@ -13,56 +12,28 @@ namespace SchoolFoodStamps.Data
             : base(options)
         {
         }
+
+        public virtual DbSet<CateringCompany> CateringCompanies { get; set; } = null!;
+
+        public virtual DbSet<Child> Children { get; set; } = null!;
+
+        public virtual DbSet<Dish> Dishes { get; set; } = null!;
+
+        public virtual DbSet<FoodStamp> FoodStamps { get; set; } = null!;
+
+        public virtual DbSet<Menu> Menus { get; set; } = null!;
+
+        public virtual DbSet<Parent> Parents { get; set; } = null!;
+
+        public virtual DbSet<School> Schools { get; set; } = null!;
+
+        public virtual DbSet<Allergen> Allergens { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<School>()
-            .HasOne(s => s.Company)
-            .WithMany(c => c.Schools)
-            .HasForeignKey(sc => sc.CateringCompanyId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Child>()
-            .HasOne(c => c.Parent)
-            .WithMany(s => s.Children)
-            .HasForeignKey(c => c.ParentId)
-            .OnDelete(DeleteBehavior.NoAction);
-            
-            modelBuilder.Entity<Child>()
-            .HasOne(c => c.School)
-            .WithMany(s => s.Children)
-            .HasForeignKey(c => c.SchoolId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<FoodStamp>()
-            .HasOne(c => c.Parent)
-            .WithMany(s => s.FoodStamps)
-            .HasForeignKey(c => c.ParentId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<FoodStamp>()
-            .HasOne(c => c.Child)
-            .WithMany(s => s.FoodStamps)
-            .HasForeignKey(c => c.ChildId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<FoodStamp>()
-            .HasOne(c => c.CateringCompany)
-            .WithMany(s => s.FoodStamps)
-            .HasForeignKey(c => c.CateringCompanyId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Dish>()
-            .HasOne(c => c.Menu)
-            .WithMany(s => s.Dishes)
-            .HasForeignKey(c => c.MenuId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<FoodStamp>()
-            .HasOne(c => c.Menu)
-            .WithMany()
-            .HasForeignKey(c => c.MenuId)
-            .OnDelete(DeleteBehavior.NoAction);
+            Assembly configAssembly = Assembly.GetAssembly(typeof(SchoolFoodStampsDbContext)) ?? 
+                                      Assembly.GetExecutingAssembly();
+            modelBuilder.ApplyConfigurationsFromAssembly(configAssembly);
 
             //modelBuilder
             //    .Entity<FoodStampStatus>()
@@ -89,21 +60,5 @@ namespace SchoolFoodStamps.Data
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public virtual DbSet<CateringCompany> CateringCompanies { get; set; } = null!;
-
-        public virtual DbSet<Child> Children { get; set; } = null!;
-
-        public virtual DbSet<Dish> Dishes { get; set; } = null!;
-
-        public virtual DbSet<FoodStamp> FoodStamps { get; set; } = null!;
-
-        public virtual DbSet<Menu> Menus { get; set; } = null!;
-
-        public virtual DbSet<Parent> Parents { get; set; } = null!;
-
-        public virtual DbSet<School> Schools { get; set; } = null!;
-
-        public virtual DbSet<Allergen> Allergens { get; set; } = null!;
     }
 }

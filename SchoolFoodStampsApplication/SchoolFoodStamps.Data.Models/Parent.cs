@@ -29,7 +29,12 @@ namespace SchoolFoodStamps.Data.Models
         public string LastName { get; set; } = string.Empty;
 
         [Comment("Parent address")]
+        [MaxLength(AddressMaxLength)]
         public string? Address { get; set; }
+
+        [Comment("Parent phone number")]
+        [MaxLength(PhoneNumberMaxLength)]
+        public string? PhoneNumber { get; set; }
 
         [Required]
         [Comment("User identifier")]
