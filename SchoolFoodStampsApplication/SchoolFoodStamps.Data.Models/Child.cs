@@ -10,6 +10,7 @@ namespace SchoolFoodStamps.Data.Models
     {
         public Child()
         {
+            this.Id = Guid.NewGuid();
             this.FoodStamps = new HashSet<FoodStamp>();
         }
 

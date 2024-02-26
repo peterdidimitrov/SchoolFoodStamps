@@ -7,6 +7,11 @@ namespace SchoolFoodStamps.Data.Models
     [Comment("Food stamp table")]
     public class FoodStamp
     {
+        public FoodStamp()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
         [Key]
         [Comment("Food stamp identifier")]
         public Guid Id { get; set; }

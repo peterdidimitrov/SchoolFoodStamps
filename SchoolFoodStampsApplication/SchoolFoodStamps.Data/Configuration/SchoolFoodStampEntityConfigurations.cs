@@ -4,32 +4,8 @@ using SchoolFoodStamps.Data.Models;
 
 namespace SchoolFoodStamps.Data.Configuration
 {
-    public class SchoolFoodStampEntityConfigurations : IEntityTypeConfiguration<School>, IEntityTypeConfiguration<Child>, IEntityTypeConfiguration<FoodStamp>, IEntityTypeConfiguration<Dish>
+    public class SchoolFoodStampEntityConfigurations :  IEntityTypeConfiguration<FoodStamp>
     {
-        public void Configure(EntityTypeBuilder<School> builder)
-        {
-            builder
-            .HasOne(s => s.Company)
-            .WithMany(c => c.Schools)
-            .HasForeignKey(sc => sc.CateringCompanyId)
-            .OnDelete(DeleteBehavior.NoAction);
-        }
-
-        public void Configure(EntityTypeBuilder<Child> builder)
-        {
-            builder
-            .HasOne(c => c.Parent)
-            .WithMany(s => s.Children)
-            .HasForeignKey(c => c.ParentId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            builder
-            .HasOne(c => c.School)
-            .WithMany(s => s.Children)
-            .HasForeignKey(c => c.SchoolId)
-            .OnDelete(DeleteBehavior.NoAction);
-        }
-
         public void Configure(EntityTypeBuilder<FoodStamp> builder)
         {
             builder
@@ -53,15 +29,6 @@ namespace SchoolFoodStamps.Data.Configuration
             builder
             .HasOne(c => c.Menu)
             .WithMany()
-            .HasForeignKey(c => c.MenuId)
-            .OnDelete(DeleteBehavior.NoAction);
-        }
-
-        public void Configure(EntityTypeBuilder<Dish> builder)
-        {
-            builder
-            .HasOne(c => c.Menu)
-            .WithMany(s => s.Dishes)
             .HasForeignKey(c => c.MenuId)
             .OnDelete(DeleteBehavior.NoAction);
         }

@@ -22,28 +22,6 @@ namespace SchoolFoodStamps.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Allergen", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("DishId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DishId");
-
-                    b.ToTable("Allergens");
-                });
-
             modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -108,6 +86,40 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ca4a635b-5974-428b-b661-c43491dc60e8"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "cac5737a-8256-48c2-8437-4172c3f42e82",
+                            Email = "test@test.bg",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TEST@TEST.BG",
+                            NormalizedUserName = "TEST@TEST.BG",
+                            PasswordHash = "LcSIrk8uu9FVBbkbxjD3Magy0riZz/RHaNrT/yhK0ukOfw+z",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6D05B818-009D-45C2-936C-39D3E904F18F",
+                            TwoFactorEnabled = false,
+                            UserName = "test@test.bg"
+                        },
+                        new
+                        {
+                            Id = new Guid("33f27dfc-bcc3-4b7d-bc9b-78a11f3e3719"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "83bb98d3-07d8-4ea4-9047-27fbc6fc3309",
+                            Email = "pesho@abv.bg",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PESHO@ABV.BG",
+                            NormalizedUserName = "PESHO@ABV.BG",
+                            PasswordHash = "UVXdgNN5xTguEUf/7T/qaW97rbFUMKcHoPFFwqTjKS0xqNky",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "A768F82D-87A6-4360-8670-EB83DDBEC3ED",
+                            TwoFactorEnabled = false,
+                            UserName = "pesho@abv.bg"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -243,6 +255,101 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Allergen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("DishId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DishId");
+
+                    b.ToTable("Allergens");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Gluten"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Dairy"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Eggs"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Fish"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Peanuts"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "SeeFood"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Soy"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "TreeNuts"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Wheat"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Celery"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Sulfites"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Lupin"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Sesame"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Mustard"
+                        });
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
@@ -551,13 +658,6 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.HasComment("School table");
                 });
 
-            modelBuilder.Entity("Allergen", b =>
-                {
-                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", null)
-                        .WithMany("Allergens")
-                        .HasForeignKey("DishId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -607,6 +707,13 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Allergen", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", null)
+                        .WithMany("Allergens")
+                        .HasForeignKey("DishId");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
