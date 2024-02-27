@@ -22,6 +22,21 @@ namespace SchoolFoodStamps.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AllergenDish", b =>
+                {
+                    b.Property<int>("AllergensId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DishesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AllergensId", "DishesId");
+
+                    b.HasIndex("DishesId");
+
+                    b.ToTable("AllergenDish", (string)null);
+                });
+
             modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -90,33 +105,33 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ca4a635b-5974-428b-b661-c43491dc60e8"),
+                            Id = new Guid("26264acb-32dd-44cb-a5e3-5e707e37f61f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cac5737a-8256-48c2-8437-4172c3f42e82",
+                            ConcurrencyStamp = "88944306-e723-4e57-86ed-54bfd866d6c2",
                             Email = "test@test.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.BG",
                             NormalizedUserName = "TEST@TEST.BG",
-                            PasswordHash = "LcSIrk8uu9FVBbkbxjD3Magy0riZz/RHaNrT/yhK0ukOfw+z",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEUBePebfgEOrSg50xIuJKcweJpN5/ywoe1lVQkmEwo3brxucWukW9Ipw27z/DN2gg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6D05B818-009D-45C2-936C-39D3E904F18F",
+                            SecurityStamp = "061E5799-F265-4EB7-9C34-ACB5BEE4DFF1",
                             TwoFactorEnabled = false,
                             UserName = "test@test.bg"
                         },
                         new
                         {
-                            Id = new Guid("33f27dfc-bcc3-4b7d-bc9b-78a11f3e3719"),
+                            Id = new Guid("6136e95f-8387-4023-b476-ea5ddffbc61e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83bb98d3-07d8-4ea4-9047-27fbc6fc3309",
+                            ConcurrencyStamp = "e292a30f-ca69-46b2-a0cc-19d3201f0da9",
                             Email = "pesho@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO@ABV.BG",
                             NormalizedUserName = "PESHO@ABV.BG",
-                            PasswordHash = "UVXdgNN5xTguEUf/7T/qaW97rbFUMKcHoPFFwqTjKS0xqNky",
+                            PasswordHash = "AQAAAAEAACcQAAAAELAWOovbNzIXyfjDYfhF1pZuxXqR4nRMRFv79YtSpKAroX4adUQyC/fGe57+6cZ2+Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "A768F82D-87A6-4360-8670-EB83DDBEC3ED",
+                            SecurityStamp = "098EACC6-B385-4CBC-B3C7-541588F5E170",
                             TwoFactorEnabled = false,
                             UserName = "pesho@abv.bg"
                         });
@@ -265,9 +280,6 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("DishId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -275,9 +287,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DishId");
-
-                    b.ToTable("Allergens");
+                    b.ToTable("Allergens", (string)null);
 
                     b.HasData(
                         new
@@ -389,7 +399,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CateringCompanies");
+                    b.ToTable("CateringCompanies", (string)null);
 
                     b.HasComment("Catering company table");
                 });
@@ -441,7 +451,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Children");
+                    b.ToTable("Children", (string)null);
 
                     b.HasComment("Child table");
                 });
@@ -479,7 +489,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("MenuId");
 
-                    b.ToTable("Dishes");
+                    b.ToTable("Dishes", (string)null);
 
                     b.HasComment("Dish table");
                 });
@@ -537,7 +547,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("FoodStamps");
+                    b.ToTable("FoodStamps", (string)null);
 
                     b.HasComment("Food stamp table");
                 });
@@ -565,7 +575,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Menus");
+                    b.ToTable("Menus", (string)null);
 
                     b.HasComment("Menu table");
                 });
@@ -607,7 +617,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Parents");
+                    b.ToTable("Parents", (string)null);
 
                     b.HasComment("Parent table");
                 });
@@ -653,9 +663,24 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("Schools", (string)null);
 
                     b.HasComment("School table");
+                });
+
+            modelBuilder.Entity("AllergenDish", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.Allergen", null)
+                        .WithMany()
+                        .HasForeignKey("AllergensId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", null)
+                        .WithMany()
+                        .HasForeignKey("DishesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -707,13 +732,6 @@ namespace SchoolFoodStamps.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Allergen", b =>
-                {
-                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", null)
-                        .WithMany("Allergens")
-                        .HasForeignKey("DishId");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
@@ -832,11 +850,6 @@ namespace SchoolFoodStamps.Data.Migrations
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Child", b =>
                 {
                     b.Navigation("FoodStamps");
-                });
-
-            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Dish", b =>
-                {
-                    b.Navigation("Allergens");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Menu", b =>

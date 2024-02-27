@@ -3,24 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{56DF8478-842F-4F00-B537-A15E39495987}|SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data.models\\cateringcompany.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{56DF8478-842F-4F00-B537-A15E39495987}|SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj|solutionrelative:schoolfoodstamps.data.models\\cateringcompany.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{56DF8478-842F-4F00-B537-A15E39495987}|SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data.models\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{56DF8478-842F-4F00-B537-A15E39495987}|SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj|solutionrelative:schoolfoodstamps.data.models\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{56DF8478-842F-4F00-B537-A15E39495987}|SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data.models\\dish.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{56DF8478-842F-4F00-B537-A15E39495987}|SchoolFoodStamps.Data.Models\\SchoolFoodStamps.Data.Models.csproj|solutionrelative:schoolfoodstamps.data.models\\dish.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\dishentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\dishentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\allergenentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\allergenentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\applicationuserentitycofigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\applicationuserentitycofigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\childentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\childentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\schoolentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\schoolentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\schoolfoodstampentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\schoolfoodstampentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\areas\\identity\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\areas\\identity\\pages\\account\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\areas\\identity\\pages\\account\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\areas\\identity\\pages\\account\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,75 +50,140 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-26T14:27:29.802Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Login.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAkAAAA",
+              "DocumentIndex": 0,
+              "Title": "CateringCompany.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\CateringCompany.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data.Models\\CateringCompany.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\CateringCompany.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data.Models\\CateringCompany.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-26T12:50:51.733Z",
+              "WhenOpened": "2024-02-27T14:25:11.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\Menu.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data.Models\\Menu.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\Menu.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data.Models\\Menu.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-27T14:14:42.109Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Dish.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\Dish.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data.Models\\Dish.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data.Models\\Dish.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data.Models\\Dish.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABYAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-27T13:37:05.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ChildEntityConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\ChildEntityConfigurations.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\ChildEntityConfigurations.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\ChildEntityConfigurations.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\ChildEntityConfigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-27T13:22:05.844Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Logout.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAAAAgAAAA7AAAA",
+              "Title": "DishEntityConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\DishEntityConfigurations.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\DishEntityConfigurations.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\DishEntityConfigurations.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\DishEntityConfigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-26T12:51:04.679Z",
+              "WhenOpened": "2024-02-27T13:21:48.226Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Program.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Program.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Program.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Program.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAACcAAAABAAAA",
+              "DocumentIndex": 5,
+              "Title": "ApplicationUserEntityCofigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityCofigurations.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityCofigurations.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityCofigurations.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityCofigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-26T13:16:49.548Z",
+              "WhenOpened": "2024-02-27T09:53:31.696Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Register.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAAAGQAAAAAAAAA",
+              "Title": "AllergenEntityConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\AllergenEntityConfigurations.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\AllergenEntityConfigurations.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\AllergenEntityConfigurations.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\AllergenEntityConfigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-26T12:51:08.588Z",
+              "WhenOpened": "2024-02-27T12:49:12.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SchoolEntityConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\SchoolEntityConfigurations.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\SchoolEntityConfigurations.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\SchoolEntityConfigurations.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\SchoolEntityConfigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-27T13:22:03.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SchoolFoodStampEntityConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\SchoolFoodStampEntityConfigurations.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\SchoolFoodStampEntityConfigurations.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\SchoolFoodStampEntityConfigurations.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\SchoolFoodStampEntityConfigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-27T13:22:01.739Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Program.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Program.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Program.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Web\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-26T13:16:49.548Z",
               "EditorCaption": ""
             }
           ]
