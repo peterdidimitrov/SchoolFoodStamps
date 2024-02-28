@@ -9,27 +9,31 @@ namespace SchoolFoodStamps.Data.Configuration
         public void Configure(EntityTypeBuilder<FoodStamp> builder)
         {
             builder
-            .HasOne(c => c.Parent)
-            .WithMany(s => s.FoodStamps)
-            .HasForeignKey(c => c.ParentId)
+                .Property(fs => fs.CreatedOn)
+                .HasDefaultValue(DateTime.UtcNow);
+
+            builder
+            .HasOne(fs => fs.Parent)
+            .WithMany(p => p.FoodStamps)
+            .HasForeignKey(fs => fs.ParentId)
             .OnDelete(DeleteBehavior.NoAction);
 
             builder
-            .HasOne(c => c.Child)
-            .WithMany(s => s.FoodStamps)
-            .HasForeignKey(c => c.ChildId)
+            .HasOne(fs => fs.Child)
+            .WithMany(c => c.FoodStamps)
+            .HasForeignKey(fs => fs.ChildId)
             .OnDelete(DeleteBehavior.NoAction);
 
             builder
-            .HasOne(c => c.CateringCompany)
-            .WithMany(s => s.FoodStamps)
-            .HasForeignKey(c => c.CateringCompanyId)
+            .HasOne(fs => fs.CateringCompany)
+            .WithMany(c => c.FoodStamps)
+            .HasForeignKey(fs => fs.CateringCompanyId)
             .OnDelete(DeleteBehavior.NoAction);
 
             builder
-            .HasOne(c => c.Menu)
+            .HasOne(fs => fs.Menu)
             .WithMany()
-            .HasForeignKey(c => c.MenuId)
+            .HasForeignKey(fs => fs.MenuId)
             .OnDelete(DeleteBehavior.NoAction);
         }
     }

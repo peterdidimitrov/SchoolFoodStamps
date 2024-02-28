@@ -29,6 +29,10 @@ namespace SchoolFoodStamps.Data
 
         public virtual DbSet<Allergen> Allergens { get; set; } = null!;
 
+        public virtual DbSet<AllergenDish> AllergenDishes { get; set; } = null!;
+
+        public virtual DbSet<DishMenu> DishMenus { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(SchoolFoodStampsDbContext)) ?? 

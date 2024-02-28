@@ -22,6 +22,10 @@ namespace SchoolFoodStamps.Data.Models
         public decimal Price { get; set; }
 
         [Required]
+        [Comment("Food stamp date of creation")]
+        public DateTime CreatedOn { get; set; }
+
+        [Required]
         [Comment("Food stamp issue date")]
         public DateTime IssueDate { get; set; }
 

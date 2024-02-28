@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Menu;
 
 namespace SchoolFoodStamps.Data.Models
@@ -9,7 +10,7 @@ namespace SchoolFoodStamps.Data.Models
     {
         public Menu()
         {
-            this.Dishes = new HashSet<Dish>();
+            this.DishesMenus = new HashSet<DishMenu>();
         }
 
         [Key]
@@ -20,12 +21,20 @@ namespace SchoolFoodStamps.Data.Models
         [Comment("Menu day of week")]
         public DayOfWeek DayOfWeek { get; set; }
 
+        [Required]
         [Comment("Menu date of creation")]
-        public DateTime DateOfCreation { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [Comment("Menu date of modify")]
-        public DateTime DateOfModify { get; set; }
+        public DateTime? DateOfModify { get; set; }
 
-        public virtual ICollection<Dish> Dishes { get; set; }
+        [Required]
+        [Comment("Catering company identifier")]
+        public Guid CateringCompanyId { get; set; }
+
+        [ForeignKey(nameof(CateringCompanyId))]
+        public virtual CateringCompany Company { get; set; } = null!;
+
+        public virtual ICollection<DishMenu> DishesMenus { get; set; }
     }
 }

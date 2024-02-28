@@ -22,21 +22,6 @@ namespace SchoolFoodStamps.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AllergenDish", b =>
-                {
-                    b.Property<int>("AllergensId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DishesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AllergensId", "DishesId");
-
-                    b.HasIndex("DishesId");
-
-                    b.ToTable("AllergenDish", (string)null);
-                });
-
             modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -105,33 +90,33 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("26264acb-32dd-44cb-a5e3-5e707e37f61f"),
+                            Id = new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88944306-e723-4e57-86ed-54bfd866d6c2",
+                            ConcurrencyStamp = "8b03a1bb-79ab-452c-99b5-2cb1080e7192",
                             Email = "test@test.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.BG",
                             NormalizedUserName = "TEST@TEST.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEUBePebfgEOrSg50xIuJKcweJpN5/ywoe1lVQkmEwo3brxucWukW9Ipw27z/DN2gg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIQZYOTn1IfDTb7wRMc6I5gtG3AyMV4IAiQSNs2P0wCqYpNzcZjK7NiZsTBZK6vAJQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "061E5799-F265-4EB7-9C34-ACB5BEE4DFF1",
+                            SecurityStamp = "4A2C2A2B-2C6B-44BD-AC0A-6CD71E6A7C77",
                             TwoFactorEnabled = false,
                             UserName = "test@test.bg"
                         },
                         new
                         {
-                            Id = new Guid("6136e95f-8387-4023-b476-ea5ddffbc61e"),
+                            Id = new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e292a30f-ca69-46b2-a0cc-19d3201f0da9",
+                            ConcurrencyStamp = "7187fdff-322a-4390-b615-8c4c9a83bbc5",
                             Email = "pesho@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO@ABV.BG",
                             NormalizedUserName = "PESHO@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAELAWOovbNzIXyfjDYfhF1pZuxXqR4nRMRFv79YtSpKAroX4adUQyC/fGe57+6cZ2+Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJZOFhM4K82VO3TIE37UFw3rsDSUu8G1clxYC+ukrWCr1G/tB022OnnQy3HMtT0fSw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "098EACC6-B385-4CBC-B3C7-541588F5E170",
+                            SecurityStamp = "6331EE25-F9BA-4603-8DE9-145AB1949E2F",
                             TwoFactorEnabled = false,
                             UserName = "pesho@abv.bg"
                         });
@@ -287,7 +272,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Allergens", (string)null);
+                    b.ToTable("Allergens");
 
                     b.HasData(
                         new
@@ -362,6 +347,21 @@ namespace SchoolFoodStamps.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.AllergenDish", b =>
+                {
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DishId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AllergenId", "DishId");
+
+                    b.HasIndex("DishId");
+
+                    b.ToTable("AllergenDishes");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
                 {
                     b.Property<Guid>("Id")
@@ -399,9 +399,25 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CateringCompanies", (string)null);
+                    b.ToTable("CateringCompanies");
 
                     b.HasComment("Catering company table");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            IdentificationNumber = "12175688",
+                            Name = "ET SAM-DPD",
+                            UserId = new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d")
+                        },
+                        new
+                        {
+                            Id = new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"),
+                            IdentificationNumber = "12175689",
+                            Name = "HealtyFoodForChildren",
+                            UserId = new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5")
+                        });
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Child", b =>
@@ -451,7 +467,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Children", (string)null);
+                    b.ToTable("Children");
 
                     b.HasComment("Child table");
                 });
@@ -465,15 +481,15 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<Guid>("CateringCompanyId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Catering company identifier");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
                         .HasComment("Dish description");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int")
-                        .HasComment("Menu identifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -487,11 +503,196 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuId");
+                    b.HasIndex("CateringCompanyId");
 
-                    b.ToTable("Dishes", (string)null);
+                    b.ToTable("Dishes");
 
                     b.HasComment("Dish table");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Whole wheat bread filled with sliced turkey breast, lettuce, and low-fat cheese. Served with a side of cherry tomatoes and cucumber slices.",
+                            Name = "Turkey and Cheese Sandwich",
+                            Weight = 250.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Whole wheat pasta mixed with assorted chopped vegetables (such as bell peppers, cherry tomatoes, and broccoli). Tossed in a light Italian dressing.",
+                            Name = "Vegetable Pasta Salad",
+                            Weight = 200.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Mixed fruit salad (such as strawberries, grapes, and kiwi) served with a dollop of low-fat yogurt.",
+                            Name = "Fruit Salad with Yogurt",
+                            Weight = 150.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Grilled chicken strips, romaine lettuce, and Caesar dressing wrapped in a whole wheat tortilla. Served with a side of carrot sticks and hummus.",
+                            Name = "Chicken Caesar Wrap",
+                            Weight = 280.0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Quinoa mixed with black beans, corn, diced bell peppers, and cilantro. Drizzled with a squeeze of lime juice.",
+                            Name = "Quinoa and Black Bean Bowl",
+                            Weight = 250.0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Salad greens topped with cucumber slices, cherry tomatoes, feta cheese, and olives. Served with a side of whole grain pita bread.",
+                            Name = "Greek Salad",
+                            Weight = 200.0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Whole wheat wrap filled with hummus, shredded carrots, spinach leaves, and sliced bell peppers. Served with a side of sugar snap peas.",
+                            Name = "Hummus and Veggie Wrap",
+                            Weight = 270.0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Homemade vegetable soup (carrots, celery, onions, and beans) served with whole grain crackers on the side.",
+                            Name = "Vegetable Soup with Whole Grain Crackers",
+                            Weight = 300.0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Slices of apple served with cheese cubes and whole grain crackers.",
+                            Name = "Apple and Cheese Plate",
+                            Weight = 200.0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Halved bell peppers filled with tuna salad (made with canned tuna, light mayo, diced celery, and a dash of lemon juice). Served with a side of carrot sticks and ranch dressing for dipping.",
+                            Name = "Tuna Salad Stuffed Bell Peppers",
+                            Weight = 300.0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Brown rice sushi rolls filled with cucumber, avocado, and cooked shrimp. Served with a side of edamame.",
+                            Name = "Brown Rice Sushi Rolls",
+                            Weight = 280.0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Layers of low-fat yogurt, granola, and mixed berries.",
+                            Name = "Yogurt Parfait",
+                            Weight = 200.0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Whole wheat tortillas filled with sautéed bell peppers, onions, spinach, and shredded cheese. Served with a side of salsa for dipping.",
+                            Name = "Veggie and Cheese Quesadillas",
+                            Weight = 250.0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Roasted sweet potatoes mixed with black beans, corn, and diced red onions. Tossed in a lime vinaigrette dressing.",
+                            Name = "Sweet Potato and Black Bean Salad",
+                            Weight = 200.0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Sliced cucumbers and cherry tomatoes tossed in a light balsamic vinaigrette dressing.",
+                            Name = "Cucumber and Tomato Salad",
+                            Weight = 150.0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Grilled chicken and vegetable skewers (using cherry tomatoes, zucchini, and mushrooms). Served with a side of whole wheat couscous.",
+                            Name = "Chicken and Veggie Skewers",
+                            Weight = 250.0
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Whole wheat pita bread served with hummus and falafel balls. Accompanied by a side of sliced cucumbers and cherry tomatoes.",
+                            Name = "Pita Bread with Hummus and Falafel",
+                            Weight = 320.0
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Blend of mixed berries, low-fat yogurt, and a splash of orange juice.",
+                            Name = "Mixed Berry Smoothie",
+                            Weight = 300.0
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Whole wheat bread filled with egg salad (chopped hard-boiled eggs mixed with light mayo and mustard). Served with a side of carrot sticks and ranch dressing for dipping.",
+                            Name = "Egg Salad Sandwich",
+                            Weight = 250.0
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Quinoa mixed with diced mango, black beans, red bell peppers, and cilantro. Tossed in a honey-lime dressing.",
+                            Name = "Mango and Black Bean Quinoa Salad",
+                            Weight = 200.0
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            Description = "Assorted cheese slices served with whole grain crackers and apple slices.",
+                            Name = "Cheese and Crackers Plate",
+                            Weight = 200.0
+                        });
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.DishMenu", b =>
+                {
+                    b.Property<int>("DishId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DishId", "MenuId");
+
+                    b.HasIndex("MenuId");
+
+                    b.ToTable("DishMenus");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.FoodStamp", b =>
@@ -508,6 +709,12 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Property<Guid>("ChildId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Child identifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(5432))
+                        .HasComment("Food stamp date of creation");
 
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2")
@@ -547,7 +754,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("FoodStamps", (string)null);
+                    b.ToTable("FoodStamps");
 
                     b.HasComment("Food stamp table");
                 });
@@ -561,11 +768,17 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DateOfCreation")
+                    b.Property<Guid>("CateringCompanyId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Catering company identifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4688))
                         .HasComment("Menu date of creation");
 
-                    b.Property<DateTime>("DateOfModify")
+                    b.Property<DateTime?>("DateOfModify")
                         .HasColumnType("datetime2")
                         .HasComment("Menu date of modify");
 
@@ -575,9 +788,62 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Menus", (string)null);
+                    b.HasIndex("CateringCompanyId");
+
+                    b.ToTable("Menus");
 
                     b.HasComment("Menu table");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4812),
+                            DayOfWeek = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4819),
+                            DayOfWeek = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4821),
+                            DayOfWeek = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4851),
+                            DayOfWeek = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4857),
+                            DayOfWeek = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4858),
+                            DayOfWeek = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
+                            CreatedOn = new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4860),
+                            DayOfWeek = 0
+                        });
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Parent", b =>
@@ -617,7 +883,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Parents", (string)null);
+                    b.ToTable("Parents");
 
                     b.HasComment("Parent table");
                 });
@@ -663,24 +929,9 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
 
                     b.HasComment("School table");
-                });
-
-            modelBuilder.Entity("AllergenDish", b =>
-                {
-                    b.HasOne("SchoolFoodStamps.Data.Models.Allergen", null)
-                        .WithMany()
-                        .HasForeignKey("AllergensId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", null)
-                        .WithMany()
-                        .HasForeignKey("DishesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -734,6 +985,25 @@ namespace SchoolFoodStamps.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.AllergenDish", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.Allergen", "Allergen")
+                        .WithMany("AllergensDishes")
+                        .HasForeignKey("AllergenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", "Dish")
+                        .WithMany("AllergensDishes")
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Allergen");
+
+                    b.Navigation("Dish");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
                 {
                     b.HasOne("ApplicationUser", "User")
@@ -766,11 +1036,30 @@ namespace SchoolFoodStamps.Data.Migrations
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Dish", b =>
                 {
-                    b.HasOne("SchoolFoodStamps.Data.Models.Menu", "Menu")
+                    b.HasOne("SchoolFoodStamps.Data.Models.CateringCompany", "Company")
                         .WithMany("Dishes")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("CateringCompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.DishMenu", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.Dish", "Dish")
+                        .WithMany("DishesMenus")
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SchoolFoodStamps.Data.Models.Menu", "Menu")
+                        .WithMany("DishesMenus")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dish");
 
                     b.Navigation("Menu");
                 });
@@ -810,6 +1099,17 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Menu", b =>
+                {
+                    b.HasOne("SchoolFoodStamps.Data.Models.CateringCompany", "Company")
+                        .WithMany("Menus")
+                        .HasForeignKey("CateringCompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Parent", b =>
                 {
                     b.HasOne("ApplicationUser", "User")
@@ -840,9 +1140,18 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Allergen", b =>
+                {
+                    b.Navigation("AllergensDishes");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
                 {
+                    b.Navigation("Dishes");
+
                     b.Navigation("FoodStamps");
+
+                    b.Navigation("Menus");
 
                     b.Navigation("Schools");
                 });
@@ -852,9 +1161,16 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.Navigation("FoodStamps");
                 });
 
+            modelBuilder.Entity("SchoolFoodStamps.Data.Models.Dish", b =>
+                {
+                    b.Navigation("AllergensDishes");
+
+                    b.Navigation("DishesMenus");
+                });
+
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Menu", b =>
                 {
-                    b.Navigation("Dishes");
+                    b.Navigation("DishesMenus");
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.Parent", b =>

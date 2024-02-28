@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolFoodStamps.Common\SchoolFoodStamps.Common.csproj" />
+    <ProjectReference Include="..\SchoolFoodStamps.Data.Models\SchoolFoodStamps.Data.Models.csproj" />
+    <ProjectReference Include="..\SchoolFoodStamps.Data\SchoolFoodStamps.Data.csproj" />
+    <ProjectReference Include="..\SchoolFoodStamps.Web.ViewModels\SchoolFoodStamps.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

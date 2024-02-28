@@ -10,7 +10,8 @@ namespace SchoolFoodStamps.Data.Models
     {
         public Dish()
         {
-            this.Allergens = new HashSet<Allergen>();
+            this.AllergensDishes = new HashSet<AllergenDish>();
+            this.DishesMenus = new HashSet<DishMenu>();
         }
 
         [Key]
@@ -32,12 +33,14 @@ namespace SchoolFoodStamps.Data.Models
         public double Weight { get; set; }
 
         [Required]
-        [Comment("Menu identifier")]
-        public int MenuId { get; set; }
+        [Comment("Catering company identifier")]
+        public Guid CateringCompanyId { get; set; }
 
-        [ForeignKey(nameof(MenuId))]
-        public virtual Menu Menu { get; set; } = null!;
+        [ForeignKey(nameof(CateringCompanyId))]
+        public virtual CateringCompany Company { get; set; } = null!;
 
-        public virtual ICollection<Allergen> Allergens { get; set; }
+        public virtual ICollection<AllergenDish> AllergensDishes { get; set; }
+
+        public virtual ICollection<DishMenu> DishesMenus { get; set; }
     }
 }

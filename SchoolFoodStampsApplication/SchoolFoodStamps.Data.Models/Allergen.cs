@@ -7,7 +7,7 @@ namespace SchoolFoodStamps.Data.Models
     {
         public Allergen()
         {
-            this.Dishes = new HashSet<Dish>();
+            this.AllergensDishes = new HashSet<AllergenDish>();
         }
 
         [Key]
@@ -17,6 +17,6 @@ namespace SchoolFoodStamps.Data.Models
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = string.Empty;
 
-        public virtual ICollection<Dish> Dishes { get; set; }
+        public virtual ICollection<AllergenDish> AllergensDishes { get; set; }
     }
 }

@@ -13,6 +13,8 @@ namespace SchoolFoodStamps.Data.Models
             this.Id = Guid.NewGuid();
             this.FoodStamps = new HashSet<FoodStamp>();
             this.Schools = new HashSet<School>();
+            this.Menus = new HashSet<Menu>();
+            this.Dishes = new HashSet<Dish>();
         }
 
         [Key]
@@ -47,5 +49,9 @@ namespace SchoolFoodStamps.Data.Models
         public virtual ICollection<FoodStamp> FoodStamps { get; set; }
 
         public virtual ICollection<School> Schools { get; set; }
+
+        public virtual ICollection<Menu> Menus { get; set; }
+
+        public virtual ICollection<Dish> Dishes { get; set; }
     }
 }

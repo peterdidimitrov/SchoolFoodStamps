@@ -19,7 +19,7 @@ namespace SchoolFoodStamps.Data.Configuration
 
             ApplicationUser userOne = new ApplicationUser() 
             {
-                Id = Guid.Parse("26264ACB-32DD-44CB-A5E3-5E707E37F61F"), 
+                Id = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"), 
                 UserName = "test@test.bg", 
                 NormalizedUserName = "TEST@TEST.BG", 
                 Email = "test@test.bg", 
@@ -32,7 +32,7 @@ namespace SchoolFoodStamps.Data.Configuration
 
             ApplicationUser userTwo = new ApplicationUser 
             { 
-                Id = Guid.Parse("6136E95F-8387-4023-B476-EA5DDFFBC61E"), 
+                Id = Guid.Parse("97C32DF3-7A02-49A9-871B-0B27C4C37CB5"),
                 UserName = "pesho@abv.bg", 
                 NormalizedUserName = "PESHO@ABV.BG", 
                 Email = "pesho@abv.bg", 

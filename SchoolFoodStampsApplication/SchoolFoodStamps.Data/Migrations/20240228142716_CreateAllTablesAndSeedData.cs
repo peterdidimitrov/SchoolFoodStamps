@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace SchoolFoodStamps.Data.Migrations
 {
-    public partial class CreateTablesAndSeedSomeData : Migration
+    public partial class CreateAllTablesAndSeedData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,22 +60,6 @@ namespace SchoolFoodStamps.Data.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Menus",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "Menu day of week"),
-                    DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Menu date of creation"),
-                    DateOfModify = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Menu date of modify")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menus", x => x.Id);
-                },
-                comment: "Menu table");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -237,18 +222,42 @@ namespace SchoolFoodStamps.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Dish name"),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false, comment: "Dish description"),
                     Weight = table.Column<double>(type: "float", nullable: false, comment: "Dish weight"),
-                    MenuId = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier")
+                    CateringCompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dishes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Dishes_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
-                        principalColumn: "Id");
+                        name: "FK_Dishes_CateringCompanies_CateringCompanyId",
+                        column: x => x.CateringCompanyId,
+                        principalTable: "CateringCompanies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 },
                 comment: "Dish table");
+
+            migrationBuilder.CreateTable(
+                name: "Menus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "Menu day of week"),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4688), comment: "Menu date of creation"),
+                    DateOfModify = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Menu date of modify"),
+                    CateringCompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Menus_CateringCompanies_CateringCompanyId",
+                        column: x => x.CateringCompanyId,
+                        principalTable: "CateringCompanies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "Menu table");
 
             migrationBuilder.CreateTable(
                 name: "Schools",
@@ -280,25 +289,49 @@ namespace SchoolFoodStamps.Data.Migrations
                 comment: "School table");
 
             migrationBuilder.CreateTable(
-                name: "AllergenDish",
+                name: "AllergenDishes",
                 columns: table => new
                 {
-                    AllergensId = table.Column<int>(type: "int", nullable: false),
-                    DishesId = table.Column<int>(type: "int", nullable: false)
+                    AllergenId = table.Column<int>(type: "int", nullable: false),
+                    DishId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AllergenDish", x => new { x.AllergensId, x.DishesId });
+                    table.PrimaryKey("PK_AllergenDishes", x => new { x.AllergenId, x.DishId });
                     table.ForeignKey(
-                        name: "FK_AllergenDish_Allergens_AllergensId",
-                        column: x => x.AllergensId,
+                        name: "FK_AllergenDishes_Allergens_AllergenId",
+                        column: x => x.AllergenId,
                         principalTable: "Allergens",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AllergenDish_Dishes_DishesId",
-                        column: x => x.DishesId,
+                        name: "FK_AllergenDishes_Dishes_DishId",
+                        column: x => x.DishId,
                         principalTable: "Dishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DishMenus",
+                columns: table => new
+                {
+                    DishId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DishMenus", x => new { x.DishId, x.MenuId });
+                    table.ForeignKey(
+                        name: "FK_DishMenus_Dishes_DishId",
+                        column: x => x.DishId,
+                        principalTable: "Dishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DishMenus_Menus_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "Menus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -338,6 +371,7 @@ namespace SchoolFoodStamps.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Food stamp identifier"),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Food stamp price"),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(5432), comment: "Food stamp date of creation"),
                     IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp issue date"),
                     UseDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp use date"),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp expiry date"),
@@ -399,14 +433,66 @@ namespace SchoolFoodStamps.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("26264acb-32dd-44cb-a5e3-5e707e37f61f"), 0, "88944306-e723-4e57-86ed-54bfd866d6c2", "test@test.bg", false, false, null, "TEST@TEST.BG", "TEST@TEST.BG", "AQAAAAEAACcQAAAAEEUBePebfgEOrSg50xIuJKcweJpN5/ywoe1lVQkmEwo3brxucWukW9Ipw27z/DN2gg==", null, false, "061E5799-F265-4EB7-9C34-ACB5BEE4DFF1", false, "test@test.bg" },
-                    { new Guid("6136e95f-8387-4023-b476-ea5ddffbc61e"), 0, "e292a30f-ca69-46b2-a0cc-19d3201f0da9", "pesho@abv.bg", false, false, null, "PESHO@ABV.BG", "PESHO@ABV.BG", "AQAAAAEAACcQAAAAELAWOovbNzIXyfjDYfhF1pZuxXqR4nRMRFv79YtSpKAroX4adUQyC/fGe57+6cZ2+Q==", null, false, "098EACC6-B385-4CBC-B3C7-541588F5E170", false, "pesho@abv.bg" }
+                    { new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5"), 0, "7187fdff-322a-4390-b615-8c4c9a83bbc5", "pesho@abv.bg", false, false, null, "PESHO@ABV.BG", "PESHO@ABV.BG", "AQAAAAEAACcQAAAAEJZOFhM4K82VO3TIE37UFw3rsDSUu8G1clxYC+ukrWCr1G/tB022OnnQy3HMtT0fSw==", null, false, "6331EE25-F9BA-4603-8DE9-145AB1949E2F", false, "pesho@abv.bg" },
+                    { new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"), 0, "8b03a1bb-79ab-452c-99b5-2cb1080e7192", "test@test.bg", false, false, null, "TEST@TEST.BG", "TEST@TEST.BG", "AQAAAAEAACcQAAAAEIQZYOTn1IfDTb7wRMc6I5gtG3AyMV4IAiQSNs2P0wCqYpNzcZjK7NiZsTBZK6vAJQ==", null, false, "4A2C2A2B-2C6B-44BD-AC0A-6CD71E6A7C77", false, "test@test.bg" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CateringCompanies",
+                columns: new[] { "Id", "Address", "IdentificationNumber", "Name", "PhoneNumber", "UserId" },
+                values: new object[] { new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), null, "12175689", "HealtyFoodForChildren", null, new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5") });
+
+            migrationBuilder.InsertData(
+                table: "CateringCompanies",
+                columns: new[] { "Id", "Address", "IdentificationNumber", "Name", "PhoneNumber", "UserId" },
+                values: new object[] { new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), null, "12175688", "ET SAM-DPD", null, new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d") });
+
+            migrationBuilder.InsertData(
+                table: "Dishes",
+                columns: new[] { "Id", "CateringCompanyId", "Description", "Name", "Weight" },
+                values: new object[,]
+                {
+                    { 1, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Whole wheat bread filled with sliced turkey breast, lettuce, and low-fat cheese. Served with a side of cherry tomatoes and cucumber slices.", "Turkey and Cheese Sandwich", 250.0 },
+                    { 2, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Whole wheat pasta mixed with assorted chopped vegetables (such as bell peppers, cherry tomatoes, and broccoli). Tossed in a light Italian dressing.", "Vegetable Pasta Salad", 200.0 },
+                    { 3, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Mixed fruit salad (such as strawberries, grapes, and kiwi) served with a dollop of low-fat yogurt.", "Fruit Salad with Yogurt", 150.0 },
+                    { 4, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Grilled chicken strips, romaine lettuce, and Caesar dressing wrapped in a whole wheat tortilla. Served with a side of carrot sticks and hummus.", "Chicken Caesar Wrap", 280.0 },
+                    { 5, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Quinoa mixed with black beans, corn, diced bell peppers, and cilantro. Drizzled with a squeeze of lime juice.", "Quinoa and Black Bean Bowl", 250.0 },
+                    { 6, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Salad greens topped with cucumber slices, cherry tomatoes, feta cheese, and olives. Served with a side of whole grain pita bread.", "Greek Salad", 200.0 },
+                    { 7, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Whole wheat wrap filled with hummus, shredded carrots, spinach leaves, and sliced bell peppers. Served with a side of sugar snap peas.", "Hummus and Veggie Wrap", 270.0 },
+                    { 8, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Homemade vegetable soup (carrots, celery, onions, and beans) served with whole grain crackers on the side.", "Vegetable Soup with Whole Grain Crackers", 300.0 },
+                    { 9, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Slices of apple served with cheese cubes and whole grain crackers.", "Apple and Cheese Plate", 200.0 },
+                    { 10, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Halved bell peppers filled with tuna salad (made with canned tuna, light mayo, diced celery, and a dash of lemon juice). Served with a side of carrot sticks and ranch dressing for dipping.", "Tuna Salad Stuffed Bell Peppers", 300.0 },
+                    { 11, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Brown rice sushi rolls filled with cucumber, avocado, and cooked shrimp. Served with a side of edamame.", "Brown Rice Sushi Rolls", 280.0 },
+                    { 12, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Layers of low-fat yogurt, granola, and mixed berries.", "Yogurt Parfait", 200.0 },
+                    { 13, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Whole wheat tortillas filled with sautéed bell peppers, onions, spinach, and shredded cheese. Served with a side of salsa for dipping.", "Veggie and Cheese Quesadillas", 250.0 },
+                    { 14, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Roasted sweet potatoes mixed with black beans, corn, and diced red onions. Tossed in a lime vinaigrette dressing.", "Sweet Potato and Black Bean Salad", 200.0 },
+                    { 15, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Sliced cucumbers and cherry tomatoes tossed in a light balsamic vinaigrette dressing.", "Cucumber and Tomato Salad", 150.0 },
+                    { 16, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Grilled chicken and vegetable skewers (using cherry tomatoes, zucchini, and mushrooms). Served with a side of whole wheat couscous.", "Chicken and Veggie Skewers", 250.0 },
+                    { 17, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Whole wheat pita bread served with hummus and falafel balls. Accompanied by a side of sliced cucumbers and cherry tomatoes.", "Pita Bread with Hummus and Falafel", 320.0 },
+                    { 18, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Blend of mixed berries, low-fat yogurt, and a splash of orange juice.", "Mixed Berry Smoothie", 300.0 },
+                    { 19, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Whole wheat bread filled with egg salad (chopped hard-boiled eggs mixed with light mayo and mustard). Served with a side of carrot sticks and ranch dressing for dipping.", "Egg Salad Sandwich", 250.0 },
+                    { 20, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Quinoa mixed with diced mango, black beans, red bell peppers, and cilantro. Tossed in a honey-lime dressing.", "Mango and Black Bean Quinoa Salad", 200.0 },
+                    { 21, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "Assorted cheese slices served with whole grain crackers and apple slices.", "Cheese and Crackers Plate", 200.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Menus",
+                columns: new[] { "Id", "CateringCompanyId", "CreatedOn", "DateOfModify", "DayOfWeek" },
+                values: new object[,]
+                {
+                    { 1, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4812), null, 1 },
+                    { 2, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4819), null, 2 },
+                    { 3, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4821), null, 3 },
+                    { 4, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4851), null, 4 },
+                    { 5, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4857), null, 5 },
+                    { 6, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4858), null, 6 },
+                    { 7, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 28, 14, 27, 16, 694, DateTimeKind.Utc).AddTicks(4860), null, 0 }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AllergenDish_DishesId",
-                table: "AllergenDish",
-                column: "DishesId");
+                name: "IX_AllergenDishes_DishId",
+                table: "AllergenDishes",
+                column: "DishId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -463,8 +549,13 @@ namespace SchoolFoodStamps.Data.Migrations
                 column: "SchoolId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dishes_MenuId",
+                name: "IX_Dishes_CateringCompanyId",
                 table: "Dishes",
+                column: "CateringCompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DishMenus_MenuId",
+                table: "DishMenus",
                 column: "MenuId");
 
             migrationBuilder.CreateIndex(
@@ -488,6 +579,11 @@ namespace SchoolFoodStamps.Data.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Menus_CateringCompanyId",
+                table: "Menus",
+                column: "CateringCompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parents_UserId",
                 table: "Parents",
                 column: "UserId");
@@ -506,7 +602,7 @@ namespace SchoolFoodStamps.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AllergenDish");
+                name: "AllergenDishes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -524,16 +620,19 @@ namespace SchoolFoodStamps.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DishMenus");
+
+            migrationBuilder.DropTable(
                 name: "FoodStamps");
 
             migrationBuilder.DropTable(
                 name: "Allergens");
 
             migrationBuilder.DropTable(
-                name: "Dishes");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Dishes");
 
             migrationBuilder.DropTable(
                 name: "Children");
