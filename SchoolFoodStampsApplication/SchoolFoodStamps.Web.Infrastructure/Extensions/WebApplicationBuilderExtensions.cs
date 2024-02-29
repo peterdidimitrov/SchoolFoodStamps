@@ -17,7 +17,7 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
         /// </summary>
         /// <param name="serviceType"></param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void AddApplicationServices(this IServiceCollection services, Type serviceType)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, Type serviceType)
         {
             Assembly? serviceAssembly = Assembly.GetAssembly(serviceType);
 
@@ -44,7 +44,17 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
 
                 services.AddScoped(interfaceType, implementationTtype);
             }
+
+            return services;
         }
+
+        /// <summary>
+        /// This method registers the DbContext with the connection string from the configuration.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
         {
             string connectionString = config.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -57,6 +67,12 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
             return services;
         }
 
+        /// <summary>
+        /// This method registers the default Identity with the given configuration.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
