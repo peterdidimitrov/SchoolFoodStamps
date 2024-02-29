@@ -4146,6 +4146,36 @@
           "bin/placeholder/SchoolFoodStamps.Data.Models.dll": {}
         }
       },
+      "SchoolFoodStamps.Services.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "SchoolFoodStamps.Common": "1.0.0",
+          "SchoolFoodStamps.Data": "1.0.0",
+          "SchoolFoodStamps.Data.Models": "1.0.0",
+          "SchoolFoodStamps.Web.ViewModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SchoolFoodStamps.Services.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SchoolFoodStamps.Services.Data.dll": {}
+        }
+      },
+      "SchoolFoodStamps.Web.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "SchoolFoodStamps.Services.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SchoolFoodStamps.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SchoolFoodStamps.Web.Infrastructure.dll": {}
+        }
+      },
       "SchoolFoodStamps.Web.ViewModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -11559,6 +11589,16 @@
       "path": "../SchoolFoodStamps.Data.Models/SchoolFoodStamps.Data.Models.csproj",
       "msbuildProject": "../SchoolFoodStamps.Data.Models/SchoolFoodStamps.Data.Models.csproj"
     },
+    "SchoolFoodStamps.Services.Data/1.0.0": {
+      "type": "project",
+      "path": "../SchoolFoodStamps.Services.Data/SchoolFoodStamps.Services.Data.csproj",
+      "msbuildProject": "../SchoolFoodStamps.Services.Data/SchoolFoodStamps.Services.Data.csproj"
+    },
+    "SchoolFoodStamps.Web.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../SchoolFoodStamps.Web.Infrastructure/SchoolFoodStamps.Web.Infrastructure.csproj",
+      "msbuildProject": "../SchoolFoodStamps.Web.Infrastructure/SchoolFoodStamps.Web.Infrastructure.csproj"
+    },
     "SchoolFoodStamps.Web.ViewModels/1.0.0": {
       "type": "project",
       "path": "../SchoolFoodStamps.Web.ViewModels/SchoolFoodStamps.Web.ViewModels.csproj",
@@ -11577,6 +11617,8 @@
       "SchoolFoodStamps.Common >= 1.0.0",
       "SchoolFoodStamps.Data >= 1.0.0",
       "SchoolFoodStamps.Data.Models >= 1.0.0",
+      "SchoolFoodStamps.Services.Data >= 1.0.0",
+      "SchoolFoodStamps.Web.Infrastructure >= 1.0.0",
       "SchoolFoodStamps.Web.ViewModels >= 1.0.0"
     ]
   },
@@ -11621,6 +11663,12 @@
             },
             "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj": {
               "projectPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj"
+            },
+            "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Services.Data\\SchoolFoodStamps.Services.Data.csproj": {
+              "projectPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Services.Data\\SchoolFoodStamps.Services.Data.csproj"
+            },
+            "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.Infrastructure\\SchoolFoodStamps.Web.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.Infrastructure\\SchoolFoodStamps.Web.Infrastructure.csproj"
             },
             "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.ViewModels\\SchoolFoodStamps.Web.ViewModels.csproj": {
               "projectPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.ViewModels\\SchoolFoodStamps.Web.ViewModels.csproj"

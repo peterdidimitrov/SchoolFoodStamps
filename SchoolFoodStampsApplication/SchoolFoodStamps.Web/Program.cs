@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Data;
+using SchoolFoodStamps.Services.Data.Interfaces;
+using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.ModelBinders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<SchoolFoodStampsDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddApplicationServices(typeof(IFoodStampService));
 
 builder.Services.AddControllersWithViews(options =>
 {

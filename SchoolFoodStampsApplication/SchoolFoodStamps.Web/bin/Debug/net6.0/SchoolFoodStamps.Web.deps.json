@@ -18,6 +18,8 @@
           "SchoolFoodStamps.Common": "1.0.0",
           "SchoolFoodStamps.Data": "1.0.0",
           "SchoolFoodStamps.Data.Models": "1.0.0",
+          "SchoolFoodStamps.Services.Data": "1.0.0",
+          "SchoolFoodStamps.Web.Infrastructure": "1.0.0",
           "SchoolFoodStamps.Web.ViewModels": "1.0.0"
         },
         "runtime": {
@@ -2793,6 +2795,26 @@
           "SchoolFoodStamps.Data.Models.dll": {}
         }
       },
+      "SchoolFoodStamps.Services.Data/1.0.0": {
+        "dependencies": {
+          "SchoolFoodStamps.Common": "1.0.0",
+          "SchoolFoodStamps.Data": "1.0.0",
+          "SchoolFoodStamps.Data.Models": "1.0.0",
+          "SchoolFoodStamps.Web.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "SchoolFoodStamps.Services.Data.dll": {}
+        }
+      },
+      "SchoolFoodStamps.Web.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "SchoolFoodStamps.Services.Data": "1.0.0"
+        },
+        "runtime": {
+          "SchoolFoodStamps.Web.Infrastructure.dll": {}
+        }
+      },
       "SchoolFoodStamps.Web.ViewModels/1.0.0": {
         "dependencies": {
           "SchoolFoodStamps.Common": "1.0.0"
@@ -4444,6 +4466,16 @@
       "sha512": ""
     },
     "SchoolFoodStamps.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SchoolFoodStamps.Services.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SchoolFoodStamps.Web.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

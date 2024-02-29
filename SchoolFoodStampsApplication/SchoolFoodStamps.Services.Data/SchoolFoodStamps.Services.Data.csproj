@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SchoolFoodStamps.Common\SchoolFoodStamps.Common.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Data.Models\SchoolFoodStamps.Data.Models.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Data\SchoolFoodStamps.Data.csproj" />

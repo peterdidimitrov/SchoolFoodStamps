@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolFoodStamps.Web.ViewMo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B83CA1F4-2F93-4514-AB9A-C680835DE679}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Services.Data", "SchoolFoodStamps.Services.Data\SchoolFoodStamps.Services.Data.csproj", "{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolFoodStamps.Services.Data", "SchoolFoodStamps.Services.Data\SchoolFoodStamps.Services.Data.csproj", "{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Web.Infrastructure", "SchoolFoodStamps.Web.Infrastructure\SchoolFoodStamps.Web.Infrastructure.csproj", "{B1C10317-75B7-4D96-AAA3-CF4B485B2685}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1C10317-75B7-4D96-AAA3-CF4B485B2685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C10317-75B7-4D96-AAA3-CF4B485B2685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1C10317-75B7-4D96-AAA3-CF4B485B2685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1C10317-75B7-4D96-AAA3-CF4B485B2685}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{56DF8478-842F-4F00-B537-A15E39495987} = {A85C84C0-C0A7-4F59-A82F-A58C882D719C}
 		{FEA3F0A8-6B16-487B-8A64-75A48112A758} = {D59DE4C0-4332-4E88-BCE8-3B144E9BE9F0}
 		{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626} = {B83CA1F4-2F93-4514-AB9A-C680835DE679}
+		{B1C10317-75B7-4D96-AAA3-CF4B485B2685} = {D59DE4C0-4332-4E88-BCE8-3B144E9BE9F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A91AAB0-C41D-4150-9208-40C39F4B6DE1}
