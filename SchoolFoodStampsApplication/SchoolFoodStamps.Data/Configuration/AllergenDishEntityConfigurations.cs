@@ -10,12 +10,6 @@ namespace SchoolFoodStamps.Data.Configuration
         {
             builder
             .HasKey(dm => new { dm.AllergenId, dm.DishId });
-
-            //builder
-            //    .HasOne(dm => dm.Allergen)
-            //    .WithMany()
-            //    .HasForeignKey(dm => dm.DishId)
-            //    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

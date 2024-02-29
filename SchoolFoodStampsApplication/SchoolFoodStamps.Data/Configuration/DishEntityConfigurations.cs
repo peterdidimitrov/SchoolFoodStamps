@@ -11,9 +11,9 @@ namespace SchoolFoodStamps.Data.Configuration
             builder
                 .HasData(this.GenerateDishes());
         }
-        private Dish[] GenerateDishes()
+        private HashSet<Dish> GenerateDishes()
         {
-            ICollection<Dish> dishes = new HashSet<Dish>
+            return new HashSet<Dish>
             {
                 //Menu 1
                 new Dish { Id = 1, Name = "Turkey and Cheese Sandwich", Description = "Whole wheat bread filled with sliced turkey breast, lettuce, and low-fat cheese. Served with a side of cherry tomatoes and cucumber slices.", Weight = 250, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
@@ -50,8 +50,6 @@ namespace SchoolFoodStamps.Data.Configuration
                 new Dish { Id = 20, Name = "Mango and Black Bean Quinoa Salad", Description = "Quinoa mixed with diced mango, black beans, red bell peppers, and cilantro. Tossed in a honey-lime dressing.", Weight = 200, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
                 new Dish { Id = 21, Name = "Cheese and Crackers Plate", Description = "Assorted cheese slices served with whole grain crackers and apple slices.", Weight = 200, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
             };
-
-            return dishes.ToArray();
         }
     }
 }

@@ -22,10 +22,6 @@ namespace SchoolFoodStamps.Data.Models
         public decimal Price { get; set; }
 
         [Required]
-        [Comment("Food stamp date of creation")]
-        public DateTime CreatedOn { get; set; }
-
-        [Required]
         [Comment("Food stamp issue date")]
         public DateTime IssueDate { get; set; }
 
@@ -42,18 +38,18 @@ namespace SchoolFoodStamps.Data.Models
         public FoodStampStatus Status { get; set; }
 
         [Required]
-        [Comment("Child identifier")]
-        public Guid ChildId { get; set; }
-
-        [ForeignKey(nameof(ChildId))]
-        public virtual Child Child { get; set; } = null!;
-
-        [Required]
         [Comment("Menu identifier")]
         public int MenuId { get; set; }
 
         [ForeignKey(nameof(MenuId))]
         public virtual Menu Menu { get; set; } = null!;
+
+        [Required]
+        [Comment("Child identifier")]
+        public Guid ChildId { get; set; }
+
+        [ForeignKey(nameof(ChildId))]
+        public virtual Child Child { get; set; } = null!;
 
         [Required]
         [Comment("Parent identifier")]

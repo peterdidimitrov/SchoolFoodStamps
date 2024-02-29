@@ -11,9 +11,9 @@ namespace SchoolFoodStamps.Data.Configuration
             builder
                 .HasData(this.GenerateAllergens());
         }
-        private Allergen[] GenerateAllergens()
+        private HashSet<Allergen> GenerateAllergens()
         {
-            ICollection<Allergen> allergens = new HashSet<Allergen>
+            return new HashSet<Allergen>
             {
                 new Allergen { Id = 1, Name = "Gluten" },
                 new Allergen { Id = 2, Name = "Dairy" },
@@ -30,8 +30,6 @@ namespace SchoolFoodStamps.Data.Configuration
                 new Allergen { Id = 13, Name = "Sesame" },
                 new Allergen { Id = 14, Name = "Mustard" }
             };
-
-            return allergens.ToArray();
         }
     }
 }

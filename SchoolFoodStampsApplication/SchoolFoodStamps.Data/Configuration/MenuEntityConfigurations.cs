@@ -16,10 +16,10 @@ namespace SchoolFoodStamps.Data.Configuration
                 .HasData(this.GenerateMenues());
         }
 
-        private Menu[] GenerateMenues()
+        private HashSet<Menu> GenerateMenues()
         {
-               ICollection<Menu> menues = new HashSet<Menu>
-               {
+            return new HashSet<Menu>
+            {
                 new Menu { Id = 1, DayOfWeek = DayOfWeek.Monday, CreatedOn = DateTime.UtcNow, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
                 new Menu { Id = 2, DayOfWeek = DayOfWeek.Tuesday, CreatedOn = DateTime.UtcNow, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
                 new Menu { Id = 3, DayOfWeek = DayOfWeek.Wednesday, CreatedOn = DateTime.UtcNow, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
@@ -28,8 +28,6 @@ namespace SchoolFoodStamps.Data.Configuration
                 new Menu { Id = 6, DayOfWeek = DayOfWeek.Saturday, CreatedOn = DateTime.UtcNow, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
                 new Menu { Id = 7, DayOfWeek = DayOfWeek.Sunday, CreatedOn = DateTime.UtcNow, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") }
             };
-
-            return menues.ToArray();
         }
     }
 }

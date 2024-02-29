@@ -16,12 +16,6 @@ namespace SchoolFoodStamps.Data.Configuration
                 .WithMany(d => d.DishesMenus)
                 .HasForeignKey(dm => dm.DishId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            //builder
-            //    .HasOne(dm => dm.Menu)
-            //    .WithMany()
-            //    .HasForeignKey(dm => dm.MenuId)
-            //    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
