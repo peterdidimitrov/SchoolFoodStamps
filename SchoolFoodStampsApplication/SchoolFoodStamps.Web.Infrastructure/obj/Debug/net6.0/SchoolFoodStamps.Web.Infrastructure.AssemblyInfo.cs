@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SchoolFoodStamps.Web.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3af6c54a61507780dec874840c60d1d607efdca3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a5dbdd5151a75416a877d483893da6f3e5bd8900")]
 [assembly: System.Reflection.AssemblyProductAttribute("SchoolFoodStamps.Web.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SchoolFoodStamps.Web.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

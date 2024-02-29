@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SchoolFoodStamps.Data;
 using System.Reflection;
 
 
@@ -6,6 +10,7 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
 {
     public static class WebApplicationBuilderExtensions
     {
+
         /// <summary>
         /// This method registers all services with their interfaces from the given assembly.
         /// The assembly is taken from the type of random service interface or implementation provided.
@@ -39,6 +44,35 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
 
                 services.AddScoped(interfaceType, implementationTtype);
             }
+        }
+        public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
+        {
+            string connectionString = config.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            services.AddDbContext<SchoolFoodStampsDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            return services;
+        }
+
+        public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
+        {
+            services
+                .AddDefaultIdentity<ApplicationUser>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = config.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                    options.Password.RequireDigit = config.GetValue<bool>("Identity:Password:RequireDigit");
+                    options.Password.RequireLowercase = config.GetValue<bool>("Identity:Password:RequireLowercase");
+                    options.Password.RequireNonAlphanumeric = config.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+                    options.Password.RequireUppercase = config.GetValue<bool>("Identity:Password:RequireUppercase");
+                    options.Password.RequiredLength = config.GetValue<int>("Identity:Password:RequiredLength");
+                })
+                .AddEntityFrameworkStores<SchoolFoodStampsDbContext>()
+                .AddDefaultTokenProviders();
+            
+            return services;
         }
     }
 }
