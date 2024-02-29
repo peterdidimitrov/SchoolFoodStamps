@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B1C10317-75B7-4D96-AAA3-CF4B485B2685}|SchoolFoodStamps.Web.Infrastructure\\SchoolFoodStamps.Web.Infrastructure.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web.infrastructure\\extensions\\claimsprincipalextesions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1C10317-75B7-4D96-AAA3-CF4B485B2685}|SchoolFoodStamps.Web.Infrastructure\\SchoolFoodStamps.Web.Infrastructure.csproj|solutionrelative:schoolfoodstamps.web.infrastructure\\extensions\\claimsprincipalextesions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,6 +27,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ClaimsPrincipalExtesions.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtesions.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtesions.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtesions.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Web.Infrastructure\\Extensions\\ClaimsPrincipalExtesions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-29T13:41:12.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Program.cs",
               "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Program.cs",
