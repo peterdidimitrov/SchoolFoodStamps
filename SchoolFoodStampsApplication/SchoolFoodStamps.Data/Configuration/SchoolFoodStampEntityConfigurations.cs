@@ -21,25 +21,25 @@ namespace SchoolFoodStamps.Data.Configuration
                 .HasOne(fs => fs.Parent)
                 .WithMany(p => p.FoodStamps)
                 .HasForeignKey(fs => fs.ParentId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(fs => fs.Child)
                 .WithMany(c => c.FoodStamps)
                 .HasForeignKey(fs => fs.ChildId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(fs => fs.CateringCompany)
                 .WithMany(c => c.FoodStamps)
                 .HasForeignKey(fs => fs.CateringCompanyId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(fs => fs.Menu)
                 .WithMany()
                 .HasForeignKey(fs => fs.MenuId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasData(this.GenrateFoodStamps());
