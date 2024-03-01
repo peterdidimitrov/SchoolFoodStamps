@@ -29,7 +29,7 @@ namespace SchoolFoodStamps.Data.Configuration
                 NormalizedEmail = "DIMITRICHKO_ADMIN@ORG.BG"
             };
 
-            userZero.PasswordHash = hasher.HashPassword(userZero, "Dimitrochko!2#");
+            userZero.PasswordHash = hasher.HashPassword(userZero, "Dimitrichko!2#");
             userZero.SecurityStamp = GenerateSecurityStamp();
             users.Add(userZero);
 

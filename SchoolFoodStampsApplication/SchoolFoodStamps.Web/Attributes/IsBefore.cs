@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using static SchoolFoodStamps.Common.EntityValidationConstants.FoodStamp;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Attributes
 {

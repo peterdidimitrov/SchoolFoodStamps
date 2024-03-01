@@ -20,12 +20,12 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("Child first name")]
-        [MaxLength(FirstNameMaxLenght)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = string.Empty;
 
         [Required]
         [Comment("Child last name")]
-        [MaxLength(LastNameMaxLenght)]
+        [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = string.Empty;
 
         [Required]

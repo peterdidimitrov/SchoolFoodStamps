@@ -20,11 +20,11 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("School name")]
-        [MaxLength(NameMaxLenght)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = string.Empty;
 
         [Comment("School address")]
-        [MaxLength(AddressMaxLenght)]
+        [MaxLength(AddressMaxLength)]
         public string? Address { get; set; }
 
         [Comment("School phone number")]
