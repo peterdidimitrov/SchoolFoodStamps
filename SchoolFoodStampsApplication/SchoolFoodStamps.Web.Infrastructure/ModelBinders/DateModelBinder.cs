@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Globalization;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Infrastructure.ModelBinders
 {
@@ -21,10 +22,10 @@ namespace SchoolFoodStamps.Web.Infrastructure.ModelBinders
 
             // Attempt to parse the value as date
             var valueAsString = valueProviderResult.FirstValue;
-            if (!DateTime.TryParseExact(valueAsString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
+            if (!DateTime.TryParseExact(valueAsString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
             {
                 // Parsing failed, set ModelState error
-                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Invalid date value. Please use the format 'yyyy-MM-dd'.");
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Invalid date value. Please use the format 'dd-MM-yyyy HH:mm'.");
                 return Task.CompletedTask;
             }
 

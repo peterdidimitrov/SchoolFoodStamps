@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static SchoolFoodStamps.Common.EntityValidationConstants.Menu;
 
 namespace SchoolFoodStamps.Data.Models
 {

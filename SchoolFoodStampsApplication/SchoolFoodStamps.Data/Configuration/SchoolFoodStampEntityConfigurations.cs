@@ -21,25 +21,25 @@ namespace SchoolFoodStamps.Data.Configuration
                 .HasOne(fs => fs.Parent)
                 .WithMany(p => p.FoodStamps)
                 .HasForeignKey(fs => fs.ParentId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(fs => fs.Child)
                 .WithMany(c => c.FoodStamps)
                 .HasForeignKey(fs => fs.ChildId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(fs => fs.CateringCompany)
                 .WithMany(c => c.FoodStamps)
                 .HasForeignKey(fs => fs.CateringCompanyId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(fs => fs.Menu)
                 .WithMany()
                 .HasForeignKey(fs => fs.MenuId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasData(this.GenrateFoodStamps());
@@ -54,8 +54,8 @@ namespace SchoolFoodStamps.Data.Configuration
                     Id = Guid.Parse("E3BCC07A-9A2F-4C54-8135-A5F1E21ED99D"),
                     Price = FoodStampPrice,
                     IssueDate = DateTime.UtcNow,
-                    UseDate = DateTime.ParseExact("09/16/2024", "MM/dd/yyyy", CultureInfo.InvariantCulture),
-                    ExpiryDate = DateTime.ParseExact("09/16/2024 14:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    UseDate = new DateTime(2024, 09, 16),
+                    ExpiryDate = new DateTime(2024, 09, 16, 14, 0, 0),
                     Status = FoodStampStatus.Valid,
                     MenuId = 1,
                     ChildId = Guid.Parse("A1ABC1D5-3718-4639-AB42-D7A1E9A0FCB0"),
@@ -67,8 +67,8 @@ namespace SchoolFoodStamps.Data.Configuration
                     Id = Guid.Parse("03C7DD57-8981-43AF-AD5F-2A817214FB3E"),
                     Price = FoodStampPrice,
                     IssueDate = DateTime.UtcNow,
-                    UseDate = DateTime.ParseExact("09/17/2024", "MM/dd/yyyy", CultureInfo.InvariantCulture),
-                    ExpiryDate = DateTime.ParseExact("09/17/2024 14:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    UseDate = new DateTime(2024, 09, 17),
+                    ExpiryDate = new DateTime(2024, 09, 17, 14, 0, 0),
                     Status = FoodStampStatus.Valid,
                     MenuId = 2,
                     ChildId = Guid.Parse("49D7ED09-30B0-4B52-B3D4-B2C7C318CCD1"),
@@ -80,8 +80,8 @@ namespace SchoolFoodStamps.Data.Configuration
                     Id = Guid.Parse("FB33981C-AE8C-48EA-BF27-3DC5A763D7F9"),
                     Price = FoodStampPrice,
                     IssueDate = DateTime.UtcNow,
-                    UseDate = DateTime.ParseExact("09/18/2024", "MM/dd/yyyy", CultureInfo.InvariantCulture),
-                    ExpiryDate = DateTime.ParseExact("09/18/2024 14:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    UseDate = new DateTime(2024, 09, 18),
+                    ExpiryDate = new DateTime(2024, 09, 18, 14, 0, 0),
                     Status = FoodStampStatus.Valid,
                     MenuId = 3,
                     ChildId = Guid.Parse("69D5EEFD-E902-4706-8BD8-B523BB24B9B6"),

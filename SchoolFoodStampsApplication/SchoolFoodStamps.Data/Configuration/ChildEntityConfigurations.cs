@@ -12,13 +12,13 @@ namespace SchoolFoodStamps.Data.Configuration
                 .HasOne(c => c.Parent)
                 .WithMany(s => s.Children)
                 .HasForeignKey(c => c.ParentId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(c => c.School)
                 .WithMany(s => s.Children)
                 .HasForeignKey(c => c.SchoolId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasData(this.GenerateChildren());

@@ -39,7 +39,7 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
 
                 if (interfaceType == null)
                 {
-                    throw new InvalidOperationException($"No interface is providet with name: {implementationTtype.Name}");
+                    throw new InvalidOperationException($"No interface is provided with name: {implementationTtype.Name}");
                 }
 
                 services.AddScoped(interfaceType, implementationTtype);
