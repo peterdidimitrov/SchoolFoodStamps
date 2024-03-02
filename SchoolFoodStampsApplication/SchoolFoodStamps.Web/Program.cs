@@ -20,6 +20,8 @@ WebApplication app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
+    //app.UseStatusCodePages();
 }
 else
 {
