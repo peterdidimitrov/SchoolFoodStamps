@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
 

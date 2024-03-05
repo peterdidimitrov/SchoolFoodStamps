@@ -73,6 +73,8 @@
             public const string RequireErrorMessage = "The field {0} is required.";
             public const string ErrorMassageLength = "The field {0} must be between {2} and {1} characters long.";
             public const string ErrorMassageOnlyNumbers = "Please enter only hole or floating point numbers.";
+            public const string IdentificationNumberErrorMessage = "The Identification Number must be exactly 9 digits long.";
+            public const string PhoneNumberErrorMessage = "The Phone Number must be in the format +359 123 456 789.";
         }
     }
 }
