@@ -1,6 +1,6 @@
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
-using SchoolFoodStamps.Web.ModelBinders;
+using SchoolFoodStamps.Web.Infrastructure.ModelBinders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

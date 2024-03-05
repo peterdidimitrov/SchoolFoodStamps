@@ -25,7 +25,7 @@ namespace SchoolFoodStamps.Web.Infrastructure.ModelBinders
             if (!DateTime.TryParseExact(valueAsString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
             {
                 // Parsing failed, set ModelState error
-                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Invalid date value. Please use the format 'dd-MM-yyyy HH:mm'.");
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, $"Invalid date value. Please use the format {DateFormat}.");
                 return Task.CompletedTask;
             }
 

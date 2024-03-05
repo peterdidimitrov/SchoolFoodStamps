@@ -8,9 +8,9 @@ namespace SchoolFoodStamps.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
-            builder
-                .Property(m => m.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
+            //builder
+            //    .Property(m => m.CreatedOn)
+            //    .HasDefaultValue(DateTime.UtcNow);
 
             builder
                 .HasData(this.GenerateMenues());

@@ -10,9 +10,9 @@ namespace SchoolFoodStamps.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<FoodStamp> builder)
         {
-            builder
-                .Property(fs => fs.IssueDate)
-                .HasDefaultValue(DateTime.UtcNow);
+            //builder
+            //    .Property(fs => fs.IssueDate)
+            //    .HasDefaultValue(DateTime.UtcNow);
 
             builder.Property(fs => fs.Price)
                 .HasDefaultValue(FoodStampPrice);

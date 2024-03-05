@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -14,7 +13,6 @@ namespace SchoolFoodStamps.Data.Migrations
                 table: "Menus",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1479),
                 comment: "Menu date of creation",
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
@@ -26,7 +24,6 @@ namespace SchoolFoodStamps.Data.Migrations
                 table: "FoodStamps",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(2304),
                 comment: "Food stamp issue date",
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
@@ -38,119 +35,119 @@ namespace SchoolFoodStamps.Data.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("4aa8654e-1465-4839-814c-a62a69d532e9"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "d9242b98-2be7-4ac5-9b25-03fc9f436b47", "AQAAAAEAACcQAAAAEMG5Blmv3yf2kgCdmxRXDfcB2C3EWA6aS3xlNjCcUMaQ92cpTNcsy7NZIwSC53dH/Q==", "CE8687FF-A75D-49CB-B737-EF03DA6460B2" });
+                values: new object[] { "83e30885-0087-4a6a-8532-bf8526ee02c2", "AQAAAAEAACcQAAAAEJfMjI9iB67JUpZSXtFi1IsBjxt011EhE0cYefdsF4oduuikxTU/Ky0deRTMbh/OSw==", "BC9AA79F-3F7C-4E7E-9B07-E702BC60613A" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("7a40a6c8-b237-4c18-8272-4c8d21c4b5d0"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "3ef76ae2-c7c9-4e6d-be32-5ab4a8ae05f9", "AQAAAAEAACcQAAAAEJM+zxplZp2phLuPnm8EBnuu/j/cvNdj5YSXfNiqZcQdzyUWhh0Zvb9RKRXIcvQ5sw==", "CFD908C9-898F-48D3-8497-736833756712" });
+                values: new object[] { "8013709b-e0a6-4657-8922-248a87c613e1", "AQAAAAEAACcQAAAAEFMN9CJtFZ1aW6Y5U9PJtkXHznr0NVtMQDCvQ+wXo3zmn7uq9CaRAItAUNwXXEQRxA==", "90244B45-552C-4A44-B68D-58B001C20CF6" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "5e0ed780-f86b-4639-be8e-da3c6dd5ca23", "AQAAAAEAACcQAAAAEKo3j0sa0hYk3G9R781jHB2zg0hkEGTCqbbKUDfELk1Ai1i0ONLtmXYXtL5k+EFmXA==", "46A336F3-F799-4B43-974E-6595B911B769" });
+                values: new object[] { "a65b8887-bc5c-4986-acea-38ac2554fa7c", "AQAAAAEAACcQAAAAEGSxKF5QDopBCPuavKEJSqeOM6wPXqoj9LnnPm12ixq35vCNIxK3SrDP9WFVX1f80Q==", "C9DBC86A-10A1-41AD-9440-A5D49F1160A0" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("ae67adef-86a9-4c12-affb-457f91a3ee8e"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "8d54a6f1-e3db-4ee7-aa49-0c27987b7204", "AQAAAAEAACcQAAAAEGWr2DjqV08LgiBR2jUCmdsvZe+n4dZbwGhKMXcGQk4uSUAN+dZg/DMa+Daa0RwedA==", "746B6EDC-2B78-4CCF-82EC-6114E38485CC" });
+                values: new object[] { "c54c54be-ed07-4b13-8e24-23343d88fc79", "AQAAAAEAACcQAAAAEEFZGEgnMq2Tb8uPlD5yoz0x9BIlhin0djbm6nU3v27lh0arVGMLuZr9Vo63K2gr3A==", "EB84D1F5-9F6A-437A-9D07-F4F1EF3FF5AD" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("d35e9b04-d31b-40f6-8d0d-da225a969421"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "f6bde280-1de1-483c-a1bd-26bafa10f1dc", "AQAAAAEAACcQAAAAEHdS+2pgDn1BobMZODKGU3ss8+iiZHMFQmbZ5d3jwEOSv2F4f0T7+XR0v5gVWK2YxA==", "E471FEEC-BF84-440F-8E5C-A1D5A9107030" });
+                values: new object[] { "6eced55e-9440-42f0-8c96-fedeb4165571", "AQAAAAEAACcQAAAAEEdTqurKP79BMlBy5PWCExbGr665QOvjWiOR8oux/xQpPLz8PkPvzs3T16+PDb9EAw==", "010D0205-1417-4C1D-9FCA-E7445D2328DD" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("f4e56355-18ae-42a7-b082-25a2cf382d3d"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "d4e7e0ab-3ff1-4854-b764-bee008d4d607", "AQAAAAEAACcQAAAAEOjLZ/JwbThhho95K+MIrhhPSJfOKprB9J0XdRwbQifkIXdDnAVmJp8B1BFZbqEkCg==", "808DC9F6-B882-4A67-B428-F503D9693204" });
+                values: new object[] { "3c1bf847-2e07-4616-a80a-b69cb67e66e8", "AQAAAAEAACcQAAAAEJRi5xX5hUu3DCpp/QNAnFAbUFP1nGPPcBQ5/pTSrGvdTIyI3NteiNcKSapUpRWBTA==", "6E893D2A-DFF6-4670-B658-94D9464CF6CC" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "ff3fd5c9-106e-4daa-a1dd-c606880469bf", "AQAAAAEAACcQAAAAEO6B9nbGiNA1ZMqlwaxN0yUT4uP78nNR4Tot3vH1N09fzRiqCz51ziAFiG02oX0AuQ==", "D62A9ABA-B5CC-4E17-98F4-68823E68A2DA" });
+                values: new object[] { "d0d2f391-e512-4eae-96a8-004d8c526b49", "AQAAAAEAACcQAAAAECH7IteMKZP+P7gUOLk4fooy+bHp4EUGsLHQW/XaVfy+A9c70mBYlCY29ZgNjiBkaQ==", "A7EE88AB-FE1E-48F5-8A55-04D84EF0716A" });
 
             migrationBuilder.UpdateData(
                 table: "FoodStamps",
                 keyColumn: "Id",
                 keyValue: new Guid("03c7dd57-8981-43af-ad5f-2a817214fb3e"),
                 column: "IssueDate",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(3457));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 869, DateTimeKind.Utc).AddTicks(1336));
 
             migrationBuilder.UpdateData(
                 table: "FoodStamps",
                 keyColumn: "Id",
                 keyValue: new Guid("e3bcc07a-9a2f-4c54-8135-a5f1e21ed99d"),
                 column: "IssueDate",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(3451));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 869, DateTimeKind.Utc).AddTicks(1328));
 
             migrationBuilder.UpdateData(
                 table: "FoodStamps",
                 keyColumn: "Id",
                 keyValue: new Guid("fb33981c-ae8c-48ea-bf27-3dc5a763d7f9"),
                 column: "IssueDate",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(3461));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 869, DateTimeKind.Utc).AddTicks(1342));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1610));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9399));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1622));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9404));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1624));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9405));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1626));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9407));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1629));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9409));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1630));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9410));
 
             migrationBuilder.UpdateData(
                 table: "Menus",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "CreatedOn",
-                value: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1631));
+                value: new DateTime(2024, 3, 5, 8, 1, 45, 868, DateTimeKind.Utc).AddTicks(9483));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -164,7 +161,6 @@ namespace SchoolFoodStamps.Data.Migrations
                 comment: "Menu date of creation",
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(1479),
                 oldComment: "Menu date of creation");
 
             migrationBuilder.AlterColumn<DateTime>(
@@ -176,7 +172,6 @@ namespace SchoolFoodStamps.Data.Migrations
                 comment: "Food stamp issue date",
                 oldClrType: typeof(DateTime),
                 oldType: "datetime2",
-                oldDefaultValue: new DateTime(2024, 3, 1, 13, 16, 44, 206, DateTimeKind.Utc).AddTicks(2304),
                 oldComment: "Food stamp issue date");
 
             migrationBuilder.UpdateData(

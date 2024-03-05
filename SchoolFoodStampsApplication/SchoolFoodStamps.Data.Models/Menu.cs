@@ -10,6 +10,7 @@ namespace SchoolFoodStamps.Data.Models
         public Menu()
         {
             this.DishesMenus = new HashSet<DishMenu>();
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         [Key]

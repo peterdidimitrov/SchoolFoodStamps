@@ -10,6 +10,7 @@ namespace SchoolFoodStamps.Data.Models
         public FoodStamp()
         {
             this.Id = Guid.NewGuid();
+            this.IssueDate = DateTime.UtcNow;
         }
 
         [Key]
