@@ -1,3 +1,4 @@
+using SchoolFoodStamps.Data.Configuration;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.Infrastructure.ModelBinders;
@@ -39,5 +40,13 @@ app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    IServiceProvider services = scope.ServiceProvider;
+
+    // Seed roles if needed
+    await SeedRoles.AddRoles(services);
+}
 
 await app.RunAsync();

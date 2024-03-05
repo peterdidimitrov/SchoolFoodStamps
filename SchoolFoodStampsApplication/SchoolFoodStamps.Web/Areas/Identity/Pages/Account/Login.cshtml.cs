@@ -6,19 +6,24 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly ILogger<LoginModel> logger;
+        private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> _signInManager, ILogger<LoginModel> _logger, RoleManager<IdentityRole<Guid>> _roleManager, UserManager<ApplicationUser> userManager)
         {
-            _signInManager = signInManager;
-            _logger = logger;
+            this.signInManager = _signInManager;
+            this.logger = _logger;
+            this.roleManager = _roleManager;
+            this.userManager = userManager;
         }
 
         /// <summary>
@@ -89,7 +94,7 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
         }
@@ -98,17 +103,30 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    logger.LogInformation("User logged in.");
+
+                    IList<string> userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(Input.Email));
+
+                    IList<IdentityRole<Guid>> roles = await roleManager.Roles.ToListAsync();
+
+                    foreach (string role in userRoles)
+                    {
+                        if (roles.Any(r => r.Name == role))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+
+                    return RedirectToAction("Customization", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -116,7 +134,7 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
                 else

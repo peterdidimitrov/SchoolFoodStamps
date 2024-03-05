@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace SchoolFoodStamps.Data.Configuration
 {
-    public class ApplicationUserEntityCofigurations : IEntityTypeConfiguration<ApplicationUser>
+    public class ApplicationUserEntityConfigurations : IEntityTypeConfiguration<ApplicationUser>
     {
 
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
@@ -14,10 +14,10 @@ namespace SchoolFoodStamps.Data.Configuration
         private HashSet<ApplicationUser> GenerateUsers()
         {
             // Create a password hasher
-            var hasher = new PasswordHasher<ApplicationUser>();
+            PasswordHasher<ApplicationUser>? hasher = new PasswordHasher<ApplicationUser>();
 
             // Create a collection of users
-            ICollection<ApplicationUser> users = new HashSet<ApplicationUser>();
+            HashSet<ApplicationUser> users = new HashSet<ApplicationUser>();
 
             // Create zero user. The user is ADMIN.
             ApplicationUser userZero = new ApplicationUser()
@@ -117,7 +117,7 @@ namespace SchoolFoodStamps.Data.Configuration
             userSix.SecurityStamp = GenerateSecurityStamp();
             users.Add(userSix);
 
-            return users.ToHashSet();
+            return users;
         }
 
         // Method to generate a security stamp

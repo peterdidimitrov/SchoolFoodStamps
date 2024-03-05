@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolFoodStamps.Data.Models;
-using System.Globalization;
 using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Data.Configuration
@@ -10,10 +9,6 @@ namespace SchoolFoodStamps.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<FoodStamp> builder)
         {
-            //builder
-            //    .Property(fs => fs.IssueDate)
-            //    .HasDefaultValue(DateTime.UtcNow);
-
             builder.Property(fs => fs.Price)
                 .HasDefaultValue(FoodStampPrice);
 

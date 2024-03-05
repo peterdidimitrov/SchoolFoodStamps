@@ -85,6 +85,7 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
                     options.Password.RequireUppercase = config.GetValue<bool>("Identity:Password:RequireUppercase");
                     options.Password.RequiredLength = config.GetValue<int>("Identity:Password:RequiredLength");
                 })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<SchoolFoodStampsDbContext>()
                 .AddDefaultTokenProviders();
             
