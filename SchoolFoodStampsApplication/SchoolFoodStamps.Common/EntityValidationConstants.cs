@@ -75,6 +75,7 @@
             public const string ErrorMassageOnlyNumbers = "Please enter only hole or floating point numbers.";
             public const string IdentificationNumberErrorMessage = "The Identification Number must be exactly 9 digits long.";
             public const string PhoneNumberErrorMessage = "The Phone Number must be in the format +359 123 456 789.";
+            //public const string CateringCompanyNameErrorMessage = "The Catering Company name must be a valid company. Use any alphanumeric character, space, or \"-\"";
         }
     }
 }

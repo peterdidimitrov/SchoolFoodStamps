@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
 using static SchoolFoodStamps.Common.EntityValidationConstants.School;
 
@@ -6,6 +7,11 @@ namespace SchoolFoodStamps.Web.ViewModels.School
 {
     public class SchoolFormModel
     {
+        public SchoolFormModel()
+        {
+            CateringCompanies = new HashSet<CateringCompanyViewModel>();
+        }
+
         [Required(ErrorMessage = RequireErrorMessage)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = ErrorMassageLength)]
         public string Name { get; set; } = string.Empty;
@@ -15,7 +21,7 @@ namespace SchoolFoodStamps.Web.ViewModels.School
 
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength, ErrorMessage = ErrorMassageLength)]
         [Display(Name = "Phone")]
-        [RegularExpression(@"^\+(?:[0-9]●?){6,14}[0-9]$", ErrorMessage = PhoneNumberErrorMessage)]
+        [RegularExpression(@"^\+(?:[0-9]\s?){6,14}[0-9]$", ErrorMessage = PhoneNumberErrorMessage)]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = RequireErrorMessage)]
@@ -25,6 +31,11 @@ namespace SchoolFoodStamps.Web.ViewModels.School
 
         public string UserId { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = RequireErrorMessage)]
+        //[RegularExpression(@"^[a-zA-Z0-9\s-]+$", ErrorMessage = CateringCompanyNameErrorMessage)]
+        [Display(Name = "Catering company")]
         public string CateringCompanyId { get; set; } = string.Empty;
+
+        public ICollection<CateringCompanyViewModel> CateringCompanies { get; set; }
     }
 }

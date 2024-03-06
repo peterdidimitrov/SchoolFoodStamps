@@ -31,10 +31,21 @@
                 <input asp-for="@Model.IdentificationNumber" class="form-control" aria-required="true" />
                 <span asp-validation-for="@Model.IdentificationNumber" class="text-danger"></span>
             </div>
+            <div class="mb-3">
+                <label asp-for="@Model.CateringCompanyId" class="form-label-add-edit">Select Catering company</label>
+                <select asp-for="@Model.CateringCompanyId" class="form-control" aria-required="true">
+                    <option disabled selected value="">Select Catering company...</option>
+                    @foreach (var company in Model.CateringCompanies)
+                    {
+                        <option value="@company.Id">@company.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.CateringCompanyId" class="text-danger"></span>
+            </div>
             <div class="card-footer">
-                <form asp-action="DeleteConfirmed" method="post">
-                    @* <input type="hidden" asp-for="Id" /> *@
-                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                <form asp-action="CreateSchool" method="post">
+                    @* <input type="hidden" asp-for="UserId" /> *@
+                    <button type="submit" class="btn btn-danger">Confirm Information</button>
                     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>

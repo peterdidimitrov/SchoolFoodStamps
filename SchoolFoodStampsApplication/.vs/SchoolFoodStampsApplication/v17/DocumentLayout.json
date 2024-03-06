@@ -3,28 +3,23 @@
   "WorkspaceRootPath": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\views\\school\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\views\\school\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FEA3F0A8-6B16-487B-8A64-75A48112A758}|SchoolFoodStamps.Web.ViewModels\\SchoolFoodStamps.Web.ViewModels.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web.viewmodels\\school\\schoolformmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FEA3F0A8-6B16-487B-8A64-75A48112A758}|SchoolFoodStamps.Web.ViewModels\\SchoolFoodStamps.Web.ViewModels.csproj|solutionrelative:schoolfoodstamps.web.viewmodels\\school\\schoolformmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}|SchoolFoodStamps.Services.Data\\SchoolFoodStamps.Services.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.services.data\\interfaces\\ischool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}|SchoolFoodStamps.Services.Data\\SchoolFoodStamps.Services.Data.csproj|solutionrelative:schoolfoodstamps.services.data\\interfaces\\ischool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Controllers\\SeminarController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\controllers\\schoolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\controllers\\schoolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\CategoryViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\SeminarFormViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.data\\configuration\\applicationuserentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{741E6B4C-EBEC-41C3-ADFA-EDF5A51400B7}|SchoolFoodStamps.Data\\SchoolFoodStamps.Data.csproj|solutionrelative:schoolfoodstamps.data\\configuration\\applicationuserentityconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Views\\Seminar\\Add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|c:\\users\\peter\\desktop\\schoolfoodstamps\\schoolfoodstampsapplication\\schoolfoodstamps.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{631792EF-0553-4212-A178-4A9911415F53}|SchoolFoodStamps.Web\\SchoolFoodStamps.Web.csproj|solutionrelative:schoolfoodstamps.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Data\\ModelsDb\\Seminar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +29,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,80 +37,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Views\\_ViewImports.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-05T14:30:41.951Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ISchool.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Services.Data\\Interfaces\\ISchool.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Services.Data\\Interfaces\\ISchool.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Services.Data\\Interfaces\\ISchool.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Services.Data\\Interfaces\\ISchool.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-05T13:47:56.84Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Views\\School\\Index.cshtml",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Views\\School\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Views\\School\\Index.cshtml",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Views\\School\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-05T13:45:42.29Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SchoolController.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Controllers\\SchoolController.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Controllers\\SchoolController.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Controllers\\SchoolController.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Controllers\\SchoolController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Title": "SchoolFormModel.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.ViewModels\\School\\SchoolFormModel.cs",
+              "RelativeDocumentMoniker": "SchoolFoodStamps.Web.ViewModels\\School\\SchoolFormModel.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web.ViewModels\\School\\SchoolFormModel.cs",
+              "RelativeToolTip": "SchoolFoodStamps.Web.ViewModels\\School\\SchoolFormModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-05T13:44:29.486Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ApplicationUserEntityConfigurations.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityConfigurations.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityConfigurations.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityConfigurations.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Data\\Configuration\\ApplicationUserEntityConfigurations.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-05T13:43:26.434Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Peter\\Desktop\\SchoolFoodStamps\\SchoolFoodStampsApplication\\SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "SchoolFoodStamps.Web\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAABcAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-05T08:21:15.732Z",
+              "WhenOpened": "2024-03-06T07:47:05.456Z",
               "EditorCaption": ""
             }
           ]
@@ -127,6 +57,92 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "9a37668a-7f98-4461-b552-4eea2910bd1c",
+        "Display": 0,
+        "X": 15,
+        "Y": 140,
+        "Width": 900,
+        "Height": 739,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SeminarController.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Controllers\\SeminarController.cs",
+              "RelativeDocumentMoniker": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Controllers\\SeminarController.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Controllers\\SeminarController.cs",
+              "RelativeToolTip": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Controllers\\SeminarController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T07:44:26.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CategoryViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\CategoryViewModel.cs",
+              "RelativeDocumentMoniker": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\CategoryViewModel.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\CategoryViewModel.cs",
+              "RelativeToolTip": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\CategoryViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T07:44:00.146Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Seminar.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Data\\ModelsDb\\Seminar.cs",
+              "RelativeDocumentMoniker": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Data\\ModelsDb\\Seminar.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Data\\ModelsDb\\Seminar.cs",
+              "RelativeToolTip": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Data\\ModelsDb\\Seminar.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAABgAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T07:39:17.513Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Views\\Seminar\\Add.cshtml",
+              "RelativeDocumentMoniker": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Views\\Seminar\\Add.cshtml",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Views\\Seminar\\Add.cshtml",
+              "RelativeToolTip": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Views\\Seminar\\Add.cshtml",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAACIAAABhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-06T07:30:57.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SeminarFormViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\SeminarFormViewModel.cs",
+              "RelativeDocumentMoniker": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\SeminarFormViewModel.cs",
+              "ToolTip": "C:\\Users\\Peter\\Desktop\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\SeminarFormViewModel.cs",
+              "RelativeToolTip": "..\\..\\ASP.NETFundamentals\\RegularExam\\SeminarHub\\Models\\SeminarFormViewModel.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAABgAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T07:24:44.994Z",
+              "EditorCaption": ""
             }
           ]
         }
