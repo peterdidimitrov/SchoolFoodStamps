@@ -32,7 +32,6 @@ namespace SchoolFoodStamps.Web.ViewModels.School
         public string UserId { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequireErrorMessage)]
-        //[RegularExpression(@"^[a-zA-Z0-9\s-]+$", ErrorMessage = CateringCompanyNameErrorMessage)]
         [Display(Name = "Catering company")]
         public string CateringCompanyId { get; set; } = string.Empty;
 

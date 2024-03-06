@@ -17,6 +17,7 @@ namespace SchoolFoodStamps.Services.Data
             return await dbContext
                .CateringCompanies
                .AsNoTracking()
+               .OrderBy(c => c.Name)
                .Select(c => new CateringCompanyViewModel()
                {
                    Id = c.Id.ToString(),

@@ -29,7 +29,6 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (isOnRole)
             {
-
                 this.TempData[ErrorMessage] = "You already customize your account profile";
                 return this.RedirectToAction("Index", "Home");
             }
