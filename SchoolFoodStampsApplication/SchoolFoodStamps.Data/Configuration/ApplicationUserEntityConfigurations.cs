@@ -6,12 +6,6 @@ namespace SchoolFoodStamps.Data.Configuration
 {
     public class ApplicationUserEntityConfigurations : IEntityTypeConfiguration<ApplicationUser>
     {
-        private readonly UserManager<ApplicationUser> userManager;
-
-        public ApplicationUserEntityConfigurations(UserManager<ApplicationUser> _userManager)
-        {
-            userManager = _userManager;
-        }
 
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
