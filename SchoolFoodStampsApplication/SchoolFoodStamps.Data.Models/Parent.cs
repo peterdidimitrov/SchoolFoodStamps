@@ -33,10 +33,6 @@ namespace SchoolFoodStamps.Data.Models
         [MaxLength(AddressMaxLength)]
         public string? Address { get; set; }
 
-        [Comment("Parent phone number")]
-        [MaxLength(PhoneNumberMaxLength)]
-        public string? PhoneNumber { get; set; }
-
         [Required]
         [Comment("User identifier")]
         public Guid UserId { get; set; }

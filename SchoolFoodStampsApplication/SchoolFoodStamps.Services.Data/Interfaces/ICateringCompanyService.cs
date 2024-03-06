@@ -5,5 +5,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
     public interface ICateringCompanyService
     {
         Task<IEnumerable<CateringCompanyViewModel>> GetAllCateringCompaniesAsync();
+
+        Task<bool> ExistsByIdAsync(string Id);
     }
 }

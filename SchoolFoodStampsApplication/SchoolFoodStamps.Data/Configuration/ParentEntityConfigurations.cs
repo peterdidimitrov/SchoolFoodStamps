@@ -21,7 +21,6 @@ namespace SchoolFoodStamps.Data.Configuration
                     FirstName = "Petar",
                     LastName = "Ivanov",
                     Address = "Sofia, Bulgaria",
-                    PhoneNumber = "0888123456",
                     UserId = Guid.Parse("F4E56355-18AE-42A7-B082-25A2CF382D3D")
                 },
                     new Parent()
@@ -30,7 +29,6 @@ namespace SchoolFoodStamps.Data.Configuration
                     FirstName = "Georgi",
                     LastName = "Petrov",
                     Address = "Stara Zagora, Bulgaria",
-                    PhoneNumber = "0888123444",
                     UserId = Guid.Parse("4AA8654E-1465-4839-814C-A62A69D532E9")
                 },
             };

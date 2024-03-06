@@ -8,10 +8,12 @@ namespace SchoolFoodStamps.Services.Data
     public class CateringCompanyService : ICateringCompanyService
     {
         private readonly SchoolFoodStampsDbContext dbContext;
+
         public CateringCompanyService(SchoolFoodStampsDbContext _dbContext)
         {
             this.dbContext = _dbContext;
         }
+
         public async Task<IEnumerable<CateringCompanyViewModel>> GetAllCateringCompaniesAsync()
         {
             return await dbContext
@@ -24,6 +26,13 @@ namespace SchoolFoodStamps.Services.Data
                    Name = c.Name
                })
                .ToListAsync();
+        }
+
+        public async Task<bool> ExistsByIdAsync(string Id)
+        {
+            return await dbContext
+                .CateringCompanies
+                .AnyAsync(c => c.Id.ToString() == Id);
         }
     }
 }

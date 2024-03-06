@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Add" method="post">
+        <form asp-controller="School" asp-action="Add" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Name" class="form-label-add-edit">School name</label>
                 <input asp-for="@Model.Name" class="form-control" aria-required="true" />
@@ -43,8 +43,7 @@
                 <span asp-validation-for="@Model.CateringCompanyId" class="text-danger"></span>
             </div>
             <div class="card-footer">
-                <form asp-action="CreateSchool" method="post">
-                    @* <input type="hidden" asp-for="UserId" /> *@
+                <form asp-controller="School" asp-action="Add" method="post">
                     <button type="submit" class="btn btn-danger">Confirm Information</button>
                     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
                 </form>

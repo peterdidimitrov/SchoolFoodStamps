@@ -19,7 +19,7 @@ namespace SchoolFoodStamps.Data.Roles
             }
             static async Task SeedRoleToUser(string email, string roleName, UserManager<ApplicationUser> userManager)
             {
-                var existingUser = await userManager.FindByEmailAsync(email);
+                ApplicationUser existingUser = await userManager.FindByEmailAsync(email);
                 
                 if (existingUser == null)
                 {

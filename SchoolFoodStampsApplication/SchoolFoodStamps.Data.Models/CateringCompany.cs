@@ -30,10 +30,6 @@ namespace SchoolFoodStamps.Data.Models
         [MaxLength(AddressMaxLength)]
         public string? Address { get; set; }
 
-        [Comment("Catering company phone number")]
-        [MaxLength(PhoneNumberMaxLength)]
-        public string? PhoneNumber { get; set; }
-
         [Required]
         [Comment("Catering company Identification Number")]
         [MaxLength(IdentificationNumberMaxLength)]

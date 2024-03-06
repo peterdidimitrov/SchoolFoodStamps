@@ -174,7 +174,6 @@ namespace SchoolFoodStamps.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Catering company name"),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Catering company address"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "Catering company phone number"),
                     IdentificationNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Catering company Identification Number"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier")
                 },
@@ -198,7 +197,6 @@ namespace SchoolFoodStamps.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Parent first name"),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Parent last name"),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Parent address"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "Parent phone number"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier")
                 },
                 constraints: table =>
@@ -243,7 +241,7 @@ namespace SchoolFoodStamps.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Menu identifier")
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "Menu day of week"),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3464), comment: "Menu date of creation"),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Menu date of creation"),
                     DateOfModify = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Menu date of modify"),
                     CateringCompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier")
                 },
@@ -266,7 +264,6 @@ namespace SchoolFoodStamps.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "School identifier"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "School name"),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "School address"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "School phone number"),
                     IdentificationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CateringCompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Catering company identifier"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier")
@@ -284,7 +281,8 @@ namespace SchoolFoodStamps.Data.Migrations
                         name: "FK_Schools_CateringCompanies_CateringCompanyId",
                         column: x => x.CateringCompanyId,
                         principalTable: "CateringCompanies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 },
                 comment: "School table");
 
@@ -356,12 +354,14 @@ namespace SchoolFoodStamps.Data.Migrations
                         name: "FK_Children_Parents_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Parents",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Children_Schools_SchoolId",
                         column: x => x.SchoolId,
                         principalTable: "Schools",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 },
                 comment: "Child table");
 
@@ -371,7 +371,7 @@ namespace SchoolFoodStamps.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Food stamp identifier"),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 5.00m, comment: "Food stamp price"),
-                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(4838), comment: "Food stamp issue date"),
+                    IssueDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp issue date"),
                     UseDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp use date"),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Food stamp expiry date"),
                     Status = table.Column<int>(type: "int", nullable: false, comment: "Food stamp status"),
@@ -387,22 +387,26 @@ namespace SchoolFoodStamps.Data.Migrations
                         name: "FK_FoodStamps_CateringCompanies_CateringCompanyId",
                         column: x => x.CateringCompanyId,
                         principalTable: "CateringCompanies",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FoodStamps_Children_ChildId",
                         column: x => x.ChildId,
                         principalTable: "Children",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FoodStamps_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FoodStamps_Parents_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Parents",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 },
                 comment: "Food stamp table");
 
@@ -428,35 +432,21 @@ namespace SchoolFoodStamps.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { new Guid("4aa8654e-1465-4839-814c-a62a69d532e9"), 0, "bf59b165-1ac2-4208-b865-0e62396383b6", "gosho@yahoo.com", false, false, null, "GOSHO@YAHOO.COM", "GOSHO@YAHOO.COM", "AQAAAAEAACcQAAAAEA0nmAn6cjOTN0gqmd87tHeMIBoqAmYY7TFIo1PSRaYz/538i7XDLC6tmagA+jtVnQ==", null, false, "95A3305A-31F4-4382-BDF5-D0616E28AE31", false, "gosho@yahoo.com" },
-                    { new Guid("7a40a6c8-b237-4c18-8272-4c8d21c4b5d0"), 0, "50245ef7-40ac-417d-8d01-c5b3ed9ecb13", "patriarh.evtimi@abv.bg", false, false, null, "PATRIARH.EVTIMI@ABV.BG", "PATRIARH.EVTIMI@ABV.BG", "AQAAAAEAACcQAAAAEEWZt+MV9iYnCylJ3jqs6Npnk+MtQ1m9zbcDFtwnebMY9DILPdAvfDGA6i5ma0GuAA==", null, false, "6FE3B2D9-F998-4D0A-A779-FEF0C61A7459", false, "patriarh.evtimi@abv.bg" },
-                    { new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5"), 0, "b718ab8c-51a4-4dca-8ce2-b177bf17b4eb", "pesho@abv.bg", false, false, null, "PESHO@ABV.BG", "PESHO@ABV.BG", "AQAAAAEAACcQAAAAEBe+nWhLFEdJHb0cu3DLchBtia2SnGlKa3xo4Rp0EwU8gSeF/pdzmkl4z0psmilnIQ==", null, false, "DC987121-684C-4A8C-8828-0B60A232F85E", false, "pesho@abv.bg" },
-                    { new Guid("ae67adef-86a9-4c12-affb-457f91a3ee8e"), 0, "29f3cf37-ab82-48f4-ae0c-f27875e6859b", "dimitrichko_admin@org.bg", false, false, null, "DIMITRICHKO_ADMIN@ORG.BG", "DIMITRICHKO_ADMIN@ORG.BG", "AQAAAAEAACcQAAAAECgfUNLqD01q/s8poyIkSaHfBa8DbkNo+AOqhJOb5UplHov7bbZoPvdVSf0d5tcMqQ==", null, false, "4380F041-223B-428B-A45A-4741CB2EE056", false, "dimitrichko_admin@org.bg" },
-                    { new Guid("d35e9b04-d31b-40f6-8d0d-da225a969421"), 0, "3d713650-260d-42dc-87c7-c728eb7f998c", "hristo.botev@abv.bg", false, false, null, "HRISTO.BOTEV@ABV.BG", "HRISTO.BOTEV@ABV.BG", "AQAAAAEAACcQAAAAEJIGyudE5PvckVsDeeFCLhjgATYvmdogydXd2c1tD4wpjKy/KdH71RFE6ItOrmubYw==", null, false, "BFF8F559-4654-4EC8-8860-8041F24530C0", false, "hristo.botev@abv.bg" },
-                    { new Guid("f4e56355-18ae-42a7-b082-25a2cf382d3d"), 0, "4acc4f75-f674-48a9-b124-fb8aebbc564a", "pesho@yahoo.com", false, false, null, "PESHO@YAHOO.COM", "PESHO@YAHOO.COM", "AQAAAAEAACcQAAAAEGbABQaCeAErkeeaSdyb8XeE+M5D34af3LIpqd38LknEXClCkkvvbXpbQT20/BDqDg==", null, false, "2F2DC114-6F12-4D86-95B7-B4088C9BCF3B", false, "pesho@yahoo.com" },
-                    { new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"), 0, "e01a5013-87a4-4fca-bebf-ef0ad5377b6f", "test@test.bg", false, false, null, "TEST@TEST.BG", "TEST@TEST.BG", "AQAAAAEAACcQAAAAEPftdjnGwIepRqslrJky2uKtgsuInlTwHEuEX+mp8Fv665tmOJyGrp4JEQ2OL+QkRA==", null, false, "0A19F215-F283-4540-A728-8FF965BDDD5F", false, "test@test.bg" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "CateringCompanies",
-                columns: new[] { "Id", "Address", "IdentificationNumber", "Name", "PhoneNumber", "UserId" },
+                columns: new[] { "Id", "Address", "IdentificationNumber", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), null, "121756889", "HealtyFoodForChildren", null, new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5") },
-                    { new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), null, "121756888", "ET SAM-DPD", null, new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d") }
+                    { new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), null, "121756889", "HealtyFoodForChildren", new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5") },
+                    { new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), null, "121756888", "ET SAM-DPD", new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d") }
                 });
 
             migrationBuilder.InsertData(
                 table: "Parents",
-                columns: new[] { "Id", "Address", "FirstName", "LastName", "PhoneNumber", "UserId" },
+                columns: new[] { "Id", "Address", "FirstName", "LastName", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"), "Sofia, Bulgaria", "Petar", "Ivanov", "0888123456", new Guid("f4e56355-18ae-42a7-b082-25a2cf382d3d") },
-                    { new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"), "Stara Zagora, Bulgaria", "Georgi", "Petrov", "0888123444", new Guid("4aa8654e-1465-4839-814c-a62a69d532e9") }
+                    { new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"), "Sofia, Bulgaria", "Petar", "Ivanov", new Guid("f4e56355-18ae-42a7-b082-25a2cf382d3d") },
+                    { new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"), "Stara Zagora, Bulgaria", "Georgi", "Petrov", new Guid("4aa8654e-1465-4839-814c-a62a69d532e9") }
                 });
 
             migrationBuilder.InsertData(
@@ -492,22 +482,22 @@ namespace SchoolFoodStamps.Data.Migrations
                 columns: new[] { "Id", "CateringCompanyId", "CreatedOn", "DateOfModify", "DayOfWeek" },
                 values: new object[,]
                 {
-                    { 1, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3636), null, 1 },
-                    { 2, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3655), null, 2 },
-                    { 3, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3656), null, 3 },
-                    { 4, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3659), null, 4 },
-                    { 5, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3664), null, 5 },
-                    { 6, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3665), null, 6 },
-                    { 7, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(3667), null, 0 }
+                    { 1, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3191), null, 1 },
+                    { 2, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3196), null, 2 },
+                    { 3, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3198), null, 3 },
+                    { 4, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3199), null, 4 },
+                    { 5, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3201), null, 5 },
+                    { 6, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3202), null, 6 },
+                    { 7, new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(3203), null, 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Schools",
-                columns: new[] { "Id", "Address", "CateringCompanyId", "IdentificationNumber", "Name", "PhoneNumber", "UserId" },
+                columns: new[] { "Id", "Address", "CateringCompanyId", "IdentificationNumber", "Name", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("6cd00c11-b0cb-428a-9143-df5743105a92"), "bul. Al. Stamboliiski 33", new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), "121756787", "51 SOU Hristo  Botev", "02 987 4243", new Guid("d35e9b04-d31b-40f6-8d0d-da225a969421") },
-                    { new Guid("e3af4b8e-8f07-4962-838e-670bd305758f"), "bul. Hristo Botev 41", new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "121756886", "41 OU Patriarh Evtimii", "02 987 6543", new Guid("7a40a6c8-b237-4c18-8272-4c8d21c4b5d0") }
+                    { new Guid("6cd00c11-b0cb-428a-9143-df5743105a92"), "bul. Al. Stamboliiski 33", new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), "121756787", "51 SOU Hristo  Botev", new Guid("d35e9b04-d31b-40f6-8d0d-da225a969421") },
+                    { new Guid("e3af4b8e-8f07-4962-838e-670bd305758f"), "bul. Hristo Botev 41", new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), "121756886", "41 OU Patriarh Evtimii", new Guid("7a40a6c8-b237-4c18-8272-4c8d21c4b5d0") }
                 });
 
             migrationBuilder.InsertData(
@@ -528,17 +518,17 @@ namespace SchoolFoodStamps.Data.Migrations
             migrationBuilder.InsertData(
                 table: "FoodStamps",
                 columns: new[] { "Id", "CateringCompanyId", "ChildId", "ExpiryDate", "IssueDate", "MenuId", "ParentId", "Price", "Status", "UseDate" },
-                values: new object[] { new Guid("03c7dd57-8981-43af-ad5f-2a817214fb3e"), new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new Guid("49d7ed09-30b0-4b52-b3d4-b2c7c318ccd1"), new DateTime(2024, 9, 17, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(6386), 2, new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"), 5.00m, 1, new DateTime(2024, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("03c7dd57-8981-43af-ad5f-2a817214fb3e"), new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new Guid("49d7ed09-30b0-4b52-b3d4-b2c7c318ccd1"), new DateTime(2024, 9, 17, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(5171), 2, new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"), 5.00m, 1, new DateTime(2024, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "FoodStamps",
                 columns: new[] { "Id", "CateringCompanyId", "ChildId", "ExpiryDate", "IssueDate", "MenuId", "ParentId", "Price", "Status", "UseDate" },
-                values: new object[] { new Guid("e3bcc07a-9a2f-4c54-8135-a5f1e21ed99d"), new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new Guid("a1abc1d5-3718-4639-ab42-d7a1e9a0fcb0"), new DateTime(2024, 9, 16, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(6317), 1, new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"), 5.00m, 1, new DateTime(2024, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("e3bcc07a-9a2f-4c54-8135-a5f1e21ed99d"), new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"), new Guid("a1abc1d5-3718-4639-ab42-d7a1e9a0fcb0"), new DateTime(2024, 9, 16, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(5162), 1, new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"), 5.00m, 1, new DateTime(2024, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "FoodStamps",
                 columns: new[] { "Id", "CateringCompanyId", "ChildId", "ExpiryDate", "IssueDate", "MenuId", "ParentId", "Price", "Status", "UseDate" },
-                values: new object[] { new Guid("fb33981c-ae8c-48ea-bf27-3dc5a763d7f9"), new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), new Guid("69d5eefd-e902-4706-8bd8-b523bb24b9b6"), new DateTime(2024, 9, 18, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 2, 29, 10, 27, 14, 8, DateTimeKind.Utc).AddTicks(6401), 3, new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"), 5.00m, 1, new DateTime(2024, 9, 18, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { new Guid("fb33981c-ae8c-48ea-bf27-3dc5a763d7f9"), new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"), new Guid("69d5eefd-e902-4706-8bd8-b523bb24b9b6"), new DateTime(2024, 9, 18, 14, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 6, 14, 45, 59, 825, DateTimeKind.Utc).AddTicks(5174), 3, new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"), 5.00m, 1, new DateTime(2024, 9, 18, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AllergenDishes_DishId",
