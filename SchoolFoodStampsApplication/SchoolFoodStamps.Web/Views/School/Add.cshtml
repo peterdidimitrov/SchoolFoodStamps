@@ -1,4 +1,6 @@
-﻿
+﻿@using System.Security.Cryptography;
+@using System.Text;
+
 @model SchoolFormViewModel;
 @{
     ViewBag.Title = "Create School";
@@ -43,10 +45,8 @@
                 <span asp-validation-for="@Model.CateringCompanyId" class="text-danger"></span>
             </div>
             <div class="card-footer">
-                <form asp-controller="School" asp-action="Add" method="post">
-                    <button type="submit" class="btn btn-danger">Confirm Information</button>
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
-                </form>
+                <button type="submit" class="btn btn-danger">Confirm Information</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
