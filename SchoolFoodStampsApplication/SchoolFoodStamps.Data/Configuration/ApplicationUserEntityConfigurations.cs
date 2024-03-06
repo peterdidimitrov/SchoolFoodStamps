@@ -6,10 +6,16 @@ namespace SchoolFoodStamps.Data.Configuration
 {
     public class ApplicationUserEntityConfigurations : IEntityTypeConfiguration<ApplicationUser>
     {
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public ApplicationUserEntityConfigurations(UserManager<ApplicationUser> _userManager)
+        {
+            userManager = _userManager;
+        }
 
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-                builder.HasData(this.GenerateUsers());
+            builder.HasData(this.GenerateUsers());
         }
         private HashSet<ApplicationUser> GenerateUsers()
         {
@@ -34,13 +40,13 @@ namespace SchoolFoodStamps.Data.Configuration
             users.Add(userZero);
 
             // Create first user. The user is CATERING COMPANY.
-            ApplicationUser userOne = new ApplicationUser() 
+            ApplicationUser userOne = new ApplicationUser()
             {
-                Id = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"), 
-                UserName = "test@test.bg", 
-                NormalizedUserName = "TEST@TEST.BG", 
-                Email = "test@test.bg", 
-                NormalizedEmail = "TEST@TEST.BG" 
+                Id = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"),
+                UserName = "test@test.bg",
+                NormalizedUserName = "TEST@TEST.BG",
+                Email = "test@test.bg",
+                NormalizedEmail = "TEST@TEST.BG"
             };
 
             userOne.PasswordHash = hasher.HashPassword(userOne, "123456");
@@ -48,17 +54,17 @@ namespace SchoolFoodStamps.Data.Configuration
             users.Add(userOne);
 
             // Create second user. The user is CATERING COMPANY.
-            ApplicationUser userTwo = new ApplicationUser 
-            { 
+            ApplicationUser userTwo = new ApplicationUser
+            {
                 Id = Guid.Parse("97C32DF3-7A02-49A9-871B-0B27C4C37CB5"),
-                UserName = "pesho@abv.bg", 
-                NormalizedUserName = "PESHO@ABV.BG", 
-                Email = "pesho@abv.bg", 
+                UserName = "pesho@abv.bg",
+                NormalizedUserName = "PESHO@ABV.BG",
+                Email = "pesho@abv.bg",
                 NormalizedEmail = "PESHO@ABV.BG"
             };
-            
-            userTwo.PasswordHash = hasher.HashPassword(userTwo, "123456"); 
-            userTwo.SecurityStamp = GenerateSecurityStamp(); 
+
+            userTwo.PasswordHash = hasher.HashPassword(userTwo, "123456");
+            userTwo.SecurityStamp = GenerateSecurityStamp();
             users.Add(userTwo);
 
             // Create third user. The user is SCHOOL.

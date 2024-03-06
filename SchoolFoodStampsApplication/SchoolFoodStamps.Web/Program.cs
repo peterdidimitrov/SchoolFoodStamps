@@ -1,4 +1,4 @@
-using SchoolFoodStamps.Data.Configuration;
+using SchoolFoodStamps.Data.Roles;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.Infrastructure.ModelBinders;
@@ -46,7 +46,8 @@ using (IServiceScope scope = app.Services.CreateScope())
     IServiceProvider services = scope.ServiceProvider;
 
     // Seed roles if needed
-    await SeedRoles.AddRoles(services);
+    await InsertRoles.AddRoles(services);
+    await AssignRoles.AssignRolesToUsers(services);
 }
 
 await app.RunAsync();

@@ -5,9 +5,9 @@ using static SchoolFoodStamps.Common.EntityValidationConstants.School;
 
 namespace SchoolFoodStamps.Web.ViewModels.School
 {
-    public class SchoolFormModel
+    public class SchoolFormViewModel
     {
-        public SchoolFormModel()
+        public SchoolFormViewModel()
         {
             CateringCompanies = new HashSet<CateringCompanyViewModel>();
         }
@@ -36,6 +36,6 @@ namespace SchoolFoodStamps.Web.ViewModels.School
         [Display(Name = "Catering company")]
         public string CateringCompanyId { get; set; } = string.Empty;
 
-        public ICollection<CateringCompanyViewModel> CateringCompanies { get; set; }
+        public IEnumerable<CateringCompanyViewModel> CateringCompanies { get; set; }
     }
 }

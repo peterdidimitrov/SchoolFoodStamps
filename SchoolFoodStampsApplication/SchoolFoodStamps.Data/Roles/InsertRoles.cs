@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SchoolFoodStamps.Data.Configuration
+namespace SchoolFoodStamps.Data.Roles
 {
-    public static class SeedRoles
+    public static class InsertRoles
     {
         public static async Task AddRoles(IServiceProvider serviceProvider)
         {

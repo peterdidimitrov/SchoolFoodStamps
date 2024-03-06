@@ -1,6 +1,6 @@
 ﻿namespace SchoolFoodStamps.Services.Data.Interfaces
 {
-    public interface ISchool
+    public interface ISchoolService
     {
     }
 }
