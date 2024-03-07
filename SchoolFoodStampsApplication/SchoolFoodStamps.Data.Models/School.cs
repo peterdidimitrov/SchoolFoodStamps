@@ -11,7 +11,7 @@ namespace SchoolFoodStamps.Data.Models
         public School()
         {
             this.Id = Guid.NewGuid();
-            this.Children = new HashSet<Child>();
+            this.Students = new HashSet<Student>();
         }
 
         [Key]
@@ -44,6 +44,6 @@ namespace SchoolFoodStamps.Data.Models
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; } = null!;
 
-        public virtual ICollection<Child> Children { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

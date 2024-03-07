@@ -15,7 +15,7 @@ namespace SchoolFoodStamps.Data
 
         public virtual DbSet<CateringCompany> CateringCompanies { get; set; } = null!;
 
-        public virtual DbSet<Child> Children { get; set; } = null!;
+        public virtual DbSet<Student> Students { get; set; } = null!;
 
         public virtual DbSet<Dish> Dishes { get; set; } = null!;
 

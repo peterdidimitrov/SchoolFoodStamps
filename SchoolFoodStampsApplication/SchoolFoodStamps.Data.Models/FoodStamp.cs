@@ -46,11 +46,11 @@ namespace SchoolFoodStamps.Data.Models
         public virtual Menu Menu { get; set; } = null!;
 
         [Required]
-        [Comment("Child identifier")]
-        public Guid ChildId { get; set; }
+        [Comment("Student identifier")]
+        public Guid StudentId { get; set; }
 
-        [ForeignKey(nameof(ChildId))]
-        public virtual Child Child { get; set; } = null!;
+        [ForeignKey(nameof(StudentId))]
+        public virtual Student Student { get; set; } = null!;
 
         [Required]
         [Comment("Parent identifier")]

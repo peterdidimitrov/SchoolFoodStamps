@@ -20,6 +20,8 @@ namespace SchoolFoodStamps.Web.Controllers
             this.schoolService = _schoolService;
 
         }
+
+        [Authorize(Roles = "School")]
         public IActionResult Index()
         {
             return View();
@@ -95,7 +97,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             this.TempData[SuccessMessage] = "School added successfully";
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction(nameof(Index));
         }
     }
 }

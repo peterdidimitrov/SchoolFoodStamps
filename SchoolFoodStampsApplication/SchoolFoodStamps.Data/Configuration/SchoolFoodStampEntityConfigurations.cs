@@ -19,9 +19,9 @@ namespace SchoolFoodStamps.Data.Configuration
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(fs => fs.Child)
+                .HasOne(fs => fs.Student)
                 .WithMany(c => c.FoodStamps)
-                .HasForeignKey(fs => fs.ChildId)
+                .HasForeignKey(fs => fs.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
@@ -53,7 +53,7 @@ namespace SchoolFoodStamps.Data.Configuration
                     ExpiryDate = new DateTime(2024, 09, 16, 14, 0, 0),
                     Status = FoodStampStatus.Valid,
                     MenuId = 1,
-                    ChildId = Guid.Parse("A1ABC1D5-3718-4639-AB42-D7A1E9A0FCB0"),
+                    StudentId = Guid.Parse("A1ABC1D5-3718-4639-AB42-D7A1E9A0FCB0"),
                     ParentId = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
                     CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234"),
                 },
@@ -66,7 +66,7 @@ namespace SchoolFoodStamps.Data.Configuration
                     ExpiryDate = new DateTime(2024, 09, 17, 14, 0, 0),
                     Status = FoodStampStatus.Valid,
                     MenuId = 2,
-                    ChildId = Guid.Parse("49D7ED09-30B0-4B52-B3D4-B2C7C318CCD1"),
+                    StudentId = Guid.Parse("49D7ED09-30B0-4B52-B3D4-B2C7C318CCD1"),
                     ParentId = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
                     CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234"),
                 },
@@ -79,7 +79,7 @@ namespace SchoolFoodStamps.Data.Configuration
                     ExpiryDate = new DateTime(2024, 09, 18, 14, 0, 0),
                     Status = FoodStampStatus.Valid,
                     MenuId = 3,
-                    ChildId = Guid.Parse("69D5EEFD-E902-4706-8BD8-B523BB24B9B6"),
+                    StudentId = Guid.Parse("69D5EEFD-E902-4706-8BD8-B523BB24B9B6"),
                     ParentId = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"),
                     CateringCompanyId = Guid.Parse("8E91E660-535C-4F3A-B2FB-CC4E28682345"),
                 }

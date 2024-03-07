@@ -47,7 +47,7 @@
             public const int PhoneNumberMinLength = 9;
         }
 
-        public static class Child
+        public static class Student
         {
             public const int FirstNameMaxLength = 100;
             public const int FirstNameMinLength = 2;
