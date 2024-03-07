@@ -1,5 +1,4 @@
-﻿@using System.Security.Cryptography;
-@using System.Text;
+﻿@using SchoolFoodStamps.Common
 
 @model SchoolFormViewModel;
 @{
@@ -39,7 +38,8 @@
                     <option disabled selected value="">Select Catering company...</option>
                     @foreach (var company in Model.CateringCompanies)
                     {
-                        <option value="@company.Id">@company.Name</option>
+                        string hashedId = HashHelper.ConvertIdToHashedString(company.Id.ToString());
+                        <option value="@hashedId">@company.Name</option>
                     }
                 </select>
                 <span asp-validation-for="@Model.CateringCompanyId" class="text-danger"></span>

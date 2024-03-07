@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
@@ -38,6 +39,13 @@ namespace SchoolFoodStamps.Services.Data
 
             await dbContext.Schools.AddAsync(school);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsByIdAsync(string IdentificationNumber)
+        {
+            return await dbContext
+                .Schools
+                .AnyAsync(c => c.IdentificationNumber == IdentificationNumber);
         }
     }
 }

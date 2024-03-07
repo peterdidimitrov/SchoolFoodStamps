@@ -4,6 +4,7 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Common.HashHelper;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -54,6 +55,13 @@ namespace SchoolFoodStamps.Web.Controllers
                 return this.RedirectToAction("Index", "Home");
             }
 
+            bool schoolExists = await this.schoolService.ExistsByIdAsync(model.IdentificationNumber);
+
+            if (schoolExists)
+            {
+                this.ModelState.AddModelError(nameof(model.IdentificationNumber), "School with this identification number already exists");
+            }
+            model.CateringCompanyId = ReverseHashedStringToId(model.CateringCompanyId);
             bool companyExists = await this.cateringCompanyService
                 .ExistsByIdAsync(model.CateringCompanyId);
 

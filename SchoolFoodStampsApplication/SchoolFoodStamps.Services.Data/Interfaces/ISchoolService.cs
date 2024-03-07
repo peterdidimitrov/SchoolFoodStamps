@@ -5,5 +5,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
     public interface ISchoolService
     {
         Task CreateAsync(SchoolFormViewModel formModel);
+
+        Task<bool> ExistsByIdAsync(string IdentificationNumber);
     }
 }
