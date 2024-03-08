@@ -11,9 +11,13 @@ namespace SchoolFoodStamps.Web.Infrastructure.ModelBinders
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
+            if (bindingContext == null)
+            {
+                throw new ArgumentNullException(nameof(bindingContext));
+            }
 
             // Get the value provider result
-            var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+            ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
             if (valueProviderResult == ValueProviderResult.None)
             {
                 //No value was found for the specified model name
@@ -21,7 +25,7 @@ namespace SchoolFoodStamps.Web.Infrastructure.ModelBinders
             }
 
             // Attempt to parse the value as date
-            var valueAsString = valueProviderResult.FirstValue;
+            string? valueAsString = valueProviderResult.FirstValue;
             if (!DateTime.TryParseExact(valueAsString, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
             {
                 // Parsing failed, set ModelState error

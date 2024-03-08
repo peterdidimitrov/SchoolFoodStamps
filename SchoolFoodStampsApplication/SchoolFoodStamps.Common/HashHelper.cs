@@ -2,6 +2,9 @@
 
 namespace SchoolFoodStamps.Common
 {
+    /// <summary>
+    /// This class is used to hash and reverse hash strings.
+    /// </summary>
     public static class HashHelper
     {
         public static string ConvertIdToHashedString(string input)

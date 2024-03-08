@@ -10,18 +10,22 @@ namespace SchoolFoodStamps.Web.Infrastructure.ModelBinders
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
+            if (bindingContext == null)
+            {
+                throw new ArgumentNullException(nameof(bindingContext));
+            }
 
-            ValueProviderResult valueResult = bindingContext.ValueProvider
+            ValueProviderResult valueProviderResult = bindingContext.ValueProvider
                 .GetValue(bindingContext.ModelName);
 
-            if (valueResult != ValueProviderResult.None && !string.IsNullOrEmpty(valueResult.FirstValue))
+            if (valueProviderResult != ValueProviderResult.None && !string.IsNullOrEmpty(valueProviderResult.FirstValue))
             {
                 decimal result = 0M;
                 bool success = false;
 
                 try
                 {
-                    string strValue = valueResult.FirstValue.Trim();
+                    string strValue = valueProviderResult.FirstValue.Trim();
 
                     strValue = strValue.Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
