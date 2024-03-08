@@ -41,7 +41,7 @@ namespace SchoolFoodStamps.Services.Data
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsByIdAsync(string IdentificationNumber)
+        public async Task<bool> ExistsByIdentificationNumberAsync(string IdentificationNumber)
         {
             return await dbContext
                 .Schools

@@ -57,7 +57,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return this.RedirectToAction("Index", "Home");
             }
 
-            bool schoolExists = await this.schoolService.ExistsByIdAsync(model.IdentificationNumber);
+            bool schoolExists = await this.schoolService.ExistsByIdentificationNumberAsync(model.IdentificationNumber);
 
             if (schoolExists)
             {
