@@ -8,6 +8,9 @@ namespace SchoolFoodStamps.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
+            builder.Property(m => m.CreatedOn)
+                .HasDefaultValueSql("GETDATE()");
+
             builder
                 .HasData(this.GenerateMenues());
         }

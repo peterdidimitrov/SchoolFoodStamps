@@ -12,6 +12,9 @@ namespace SchoolFoodStamps.Data.Configuration
             builder.Property(fs => fs.Price)
                 .HasDefaultValue(FoodStampPrice);
 
+            builder.Property(fs => fs.IssueDate)
+                .HasDefaultValueSql("GETDATE()");
+
             builder
                 .HasOne(fs => fs.Parent)
                 .WithMany(p => p.FoodStamps)
