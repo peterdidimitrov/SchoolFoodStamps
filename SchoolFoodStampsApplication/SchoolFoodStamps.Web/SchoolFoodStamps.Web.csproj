@@ -40,8 +40,4 @@
     <ProjectReference Include="..\SchoolFoodStamps.Web.ViewModels\SchoolFoodStamps.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\CateringCompany\" />
-  </ItemGroup>
-
 </Project>
