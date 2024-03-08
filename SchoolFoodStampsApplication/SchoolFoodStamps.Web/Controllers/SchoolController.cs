@@ -21,6 +21,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         }
 
+        [HttpGet]
         [Authorize(Roles = "School")]
         public IActionResult Index()
         {
