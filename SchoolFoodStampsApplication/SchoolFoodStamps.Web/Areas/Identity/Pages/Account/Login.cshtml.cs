@@ -18,12 +18,12 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> _signInManager, ILogger<LoginModel> _logger, RoleManager<IdentityRole<Guid>> _roleManager, UserManager<ApplicationUser> userManager)
+        public LoginModel(SignInManager<ApplicationUser> _signInManager, ILogger<LoginModel> _logger, RoleManager<IdentityRole<Guid>> _roleManager, UserManager<ApplicationUser> _userManager)
         {
             this.signInManager = _signInManager;
             this.logger = _logger;
             this.roleManager = _roleManager;
-            this.userManager = userManager;
+            this.userManager = _userManager;
         }
 
         /// <summary>
@@ -82,8 +82,15 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (signInManager.IsSignedIn(User))
+            {
+                // If the user is already authenticated, redirect to home page or another appropriate page
+                returnUrl = "/";
+                return RedirectToPage(returnUrl);
+            }
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -97,6 +104,8 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

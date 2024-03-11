@@ -5,6 +5,8 @@ using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 using static SchoolFoodStamps.Common.HashHelper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -13,30 +15,39 @@ namespace SchoolFoodStamps.Web.Controllers
     {
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly ISchoolService schoolService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole<Guid>> roleManager;
 
-        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService)
+        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
         {
             this.cateringCompanyService = _cateringCompanyService;
             this.schoolService = _schoolService;
-
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         [HttpGet]
-        [Authorize(Roles = "School")]
         public IActionResult Index()
         {
-            return View();
+            return this.RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            bool isOnRole = (User.IsInRole("School") || User.IsInRole("Parent") || User.IsInRole("CateringCompany"));
+            var currentUser = await userManager.GetUserAsync(User);
+            var userEmail = await userManager.GetEmailAsync(currentUser);
+            IList<string> userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
 
-            if (isOnRole)
+            IList<IdentityRole<Guid>> roles = await roleManager.Roles.ToListAsync();
+
+            foreach (string role in userRoles)
             {
-                this.TempData[ErrorMessage] = "You already customize your account profile";
-                return this.RedirectToAction("Index", "Home");
+                if (roles.Any(r => r.Name == role))
+                {
+                    this.TempData[ErrorMessage] = "You already customize your account profile";
+                    return this.RedirectToAction("Index", "Home");
+                }
             }
 
             SchoolFormViewModel formModel = new SchoolFormViewModel()
@@ -50,12 +61,19 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(SchoolFormViewModel model)
         {
-            bool isOnRole = (User.IsInRole("School") || User.IsInRole("Parent") || User.IsInRole("CateringCompany"));
+            var currentUser = await userManager.GetUserAsync(User);
+            var userEmail = await userManager.GetEmailAsync(currentUser);
+            IList<string> userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
 
-            if (isOnRole)
+            IList<IdentityRole<Guid>> roles = await roleManager.Roles.ToListAsync();
+
+            foreach (string role in userRoles)
             {
-                this.TempData[ErrorMessage] = "You already customize your account profile";
-                return this.RedirectToAction("Index", "Home");
+                if (roles.Any(r => r.Name == role))
+                {
+                    this.TempData[ErrorMessage] = "You already customize your account profile";
+                    return this.RedirectToAction("Index", "Home");
+                }
             }
 
             bool schoolExists = await this.schoolService.ExistsByIdentificationNumberAsync(model.IdentificationNumber);
