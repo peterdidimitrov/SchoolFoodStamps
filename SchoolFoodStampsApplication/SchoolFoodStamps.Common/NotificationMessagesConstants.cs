@@ -1,4 +1,6 @@
-﻿namespace SchoolFoodStamps.Common
+﻿using static SchoolFoodStamps.Common.EntityValidationConstants;
+
+namespace SchoolFoodStamps.Common
 {
     public static class NotificationMessagesConstants
     {

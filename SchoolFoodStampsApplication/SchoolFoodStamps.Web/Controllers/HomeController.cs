@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
+using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -28,32 +29,40 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             if (signInManager.IsSignedIn(User))
             {
-                var currentUser = await userManager.GetUserAsync(User);
-                var userEmail = await userManager.GetEmailAsync(currentUser);
+                ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+                string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-                IList<string> userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
+                bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
 
-                IList<IdentityRole<Guid>> roles = await roleManager.Roles.ToListAsync();
-
-                foreach (string role in userRoles)
+                if (hasAnyRole)
                 {
-                    if (roles.Any(r => r.Name == role))
-                    {
-                        return View();
-                    }
+                    return View();
                 }
 
+                this.TempData[InformationMessage] = "You should customize your account profile. Please choose the role.";
                 return View(nameof(Customization));
             }
+
 
             return View();
         }
 
         [AllowAnonymous]
-        public IActionResult Customization()
+        public async Task<IActionResult> Customization()
         {
             if (!signInManager.IsSignedIn(User))
             {
+                return View(nameof(Index));
+            }
+
+            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+            string? userEmail = await userManager.GetEmailAsync(currentUser);
+
+            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
+
+            if (hasAnyRole)
+            {
+                this.TempData[ErrorMessage] = "You already customize your account profile.";
                 return View(nameof(Index));
             }
 
@@ -64,6 +73,20 @@ namespace SchoolFoodStamps.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private async Task<bool> UserHasAnyRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, string userEmail, params string[] rolesToCheck)
+        {
+            IList<string>? userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
+            IList<string>? roles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
+
+            return userRoles.Any(role => rolesToCheck.Contains(role));
+        }
+
+
+        private string[] RolesForCheck()
+        {
+            return new string[] { "School", "Parent", "CateringCompany" };
         }
     }
 }

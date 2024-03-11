@@ -35,19 +35,14 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var currentUser = await userManager.GetUserAsync(User);
-            var userEmail = await userManager.GetEmailAsync(currentUser);
-            IList<string> userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
+            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+            string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            IList<IdentityRole<Guid>> roles = await roleManager.Roles.ToListAsync();
+            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
 
-            foreach (string role in userRoles)
+            if (hasAnyRole)
             {
-                if (roles.Any(r => r.Name == role))
-                {
-                    this.TempData[ErrorMessage] = "You already customize your account profile";
-                    return this.RedirectToAction("Index", "Home");
-                }
+               return this.CustomizationError();
             }
 
             SchoolFormViewModel formModel = new SchoolFormViewModel()
@@ -61,26 +56,21 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(SchoolFormViewModel model)
         {
-            var currentUser = await userManager.GetUserAsync(User);
-            var userEmail = await userManager.GetEmailAsync(currentUser);
-            IList<string> userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
+            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+            string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            IList<IdentityRole<Guid>> roles = await roleManager.Roles.ToListAsync();
+            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
 
-            foreach (string role in userRoles)
+            if (hasAnyRole)
             {
-                if (roles.Any(r => r.Name == role))
-                {
-                    this.TempData[ErrorMessage] = "You already customize your account profile";
-                    return this.RedirectToAction("Index", "Home");
-                }
+                return this.CustomizationError();
             }
 
             bool schoolExists = await this.schoolService.ExistsByIdentificationNumberAsync(model.IdentificationNumber);
 
             if (schoolExists)
             {
-                this.ModelState.AddModelError(nameof(model.IdentificationNumber), "School with this identification number already exists");
+                this.ModelState.AddModelError(nameof(model.IdentificationNumber), "School with this identification number already exists.");
             }
             model.CateringCompanyId = ReverseHashedStringToId(model.CateringCompanyId);
             bool companyExists = await this.cateringCompanyService
@@ -88,7 +78,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (!companyExists)
             {
-                this.ModelState.AddModelError(nameof(model.CateringCompanyId), "Catering company does not exist");
+                this.ModelState.AddModelError(nameof(model.CateringCompanyId), "Catering company does not exist.");
             }
 
             if (!ModelState.IsValid)
@@ -106,7 +96,7 @@ namespace SchoolFoodStamps.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error  occurred while trying to add new school! Please try again or contact administrator");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
 
                 model.CateringCompanies = await this.cateringCompanyService
                     .GetAllCateringCompaniesAsync();
@@ -114,9 +104,28 @@ namespace SchoolFoodStamps.Web.Controllers
                 return View(model);
             }
 
-            this.TempData[SuccessMessage] = "School added successfully";
+            this.TempData[SuccessMessage] = "School added successfully.";
 
             return this.RedirectToAction(nameof(Index));
+        }
+
+        private async Task<bool> UserHasAnyRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, string userEmail, params string[] rolesToCheck)
+        {
+            IList<string>? userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
+            IList<string>? roles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
+
+            return userRoles.Any(role => rolesToCheck.Contains(role));
+        }
+
+        private IActionResult CustomizationError()
+        {
+            this.TempData[ErrorMessage] = "You already customize your account profile.";
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        private string[] RolesForCheck()
+        {
+            return new string[] { "School", "Parent", "CateringCompany" };
         }
     }
 }
