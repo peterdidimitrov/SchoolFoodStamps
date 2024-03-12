@@ -1,29 +1,31 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
-using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 using static SchoolFoodStamps.Common.HashHelper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
     [Authorize]
     public class SchoolController : Controller
     {
+        private readonly ILogger<HomeController> logger;
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly ISchoolService schoolService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
 
-        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger)
         {
             this.cateringCompanyService = _cateringCompanyService;
             this.schoolService = _schoolService;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -42,7 +44,8 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (hasAnyRole)
             {
-               return this.CustomizationError();
+                logger.LogWarning("User already has a role.");
+                return this.CustomizationError();
             }
 
             SchoolFormViewModel formModel = new SchoolFormViewModel()
@@ -63,6 +66,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (hasAnyRole)
             {
+                logger.LogWarning("User already has a role.");
                 return this.CustomizationError();
             }
 
@@ -70,19 +74,27 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (schoolExists)
             {
+                logger.LogWarning("School exists.");
                 this.ModelState.AddModelError(nameof(model.IdentificationNumber), "School with this identification number already exists.");
             }
+            logger.LogInformation("Catering company id: {0}", model.CateringCompanyId);
+
             model.CateringCompanyId = ReverseHashedStringToId(model.CateringCompanyId);
+
+            logger.LogInformation("Catering company id: {0}", model.CateringCompanyId);
+
             bool companyExists = await this.cateringCompanyService
                 .ExistsByIdAsync(model.CateringCompanyId);
 
             if (!companyExists)
             {
+                logger.LogWarning("Catering company does not exist.");
                 this.ModelState.AddModelError(nameof(model.CateringCompanyId), "Catering company does not exist.");
             }
 
             if (!ModelState.IsValid)
             {
+                logger.LogWarning("Model state is not valid.");
                 model.CateringCompanies = await this.cateringCompanyService
                     .GetAllCateringCompaniesAsync();
                 return View(model);
@@ -93,6 +105,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 model.UserId = userId;
                 await this.schoolService.CreateAsync(model);
+                logger.LogInformation("School created successfully.");
             }
             catch (Exception)
             {

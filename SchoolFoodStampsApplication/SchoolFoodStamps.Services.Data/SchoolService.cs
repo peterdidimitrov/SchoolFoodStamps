@@ -41,11 +41,11 @@ namespace SchoolFoodStamps.Services.Data
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsByIdentificationNumberAsync(string IdentificationNumber)
+        public async Task<bool> ExistsByIdentificationNumberAsync(string identificationNumber)
         {
             return await dbContext
                 .Schools
-                .AnyAsync(c => c.IdentificationNumber == IdentificationNumber);
+                .AnyAsync(s => s.IdentificationNumber == identificationNumber);
         }
     }
 }

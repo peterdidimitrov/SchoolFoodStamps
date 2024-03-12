@@ -25,6 +25,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             if (signInManager.IsSignedIn(User))
@@ -39,6 +40,8 @@ namespace SchoolFoodStamps.Web.Controllers
                     return View();
                 }
 
+                logger.LogInformation("User with email {0} is not customized yet.", userEmail);
+
                 this.TempData[InformationMessage] = "You should customize your account profile. Please choose the role.";
                 return View(nameof(Customization));
             }
@@ -48,6 +51,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Customization()
         {
             if (!signInManager.IsSignedIn(User))
@@ -62,6 +66,8 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (hasAnyRole)
             {
+                logger.LogInformation("User with email {0} is already customized.", userEmail);
+
                 this.TempData[ErrorMessage] = "You already customize your account profile.";
                 return View(nameof(Index));
             }
