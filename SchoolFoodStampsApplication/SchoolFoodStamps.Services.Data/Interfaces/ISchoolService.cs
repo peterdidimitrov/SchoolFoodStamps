@@ -7,5 +7,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task CreateAsync(SchoolFormViewModel formModel);
 
         Task<bool> ExistsByIdentificationNumberAsync(string identificationNumber);
+
+        Task<bool> ExistsByUserIdAsync(string userId);
     }
 }

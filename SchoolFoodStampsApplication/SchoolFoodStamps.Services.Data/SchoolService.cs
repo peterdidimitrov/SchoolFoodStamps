@@ -11,6 +11,7 @@ namespace SchoolFoodStamps.Services.Data
     {
         private readonly SchoolFoodStampsDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
+        
 
         public SchoolService(SchoolFoodStampsDbContext _dbContext, UserManager<ApplicationUser> _userManager)
         {
@@ -46,6 +47,11 @@ namespace SchoolFoodStamps.Services.Data
             return await dbContext
                 .Schools
                 .AnyAsync(s => s.IdentificationNumber == identificationNumber);
+        }
+
+        public async Task<bool> ExistsByUserIdAsync(string userId)
+        {
+            return await dbContext.Schools.AnyAsync(s => s.UserId == Guid.Parse(userId));
         }
     }
 }

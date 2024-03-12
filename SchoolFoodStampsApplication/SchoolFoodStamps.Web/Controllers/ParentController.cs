@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolFoodStamps.Services.Data;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Parent;
+using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
@@ -16,13 +18,15 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IParentService parentService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly IUserService userService;
 
-        public ParentController(IParentService _parentService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger)
+        public ParentController(IParentService _parentService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger, IUserService userService)
         {
             this.parentService = _parentService;
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.logger = logger;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -37,7 +41,7 @@ namespace SchoolFoodStamps.Web.Controllers
             ApplicationUser? currentUser = await userManager.GetUserAsync(User);
             string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 
             if (hasAnyRole)
             {
@@ -50,23 +54,51 @@ namespace SchoolFoodStamps.Web.Controllers
             return View(formModel);
         }
 
-        private async Task<bool> UserHasAnyRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, string userEmail, params string[] rolesToCheck)
+        [HttpPost]
+        public async Task<IActionResult> Add(ParentFormViewModel model)
         {
-            IList<string>? userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
-            IList<string>? roles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
+            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+            string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            return userRoles.Any(role => rolesToCheck.Contains(role));
+            bool hasAnyParentWithCurrentUserId = await parentService.ExistsByUserIdAsync(currentUser.Id.ToString());
+
+            if (hasAnyParentWithCurrentUserId)
+            {
+                logger.LogWarning("User with id {0} already registered as a parent.", currentUser.Id);
+                return this.CustomizationError();
+            }
+
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+
+            if (hasAnyRole)
+            {
+                logger.LogWarning("User already has a role.");
+                return this.CustomizationError();
+            }
+
+            try
+            {
+                string userId = GetUserId();
+                model.UserId = userId;
+                await this.parentService.CreateAsync(model);
+                logger.LogInformation("Parent created successfully.");
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new parent! Please try again or contact administrator.");
+
+                return View(model);
+            }
+
+            this.TempData[SuccessMessage] = "Parent added successfully.";
+
+            return this.RedirectToAction(nameof(Index));
         }
 
         private IActionResult CustomizationError()
         {
-            this.TempData[ErrorMessage] = "You already customize your account profile.";
+            this.TempData[ErrorMessage] = "You already customized your profile.";
             return this.RedirectToAction(nameof(Index));
-        }
-
-        private string[] RolesForCheck()
-        {
-            return new string[] { "School", "Parent", "CateringCompany" };
         }
         private string GetUserId()
         {

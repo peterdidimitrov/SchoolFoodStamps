@@ -1,27 +1,29 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
-    [Authorize(Roles = "Admin, CateringCompany, Parent, School")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly IUserService userService;
 
-        public HomeController(ILogger<HomeController> _logger, SignInManager<ApplicationUser> _signInManager, UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole<Guid>> _roleManager)
+        public HomeController(ILogger<HomeController> _logger, SignInManager<ApplicationUser> _signInManager, UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole<Guid>> _roleManager, IUserService _userService)
         {
             this.logger = _logger;
             this.signInManager = _signInManager;
             this.userManager = _userManager;
             this.roleManager = _roleManager;
+            this.userService = _userService;
         }
 
         [AllowAnonymous]
@@ -33,10 +35,11 @@ namespace SchoolFoodStamps.Web.Controllers
                 ApplicationUser? currentUser = await userManager.GetUserAsync(User);
                 string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-                bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
+                bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 
                 if (hasAnyRole)
                 {
+                    logger.LogInformation("User with email {0} is already customized.", userEmail);
                     return View();
                 }
 
@@ -45,7 +48,6 @@ namespace SchoolFoodStamps.Web.Controllers
                 this.TempData[InformationMessage] = "You should customize your account profile. Please choose the role.";
                 return View(nameof(Customization));
             }
-
 
             return View();
         }
@@ -62,13 +64,13 @@ namespace SchoolFoodStamps.Web.Controllers
             ApplicationUser? currentUser = await userManager.GetUserAsync(User);
             string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 
             if (hasAnyRole)
             {
                 logger.LogInformation("User with email {0} is already customized.", userEmail);
 
-                this.TempData[ErrorMessage] = "You already customize your account profile.";
+                this.TempData[ErrorMessage] = "You already customized your profile.";
                 return View(nameof(Index));
             }
 
@@ -79,20 +81,6 @@ namespace SchoolFoodStamps.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        private async Task<bool> UserHasAnyRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, string userEmail, params string[] rolesToCheck)
-        {
-            IList<string>? userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
-            IList<string>? roles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
-
-            return userRoles.Any(role => rolesToCheck.Contains(role));
-        }
-
-
-        private string[] RolesForCheck()
-        {
-            return new string[] { "School", "Parent", "CateringCompany" };
         }
     }
 }

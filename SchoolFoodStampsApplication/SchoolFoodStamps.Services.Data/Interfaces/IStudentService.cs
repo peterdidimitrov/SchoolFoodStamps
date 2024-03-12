@@ -3,7 +3,7 @@ using SchoolFoodStamps.Web.ViewModels.Student;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
-    public interface IStudent
+    public interface IStudentService
     {
         Task CreateAsync(StudentFormViewModel formModel);
         Task<IEnumerable<StudentFormViewModel>> GetAllStudentsAsync();

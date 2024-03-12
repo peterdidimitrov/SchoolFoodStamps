@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
@@ -17,15 +16,16 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly ISchoolService schoolService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly IUserService userService;
 
-        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger)
+
+        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> userManager, ILogger<HomeController> logger, IUserService _userService)
         {
             this.cateringCompanyService = _cateringCompanyService;
             this.schoolService = _schoolService;
             this.userManager = userManager;
-            this.roleManager = roleManager;
             this.logger = logger;
+            this.userService = _userService;
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace SchoolFoodStamps.Web.Controllers
             ApplicationUser? currentUser = await userManager.GetUserAsync(User);
             string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 
             if (hasAnyRole)
             {
@@ -62,7 +62,15 @@ namespace SchoolFoodStamps.Web.Controllers
             ApplicationUser? currentUser = await userManager.GetUserAsync(User);
             string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            bool hasAnyRole = await UserHasAnyRoleAsync(userManager, roleManager, userEmail, RolesForCheck());
+            bool hasAnySchoolWithCurrentUserId = await schoolService.ExistsByUserIdAsync(currentUser.Id.ToString());
+
+            if (hasAnySchoolWithCurrentUserId)
+            {
+                logger.LogWarning("User with id {0} already registered as a school.", currentUser.Id);
+                return this.CustomizationError();
+            }
+
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 
             if (hasAnyRole)
             {
@@ -77,6 +85,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 logger.LogWarning("School exists.");
                 this.ModelState.AddModelError(nameof(model.IdentificationNumber), "School with this identification number already exists.");
             }
+
             logger.LogInformation("Catering company id: {0}", model.CateringCompanyId);
 
             model.CateringCompanyId = ReverseHashedStringToId(model.CateringCompanyId);
@@ -102,7 +111,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string userId = GetUserId();
                 model.UserId = userId;
                 await this.schoolService.CreateAsync(model);
                 logger.LogInformation("School created successfully.");
@@ -122,23 +131,15 @@ namespace SchoolFoodStamps.Web.Controllers
             return this.RedirectToAction(nameof(Index));
         }
 
-        private async Task<bool> UserHasAnyRoleAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, string userEmail, params string[] rolesToCheck)
-        {
-            IList<string>? userRoles = await userManager.GetRolesAsync(await userManager.FindByEmailAsync(userEmail));
-            IList<string>? roles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
-
-            return userRoles.Any(role => rolesToCheck.Contains(role));
-        }
-
         private IActionResult CustomizationError()
         {
-            this.TempData[ErrorMessage] = "You already customize your account profile.";
+            this.TempData[ErrorMessage] = "You already customized your profile.";
             return this.RedirectToAction(nameof(Index));
         }
 
-        private string[] RolesForCheck()
+        private string GetUserId()
         {
-            return new string[] { "School", "Parent", "CateringCompany" };
+            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
         }
     }
 }
