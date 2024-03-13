@@ -76,6 +76,12 @@ namespace SchoolFoodStamps.Web.Controllers
                 return this.CustomizationError();
             }
 
+            if (!ModelState.IsValid)
+            {
+                logger.LogWarning("Model state is not valid.");
+                return View(model);
+            }
+
             try
             {
                 string userId = GetUserId();
