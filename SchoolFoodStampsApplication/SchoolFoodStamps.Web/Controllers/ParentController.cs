@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Services.Data;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Parent;
-using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
@@ -19,20 +16,23 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IUserService userService;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public ParentController(IParentService _parentService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger, IUserService userService)
+        public ParentController(IParentService _parentService, UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole<Guid>> _roleManager, ILogger<HomeController> _logger, IUserService _userService, SignInManager<ApplicationUser> _signInManager)
         {
             this.parentService = _parentService;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-            this.logger = logger;
-            this.userService = userService;
+            this.userManager = _userManager;
+            this.roleManager = _roleManager;
+            this.logger = _logger;
+            this.userService = _userService;
+            this.signInManager = _signInManager;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return this.RedirectToAction("Index", "Home");
+
+            return View();
         }
 
         [HttpGet]
@@ -96,9 +96,12 @@ namespace SchoolFoodStamps.Web.Controllers
                 return View(model);
             }
 
-            this.TempData[SuccessMessage] = "Parent added successfully.";
+            await signInManager.SignOutAsync();
 
-            return this.RedirectToAction(nameof(Index));
+            logger.LogInformation("User logged out.");
+            this.TempData[InformationMessage] = "You are created a profile successfully. Please sign in again.";
+
+            return this.RedirectToAction("Index", "Home");
         }
 
         private IActionResult CustomizationError()

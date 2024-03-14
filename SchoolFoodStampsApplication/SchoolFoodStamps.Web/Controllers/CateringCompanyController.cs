@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SchoolFoodStamps.Services.Data;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
-using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
@@ -17,19 +15,21 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public CateringCompanyController(ICateringCompanyService _cateringCompanyService, UserManager<ApplicationUser> _userManager, ILogger<HomeController> _logger, IUserService _userService)
+        public CateringCompanyController(ICateringCompanyService _cateringCompanyService, UserManager<ApplicationUser> _userManager, ILogger<HomeController> _logger, IUserService _userService, SignInManager<ApplicationUser> _signInManager)
         {
             this.cateringCompanyService = _cateringCompanyService;
             this.userManager = _userManager;
             this.logger = _logger;
             this.userService = _userService;
+            this.signInManager = _signInManager;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return this.RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpGet]
@@ -101,9 +101,12 @@ namespace SchoolFoodStamps.Web.Controllers
                 return View(model);
             }
 
-            this.TempData[SuccessMessage] = "Catering company added successfully.";
+            await signInManager.SignOutAsync();
 
-            return this.RedirectToAction(nameof(Index));
+            logger.LogInformation("User logged out.");
+            this.TempData[InformationMessage] = "You are created a profile successfully. Please sign in again.";
+
+            return this.RedirectToAction("Index", "Home");
         }
 
         private IActionResult CustomizationError()

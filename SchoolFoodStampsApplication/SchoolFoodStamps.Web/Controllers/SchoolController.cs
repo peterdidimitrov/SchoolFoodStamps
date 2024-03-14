@@ -17,20 +17,22 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ISchoolService schoolService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> _userManager, ILogger<HomeController> _logger, IUserService _userService)
+        public SchoolController(ICateringCompanyService _cateringCompanyService, ISchoolService _schoolService, UserManager<ApplicationUser> _userManager, ILogger<HomeController> _logger, IUserService _userService, SignInManager<ApplicationUser> _signInManager)
         {
             this.cateringCompanyService = _cateringCompanyService;
             this.schoolService = _schoolService;
             this.userManager = _userManager;
             this.logger = _logger;
             this.userService = _userService;
+            this.signInManager = _signInManager;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return this.RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpGet]
@@ -125,9 +127,12 @@ namespace SchoolFoodStamps.Web.Controllers
                 return View(model);
             }
 
-            this.TempData[SuccessMessage] = "School added successfully.";
+            await signInManager.SignOutAsync();
 
-            return this.RedirectToAction(nameof(Index));
+            logger.LogInformation("User logged out.");
+            this.TempData[InformationMessage] = "You are created a profile successfully. Please sign in again.";
+
+            return this.RedirectToAction("Index", "Home");
         }
 
         private IActionResult CustomizationError()

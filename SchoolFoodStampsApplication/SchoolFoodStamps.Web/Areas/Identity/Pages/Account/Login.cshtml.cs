@@ -131,7 +131,22 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
                     {
                         if (roles.Any(r => r.Name == role))
                         {
-                            return RedirectToAction("Index", "Home");
+                            if (role == "Parent")
+                            {
+                                return RedirectToAction("Index", "Parent");
+                            }
+                            else if (role == "School")
+                            {
+                                return RedirectToAction("Index", "School");
+                            }
+                            else if (role == "CateringCompany")
+                            {
+                                return RedirectToAction("Index", "CateringCompany");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
                         }
                     }
 
