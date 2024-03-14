@@ -31,7 +31,6 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             return View();
         }
 
