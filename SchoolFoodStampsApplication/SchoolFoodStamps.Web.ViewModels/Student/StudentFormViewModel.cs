@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.Student
 {
@@ -11,7 +12,7 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
         {
             Schools = new HashSet<SchoolViewModel>();
             ClassLetters = new HashSet<ClassLetter>();
-            ClassNumbers = new HashSet<int>();
+            ClassNumbers = new HashSet<byte>();
         }
 
         [Required(ErrorMessage = RequireErrorMessage)]
@@ -25,8 +26,8 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
         public string LastName { get; set; } = string.Empty;
 
         [Display(Name = "Date of birth")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = DateFormat, ApplyFormatInEditMode = false)]
         public DateTime? DateOfBirth { get; set; }
 
         [Required(ErrorMessage = RequireErrorMessage)]
@@ -46,7 +47,7 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
 
         public IEnumerable<ClassLetter> ClassLetters { get; set; }
 
-        public IEnumerable<int> ClassNumbers { get; set; }
+        public IEnumerable<byte> ClassNumbers { get; set; }
 
         public IEnumerable<SchoolViewModel> Schools { get; set; }
     }

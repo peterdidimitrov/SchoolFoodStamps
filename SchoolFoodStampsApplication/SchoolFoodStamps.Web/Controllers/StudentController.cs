@@ -31,6 +31,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             StudentFormViewModel formModel = new StudentFormViewModel()
             {
+                ClassNumbers = studentService.GetAllClassNumbers(),
                 ClassLetters = studentService.GetAllClassLetters(),
                 Schools = await this.schoolService.GetAllSchoolsAsync()
             };
@@ -59,6 +60,8 @@ namespace SchoolFoodStamps.Web.Controllers
             if (!ModelState.IsValid)
             {
                 logger.LogWarning("Model state is not valid.");
+                model.ClassNumbers = studentService.GetAllClassNumbers();
+                model.ClassLetters = studentService.GetAllClassLetters();
                 model.Schools = await this.schoolService.GetAllSchoolsAsync();
                 return View(model);
             }

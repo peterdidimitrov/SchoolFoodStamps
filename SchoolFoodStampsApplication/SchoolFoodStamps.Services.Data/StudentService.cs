@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using SchoolFoodStamps.Data;
+﻿using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
@@ -9,12 +8,10 @@ namespace SchoolFoodStamps.Services.Data
     public class StudentService : IStudentService
     {
         private readonly SchoolFoodStampsDbContext dbContext;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public StudentService(SchoolFoodStampsDbContext _dbContext, UserManager<ApplicationUser> _userManager)
+        public StudentService(SchoolFoodStampsDbContext _dbContext)
         {
             this.dbContext = _dbContext;
-            this.userManager = _userManager;
         }
 
         public async Task CreateAsync(StudentFormViewModel formModel)
@@ -49,6 +46,17 @@ namespace SchoolFoodStamps.Services.Data
             }
 
             return classLetters;
+        }
+
+        public List<byte> GetAllClassNumbers()
+        {
+            List<byte> classNumbers = new List<byte>();
+
+            for (byte i = 1; i <= 12; i++)
+            {
+                classNumbers.Add(i);
+            }
+            return classNumbers;
         }
 
         public Task<IEnumerable<StudentFormViewModel>> GetAllStudentsAsync()

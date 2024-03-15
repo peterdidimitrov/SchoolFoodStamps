@@ -26,9 +26,14 @@
                 <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.ClassNumber" class="form-label-add-edit">Class number</label>
-                <input asp-for="@Model.ClassNumber" class="form-control" aria-required="true" />
-                <span asp-validation-for="@Model.ClassNumber" class="text-danger"></span>
+                <label asp-for="@Model.ClassNumber" class="form-label-add-edit">Class Number</label>
+                <select asp-for="@Model.ClassNumber" class="form-control" aria-required="true">
+                    <option disabled selected value="">Select Number...</option>
+                    @foreach (var number in Model.ClassNumbers)
+                    {
+                        <option value="@number">@number</option>
+                    }
+                </select>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.ClassLetter" class="form-label-add-edit">Class Letter</label>

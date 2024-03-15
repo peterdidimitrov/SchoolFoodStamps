@@ -10,5 +10,6 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task<IEnumerable<StudentFormViewModel>> GetAllStudentsAsync();
 
         List<ClassLetter> GetAllClassLetters();
+        List<byte> GetAllClassNumbers();
     }
 }
