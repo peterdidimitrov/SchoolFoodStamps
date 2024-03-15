@@ -38,8 +38,18 @@ namespace SchoolFoodStamps.Services.Data
                 user.PhoneNumber = formModel.PhoneNumber;
             }
 
+            CateringCompany? cateringCompany = await dbContext.CateringCompanies.FindAsync(Guid.Parse(formModel.CateringCompanyId));
+            cateringCompany!.Schools.Add(school);
+
             await dbContext.Schools.AddAsync(school);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsByIdAsync(string Id)
+        {
+            return await dbContext
+                .Schools
+                .AnyAsync(c => c.Id.ToString() == Id);
         }
 
         public async Task<bool> ExistsByIdentificationNumberAsync(string identificationNumber)
@@ -52,6 +62,20 @@ namespace SchoolFoodStamps.Services.Data
         public async Task<bool> ExistsByUserIdAsync(string userId)
         {
             return await dbContext.Schools.AnyAsync(s => s.UserId == Guid.Parse(userId));
+        }
+
+        public async Task<IEnumerable<SchoolViewModel>> GetAllSchoolsAsync()
+        {
+            return await dbContext
+               .Schools
+               .AsNoTracking()
+               .OrderBy(c => c.Name)
+               .Select(c => new SchoolViewModel()
+               {
+                   Id = c.Id.ToString(),
+                   Name = c.Name
+               })
+               .ToListAsync();
         }
     }
 }

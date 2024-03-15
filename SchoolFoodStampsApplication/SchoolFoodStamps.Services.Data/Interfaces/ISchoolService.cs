@@ -9,5 +9,9 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task<bool> ExistsByIdentificationNumberAsync(string identificationNumber);
 
         Task<bool> ExistsByUserIdAsync(string userId);
+
+        Task<IEnumerable<SchoolViewModel>> GetAllSchoolsAsync();
+
+        Task<bool> ExistsByIdAsync(string Id);
     }
 }

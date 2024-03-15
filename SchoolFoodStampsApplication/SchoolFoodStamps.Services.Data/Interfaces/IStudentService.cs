@@ -6,6 +6,9 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
     public interface IStudentService
     {
         Task CreateAsync(StudentFormViewModel formModel);
+
         Task<IEnumerable<StudentFormViewModel>> GetAllStudentsAsync();
+
+        List<ClassLetter> GetAllClassLetters();
     }
 }

@@ -54,6 +54,9 @@
 
             public const int LastNameMaxLength = 100;
             public const int LastNameMinLength = 2;
+
+            public const int ClassNumberMinValue = 1;
+            public const int ClassNumberMaxValue = 12;
         }
 
         public static class School
@@ -75,7 +78,7 @@
             public const string ErrorMassageOnlyNumbers = "Please enter only hole or floating point numbers.";
             public const string IdentificationNumberErrorMessage = "The Identification Number must be exactly 9 digits long.";
             public const string PhoneNumberErrorMessage = "The Phone Number must be in the format +359 123 456 789.";
-            //public const string CateringCompanyNameErrorMessage = "The Catering Company name must be a valid company. Use any alphanumeric character, space, or \"-\"";
+            public const string ClassNumberErrorMessage = "The Class Number must be between 1 and 12.";
         }
     }
 }
