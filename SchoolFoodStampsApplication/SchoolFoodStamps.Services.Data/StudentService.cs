@@ -20,7 +20,7 @@ namespace SchoolFoodStamps.Services.Data
             {
                 FirstName = formModel.FirstName,
                 LastName = formModel.LastName,
-                DateOfBirth = formModel.DateOfBirth,
+                DateOfBirth = DateTime.Parse(formModel.DateOfBirth),
                 ClassNumber = Byte.Parse(formModel.ClassNumber),
                 ClassLetter = Char.Parse(formModel.ClassLetter),
                 ParentId = Guid.Parse(formModel.ParentId),

@@ -26,9 +26,8 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
         public string LastName { get; set; } = string.Empty;
 
         [Display(Name = "Date of birth")]
-        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = DateFormat, ApplyFormatInEditMode = false)]
-        public DateTime? DateOfBirth { get; set; }
+        public string? DateOfBirth { get; set; }
 
         [Required(ErrorMessage = RequireErrorMessage)]
         [Range(ClassNumberMinValue, ClassNumberMaxValue, ErrorMessage = ClassNumberErrorMessage)]
