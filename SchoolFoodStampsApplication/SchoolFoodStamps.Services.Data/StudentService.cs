@@ -3,8 +3,6 @@ using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
-using System.Globalization;
-using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
 
 namespace SchoolFoodStamps.Services.Data
 {

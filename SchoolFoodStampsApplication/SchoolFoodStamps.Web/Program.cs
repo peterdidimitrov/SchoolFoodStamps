@@ -1,3 +1,4 @@
+using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Roles;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
@@ -6,6 +7,9 @@ using SchoolFoodStamps.Web.Infrastructure.ModelBinders;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
+
+builder.Services.AddApplicationServices(typeof(IRepositoryService));
+
 builder.Services.AddApplicationIdentity(builder.Configuration);
 
 builder.Services.AddControllersWithViews(options =>

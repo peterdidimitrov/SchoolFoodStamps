@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolFoodStamps.Services.Data", "SchoolFoodStamps.Services.Data\SchoolFoodStamps.Services.Data.csproj", "{EF93CD5D-5A9F-41F4-8EE5-E5CBAEA84626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolFoodStamps.Web.Infrastructure", "SchoolFoodStamps.Web.Infrastructure\SchoolFoodStamps.Web.Infrastructure.csproj", "{B1C10317-75B7-4D96-AAA3-CF4B485B2685}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolFoodStamps.Web.Infrastructure", "SchoolFoodStamps.Web.Infrastructure\SchoolFoodStamps.Web.Infrastructure.csproj", "{B1C10317-75B7-4D96-AAA3-CF4B485B2685}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
