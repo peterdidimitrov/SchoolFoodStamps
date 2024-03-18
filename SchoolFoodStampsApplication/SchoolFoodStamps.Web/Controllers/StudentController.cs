@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using static SchoolFoodStamps.Common.HashHelper;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -14,30 +14,20 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ISchoolService schoolService;
         private readonly ILogger<HomeController> logger;
         private readonly IStudentService studentService;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IParentService parentService;
 
-        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService, UserManager<ApplicationUser> _userManager, IParentService _parentService)
+        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService, IParentService _parentService)
         {
             this.schoolService = _schoolService;
             this.logger = _logger;
             this.studentService = _studentService;
-            this.userManager = _userManager;
             this.parentService = _parentService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-
-            if (currentUser == null)
-            {
-                logger.LogWarning("User not found.");
-                return View();
-            }
-
-            string? parentId = await parentService.GetParentIdAsync(currentUser.Id.ToString());
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
 
             if (parentId == null)
             {
@@ -65,18 +55,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStudent(StudentFormViewModel model)
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-
-            if (currentUser == null)
-            {
-                logger.LogWarning("User not found.");
-                model.ClassNumbers = studentService.GetAllClassNumbers();
-                model.ClassLetters = studentService.GetAllClassLetters();
-                model.Schools = await this.schoolService.GetAllSchoolsAsync();
-                return View(model);
-            }
-
-            string? parentId = await parentService.GetParentIdAsync(currentUser.Id.ToString());
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
 
             if (parentId == null)
             {
