@@ -7,5 +7,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task CreateAsync(ParentFormViewModel formModel);
 
         Task<bool> ExistsByUserIdAsync(string userId);
+
+        Task<string> GetParentIdAsync(string userId);
     }
 }

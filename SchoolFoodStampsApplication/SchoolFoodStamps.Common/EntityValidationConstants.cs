@@ -57,6 +57,8 @@
 
             public const int ClassNumberMinValue = 1;
             public const int ClassNumberMaxValue = 12;
+
+            public const string DateOfBirthRegex = @"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$";
         }
 
         public static class School
@@ -79,6 +81,7 @@
             public const string IdentificationNumberErrorMessage = "The Identification Number must be exactly 9 digits long.";
             public const string PhoneNumberErrorMessage = "The Phone Number must be in the format +359 123 456 789.";
             public const string ClassNumberErrorMessage = "The Class Number must be between 1 and 12.";
+            public const string DateOfBirthErrorMessage = "The Date of Birth must be in the format dd/MM/yyyy.";
         }
     }
 }

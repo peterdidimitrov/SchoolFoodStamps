@@ -2,12 +2,14 @@
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
+using System.Globalization;
 
 namespace SchoolFoodStamps.Services.Data
 {
     public class StudentService : IStudentService
     {
         private readonly SchoolFoodStampsDbContext dbContext;
+
 
         public StudentService(SchoolFoodStampsDbContext _dbContext)
         {
@@ -16,11 +18,12 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task CreateAsync(StudentFormViewModel formModel)
         {
+
             Student student = new Student()
             {
                 FirstName = formModel.FirstName,
                 LastName = formModel.LastName,
-                DateOfBirth = DateTime.Parse(formModel.DateOfBirth),
+                DateOfBirth = DateTime.Parse(formModel.DateOfBirth!),
                 ClassNumber = Byte.Parse(formModel.ClassNumber),
                 ClassLetter = Char.Parse(formModel.ClassLetter),
                 ParentId = Guid.Parse(formModel.ParentId),

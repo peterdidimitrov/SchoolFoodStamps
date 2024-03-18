@@ -21,7 +21,12 @@
                 <input asp-for="@Model.LastName" class="form-control" aria-required="true" />
                 <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </div>
-            <partial name="_DatePickerPartial" />
+            <div class="mb-3">
+                <label asp-for="@Model.DateOfBirth" class="form-label-add-edit"></label>
+                <input asp-for="@Model.DateOfBirth" type="text" class="form-control" aria-required="true" placeholder="dd/MM/yyyy" />
+                <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
+            </div>
+            @* <partial name="_DatePickerPartial" /> *@
             <div class="mb-3">
                 <label asp-for="@Model.ClassNumber" class="form-label-add-edit">Class Number</label>
                 <select asp-for="@Model.ClassNumber" class="form-control" aria-required="true">

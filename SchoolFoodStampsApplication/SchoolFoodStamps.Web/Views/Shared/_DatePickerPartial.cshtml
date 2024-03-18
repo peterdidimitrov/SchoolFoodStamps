@@ -1,9 +1,9 @@
 ﻿@model StudentFormViewModel;
 
 
-<div class="form-group">
+<div class="mb-3">
     <label asp-for="@Model.DateOfBirth" class="control-label"></label>
-    <div class='input-group date' id='datepicker'>
+    <div class="input-group date" id="datepicker">
         <input asp-for="@Model.DateOfBirth" type="text" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)" />
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>

@@ -30,7 +30,7 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("Student date of birth")]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         [Comment("Student class number in school")]

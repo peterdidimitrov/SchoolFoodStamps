@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
@@ -12,12 +13,16 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ISchoolService schoolService;
         private readonly ILogger<HomeController> logger;
         private readonly IStudentService studentService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IParentService parentService;
 
-        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService)
+        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService, UserManager<ApplicationUser> userManager, IParentService parentService)
         {
             this.schoolService = _schoolService;
             this.logger = _logger;
             this.studentService = _studentService;
+            this.userManager = userManager;
+            this.parentService = parentService;
         }
 
         [HttpGet]
@@ -42,6 +47,30 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStudent(StudentFormViewModel model)
         {
+            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                logger.LogWarning("User not found.");
+                model.ClassNumbers = studentService.GetAllClassNumbers();
+                model.ClassLetters = studentService.GetAllClassLetters();
+                model.Schools = await this.schoolService.GetAllSchoolsAsync();
+                return View(model);
+            }
+
+            string? parentId = await parentService?.GetParentIdAsync(currentUser.Id.ToString());
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                model.ClassNumbers = studentService.GetAllClassNumbers();
+                model.ClassLetters = studentService.GetAllClassLetters();
+                model.Schools = await this.schoolService.GetAllSchoolsAsync();
+                return View(model);
+            }
+
+            model.ParentId = parentId;
+
             logger.LogInformation("School id: {0}", model.SchoolId);
 
             model.SchoolId = ReverseHashedStringToId(model.SchoolId);
@@ -75,6 +104,8 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
 
+                model.ClassNumbers = studentService.GetAllClassNumbers();
+                model.ClassLetters = studentService.GetAllClassLetters();
                 model.Schools = await this.schoolService
                     .GetAllSchoolsAsync();
 

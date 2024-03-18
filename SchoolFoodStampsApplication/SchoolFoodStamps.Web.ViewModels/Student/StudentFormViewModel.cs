@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
-using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.Student
 {
@@ -25,9 +24,10 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
         [Display(Name = "Last name")]
         public string LastName { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = RequireErrorMessage)]
         [Display(Name = "Date of birth")]
-        [DisplayFormat(DataFormatString = DateFormat, ApplyFormatInEditMode = false)]
-        public string? DateOfBirth { get; set; }
+        [RegularExpression(DateOfBirthRegex, ErrorMessage = DateOfBirthErrorMessage)]
+        public string DateOfBirth { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequireErrorMessage)]
         [Range(ClassNumberMinValue, ClassNumberMaxValue, ErrorMessage = ClassNumberErrorMessage)]
