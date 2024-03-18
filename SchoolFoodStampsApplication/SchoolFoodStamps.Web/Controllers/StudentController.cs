@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using static SchoolFoodStamps.Common.HashHelper;
+using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -16,19 +17,36 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IParentService parentService;
 
-        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService, UserManager<ApplicationUser> userManager, IParentService parentService)
+        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService, UserManager<ApplicationUser> _userManager, IParentService _parentService)
         {
             this.schoolService = _schoolService;
             this.logger = _logger;
             this.studentService = _studentService;
-            this.userManager = userManager;
-            this.parentService = parentService;
+            this.userManager = _userManager;
+            this.parentService = _parentService;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                logger.LogWarning("User not found.");
+                return View();
+            }
+
+            string? parentId = await parentService.GetParentIdAsync(currentUser.Id.ToString());
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return View();
+            }
+
+            IEnumerable<StudentViewModel> students = await studentService.GetAllStudentByParentAsync(parentId);
+            return View(students);
         }
 
         [HttpGet]
@@ -58,7 +76,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return View(model);
             }
 
-            string? parentId = await parentService?.GetParentIdAsync(currentUser.Id.ToString());
+            string? parentId = await parentService.GetParentIdAsync(currentUser.Id.ToString());
 
             if (parentId == null)
             {
@@ -111,6 +129,8 @@ namespace SchoolFoodStamps.Web.Controllers
 
                 return View(model);
             }
+
+            this.TempData[SuccessMessage] = "Student added successfully.";
 
             return this.RedirectToAction("Index", "Student");
         }

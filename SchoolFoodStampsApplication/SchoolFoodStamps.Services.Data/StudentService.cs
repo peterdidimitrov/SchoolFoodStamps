@@ -1,8 +1,10 @@
-﻿using SchoolFoodStamps.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Globalization;
+using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
 
 namespace SchoolFoodStamps.Services.Data
 {
@@ -62,9 +64,48 @@ namespace SchoolFoodStamps.Services.Data
             return classNumbers;
         }
 
-        public Task<IEnumerable<StudentFormViewModel>> GetAllStudentsAsync()
+        public async Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId)
         {
-            throw new NotImplementedException();
+            return await dbContext.Students
+                .AsNoTracking()
+                .Where(s => s.ParentId == Guid.Parse(parentId))
+                .Select(s => new StudentViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = $"{s.FirstName} {s.LastName}",
+                    SchoolName = s.School.Name,
+                    StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<StudentViewModel>> GetAllStudentBySchoolAsync(string schoolId)
+        {
+            return await dbContext.Students
+                .AsNoTracking()
+                .Where(s => s.SchoolId == Guid.Parse(schoolId))
+                .Select(s => new StudentViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = $"{s.FirstName} {s.LastName}",
+                    SchoolName = s.School.Name,
+                    StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<StudentViewModel>> GetAllStudentsAsync()
+        {
+            return await dbContext.Students
+                .AsNoTracking()
+                .Select(s => new StudentViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = $"{s.FirstName} {s.LastName}",
+                    SchoolName = s.School.Name,
+                    StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
+                })
+                .ToListAsync();
         }
     }
 }

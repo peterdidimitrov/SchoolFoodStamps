@@ -1,5 +1,4 @@
-﻿using SchoolFoodStamps.Web.ViewModels.CateringCompany;
-using SchoolFoodStamps.Web.ViewModels.Student;
+﻿using SchoolFoodStamps.Web.ViewModels.Student;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
@@ -7,9 +6,14 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
     {
         Task CreateAsync(StudentFormViewModel formModel);
 
-        Task<IEnumerable<StudentFormViewModel>> GetAllStudentsAsync();
+        Task<IEnumerable<StudentViewModel>> GetAllStudentsAsync();
 
         List<ClassLetter> GetAllClassLetters();
+
         List<byte> GetAllClassNumbers();
+
+        Task<IEnumerable<StudentViewModel>> GetAllStudentBySchoolAsync(string schoolId);
+
+        Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId);
     }
 }

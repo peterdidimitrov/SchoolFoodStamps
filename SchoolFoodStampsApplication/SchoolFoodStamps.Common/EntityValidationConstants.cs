@@ -58,6 +58,8 @@
             public const int ClassNumberMinValue = 1;
             public const int ClassNumberMaxValue = 12;
 
+            public const string DateOfBirthFormat = "dd/MM/yyyy";
+
             public const string DateOfBirthRegex = @"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$";
         }
 

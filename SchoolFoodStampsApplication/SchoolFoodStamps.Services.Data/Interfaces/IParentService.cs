@@ -8,6 +8,6 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<bool> ExistsByUserIdAsync(string userId);
 
-        Task<string> GetParentIdAsync(string userId);
+        Task<string?> GetParentIdAsync(string userId);
     }
 }

@@ -45,9 +45,14 @@ namespace SchoolFoodStamps.Services.Data
             return await dbContext.Parents.AnyAsync(p => p.UserId == Guid.Parse(userId));
         }
 
-        public async Task<string> GetParentIdAsync(string userId)
+        public async Task<string?> GetParentIdAsync(string userId)
         {
             Parent? parent = await dbContext.Parents.FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
+
+            if (parent == null)
+            {
+                return null;
+            }
 
             return parent.Id.ToString();
         }
