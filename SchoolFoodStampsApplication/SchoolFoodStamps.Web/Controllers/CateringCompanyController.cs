@@ -26,6 +26,7 @@ namespace SchoolFoodStamps.Web.Controllers
             this.signInManager = _signInManager;
         }
 
+        [Authorize(Roles = "CateringCompany")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -33,12 +34,9 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> AddCatering()
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
-
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
             {
@@ -52,20 +50,25 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CateringCompanyFormViewModel model)
+        public async Task<IActionResult> AddCatering(CateringCompanyFormViewModel model)
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
+            string? userId = User.GetId();
 
-            bool hasAnyCateringCompanyWithCurrentUserId = await cateringCompanyService.ExistsByUserIdAsync(User.GetId()!);
-
-            if (hasAnyCateringCompanyWithCurrentUserId)
+            if (userId == null)
             {
-                logger.LogWarning("User with id {0} already registered as a catering company.", currentUser.Id);
+                logger.LogWarning("User is not found. The user's ID is null.");
                 return this.CustomizationError();
             }
 
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+            bool hasAnyCateringCompanyWithCurrentUserId = await cateringCompanyService.ExistsByUserIdAsync(userId);
+
+            if (hasAnyCateringCompanyWithCurrentUserId)
+            {
+                logger.LogWarning("User with id {0} already registered as a catering company.", userId);
+                return this.CustomizationError();
+            }
+
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
             {
@@ -89,7 +92,6 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                string userId = User.GetId()!;
                 model.UserId = userId;
                 await this.cateringCompanyService.CreateAsync(model);
                 logger.LogInformation("Catering company created successfully.");

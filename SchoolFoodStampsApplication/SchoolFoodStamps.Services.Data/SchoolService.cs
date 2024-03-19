@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
@@ -10,14 +9,12 @@ namespace SchoolFoodStamps.Services.Data
 {
     public class SchoolService : ISchoolService
     {
-        private readonly SchoolFoodStampsDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository repository;
         
 
-        public SchoolService(SchoolFoodStampsDbContext dbContext, UserManager<ApplicationUser> userManager, IRepository repository)
+        public SchoolService(UserManager<ApplicationUser> userManager, IRepository repository)
         {
-            this.dbContext = dbContext;
             this.userManager = userManager;
             this.repository = repository;
         }
@@ -41,7 +38,8 @@ namespace SchoolFoodStamps.Services.Data
                 user.PhoneNumber = formModel.PhoneNumber;
             }
 
-            CateringCompany? cateringCompany = await dbContext.CateringCompanies.FindAsync(Guid.Parse(formModel.CateringCompanyId));
+            CateringCompany? cateringCompany = await repository.GetByIdAsync<CateringCompany>(Guid.Parse(formModel.CateringCompanyId));
+
             cateringCompany!.Schools.Add(school);
 
             await repository.AddAsync(school);

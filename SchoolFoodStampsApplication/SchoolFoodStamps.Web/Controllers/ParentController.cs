@@ -27,7 +27,8 @@ namespace SchoolFoodStamps.Web.Controllers
             this.userService = _userService;
             this.signInManager = _signInManager;
         }
-
+        
+        [Authorize(Roles = "Parent")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -35,16 +36,8 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> AddParent()
         {
-            string? userId = User.GetId();
-
-            if (userId == null)
-            {
-                logger.LogWarning("User is not found. The user's ID is null.");
-                return this.CustomizationError();
-            }
-
             bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
@@ -59,7 +52,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(ParentFormViewModel model)
+        public async Task<IActionResult> AddParent(ParentFormViewModel model)
         {
             string? userId = User.GetId();
 

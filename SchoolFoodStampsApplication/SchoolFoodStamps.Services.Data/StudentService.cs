@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
@@ -9,14 +8,12 @@ namespace SchoolFoodStamps.Services.Data
 {
     public class StudentService : IStudentService
     {
-        private readonly SchoolFoodStampsDbContext dbContext;
-        private readonly IRepository repositoryService;
+        private readonly IRepository repository;
 
 
-        public StudentService(SchoolFoodStampsDbContext _dbContext, IRepository _repositoryService)
+        public StudentService(IRepository repository)
         {
-            dbContext = _dbContext;
-            repositoryService = _repositoryService;
+            this.repository = repository;
         }
 
         public async Task CreateAsync(StudentFormViewModel formModel)
@@ -33,14 +30,14 @@ namespace SchoolFoodStamps.Services.Data
                 SchoolId = Guid.Parse(formModel.SchoolId)
             };
 
-            Parent? parent = await dbContext.Parents.FindAsync(Guid.Parse(formModel.ParentId));
+            Parent? parent = await repository.GetByIdAsync<Parent>(Guid.Parse(formModel.ParentId));
             parent!.Students.Add(student);
 
-            School? school = await dbContext.Schools.FindAsync(Guid.Parse(formModel.SchoolId));
+            School? school = await repository.GetByIdAsync<School>(Guid.Parse(formModel.SchoolId));
             school!.Students.Add(student);
 
-            await dbContext.Students.AddAsync(student);
-            await dbContext.SaveChangesAsync();
+            await repository.AddAsync(student);
+            await repository.SaveChangesAsync();
         }
 
         public List<ClassLetter> GetAllClassLetters()
@@ -67,7 +64,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId)
         {
-            return await repositoryService
+            return await repository
                 .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Where(s => s.ParentId == Guid.Parse(parentId))
@@ -83,7 +80,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentBySchoolAsync(string schoolId)
         {
-            return await repositoryService
+            return await repository
                 .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Where(s => s.SchoolId == Guid.Parse(schoolId))
@@ -99,7 +96,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentsAsync()
         {
-            return await repositoryService
+            return await repository
                 .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Select(s => new StudentViewModel

@@ -29,6 +29,7 @@ namespace SchoolFoodStamps.Web.Controllers
             this.signInManager = _signInManager;
         }
 
+        [Authorize(Roles = "School")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -36,12 +37,9 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> AddSchool()
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
-
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
             {
@@ -58,20 +56,25 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(SchoolFormViewModel model)
+        public async Task<IActionResult> AddSchool(SchoolFormViewModel model)
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
+            string? userId = User.GetId();
 
-            bool hasAnySchoolWithCurrentUserId = await schoolService.ExistsByUserIdAsync(currentUser.Id.ToString());
-
-            if (hasAnySchoolWithCurrentUserId)
+            if (userId == null)
             {
-                logger.LogWarning("User with id {0} already registered as a school.", currentUser.Id);
+                logger.LogWarning("User is not found. The user's ID is null.");
                 return this.CustomizationError();
             }
 
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+            bool hasAnySchoolWithCurrentUserId = await schoolService.ExistsByUserIdAsync(userId);
+
+            if (hasAnySchoolWithCurrentUserId)
+            {
+                logger.LogWarning("User with id {0} already registered as a school.", userId);
+                return this.CustomizationError();
+            }
+
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
             {
@@ -112,7 +115,6 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                string userId = GetUserId();
                 model.UserId = userId;
                 await this.schoolService.CreateAsync(model);
                 logger.LogInformation("School created successfully.");

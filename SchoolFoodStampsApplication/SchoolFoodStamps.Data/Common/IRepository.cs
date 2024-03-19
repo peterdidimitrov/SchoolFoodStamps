@@ -13,5 +13,7 @@ namespace SchoolFoodStamps.Data.Common
         Task DeleteAsync<T>(T entity) where T : class;
 
         Task<int> SaveChangesAsync();
+
+        Task<T?> GetByIdAsync<T>(Guid id) where T : class;
     }
 }
