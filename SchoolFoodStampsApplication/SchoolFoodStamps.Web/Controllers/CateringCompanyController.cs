@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
+using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
@@ -57,7 +58,7 @@ namespace SchoolFoodStamps.Web.Controllers
             ApplicationUser? currentUser = await userManager.GetUserAsync(User);
             string? userEmail = await userManager.GetEmailAsync(currentUser);
 
-            bool hasAnyCateringCompanyWithCurrentUserId = await cateringCompanyService.ExistsByUserIdAsync(currentUser.Id.ToString());
+            bool hasAnyCateringCompanyWithCurrentUserId = await cateringCompanyService.ExistsByUserIdAsync(User.GetId()!);
 
             if (hasAnyCateringCompanyWithCurrentUserId)
             {

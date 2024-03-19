@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SchoolFoodStamps.Data.Common
 {
-    public class RepositoryService : IRepositoryService
+    public class Repository : IRepository
     {
         private readonly DbContext context;
 
-        public RepositoryService(SchoolFoodStampsDbContext _context)
+        public Repository(SchoolFoodStampsDbContext _context)
         {
             this.context = _context;
         }

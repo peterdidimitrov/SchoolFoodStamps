@@ -5,6 +5,7 @@ using static SchoolFoodStamps.Common.EntityValidationConstants.School;
 
 namespace SchoolFoodStamps.Data.Models
 {
+    [Index(nameof(IdentificationNumber), IsUnique = true)]
     [Comment("School table")]
     public class School
     {
@@ -28,7 +29,7 @@ namespace SchoolFoodStamps.Data.Models
         public string? Address { get; set; }
 
         [Required]
-        public string IdentificationNumber { get; set; } = null!;
+        public string IdentificationNumber { get; set; } = string.Empty;
 
         [Required]
         [Comment("Catering company identifier")]

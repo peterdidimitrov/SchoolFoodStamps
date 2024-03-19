@@ -4,7 +4,7 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using static SchoolFoodStamps.Common.HashHelper;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
-using static SchoolFoodStamps.Web.Infrastructure.Extensions.ClaimsPrincipalExtensions;
+using System.Security.Claims;
 
 namespace SchoolFoodStamps.Web.Controllers
 {

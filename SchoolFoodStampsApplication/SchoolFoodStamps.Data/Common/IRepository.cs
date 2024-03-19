@@ -1,6 +1,6 @@
 ﻿namespace SchoolFoodStamps.Data.Common
 {
-    public interface IRepositoryService
+    public interface IRepository
     {
         IQueryable<T> All<T>() where T : class;
 

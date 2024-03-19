@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-
-namespace SchoolFoodStamps.Web.Infrastructure.Extensions
+﻿namespace System.Security.Claims
 {
     public static class ClaimsPrincipalExtensions
     {

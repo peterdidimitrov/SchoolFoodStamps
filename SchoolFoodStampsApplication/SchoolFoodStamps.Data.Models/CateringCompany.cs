@@ -5,6 +5,7 @@ using static SchoolFoodStamps.Common.EntityValidationConstants.CateringCompany;
 
 namespace SchoolFoodStamps.Data.Models
 {
+    [Index(nameof(IdentificationNumber), IsUnique = true)]
     [Comment("Catering company table")]
     public class CateringCompany
     {
@@ -24,7 +25,7 @@ namespace SchoolFoodStamps.Data.Models
         [Required]
         [Comment("Catering company name")]
         [MaxLength(NameMaxLength)]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
 
         [Comment("Catering company address")]
         [MaxLength(AddressMaxLength)]
@@ -33,7 +34,7 @@ namespace SchoolFoodStamps.Data.Models
         [Required]
         [Comment("Catering company Identification Number")]
         [MaxLength(IdentificationNumberMaxLength)]
-        public string IdentificationNumber { get; set; } = null!;
+        public string IdentificationNumber { get; set; } = string.Empty;
 
         [Required]
         [Comment("User identifier")]

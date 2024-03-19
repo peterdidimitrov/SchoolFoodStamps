@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolFoodStamps.Data;
+using SchoolFoodStamps.Data.Common;
 using System.Reflection;
 
 
@@ -61,6 +62,8 @@ namespace SchoolFoodStamps.Web.Infrastructure.Extensions
 
             services.AddDbContext<SchoolFoodStampsDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

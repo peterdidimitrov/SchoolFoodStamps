@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Data;
+using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
@@ -9,11 +10,13 @@ namespace SchoolFoodStamps.Services.Data
     public class StudentService : IStudentService
     {
         private readonly SchoolFoodStampsDbContext dbContext;
+        private readonly IRepository repositoryService;
 
 
-        public StudentService(SchoolFoodStampsDbContext _dbContext)
+        public StudentService(SchoolFoodStampsDbContext _dbContext, IRepository _repositoryService)
         {
-            this.dbContext = _dbContext;
+            dbContext = _dbContext;
+            repositoryService = _repositoryService;
         }
 
         public async Task CreateAsync(StudentFormViewModel formModel)
@@ -64,7 +67,8 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId)
         {
-            return await dbContext.Students
+            return await repositoryService
+                .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Where(s => s.ParentId == Guid.Parse(parentId))
                 .Select(s => new StudentViewModel
@@ -79,7 +83,8 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentBySchoolAsync(string schoolId)
         {
-            return await dbContext.Students
+            return await repositoryService
+                .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Where(s => s.SchoolId == Guid.Parse(schoolId))
                 .Select(s => new StudentViewModel
@@ -94,7 +99,8 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentsAsync()
         {
-            return await dbContext.Students
+            return await repositoryService
+                .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Select(s => new StudentViewModel
                 {
