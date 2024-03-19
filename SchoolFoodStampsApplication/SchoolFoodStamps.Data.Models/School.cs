@@ -29,6 +29,8 @@ namespace SchoolFoodStamps.Data.Models
         public string? Address { get; set; }
 
         [Required]
+        [Comment("Catering company Identification Number")]
+        [MaxLength(IdentificationNumberMaxLength)]
         public string IdentificationNumber { get; set; } = string.Empty;
 
         [Required]

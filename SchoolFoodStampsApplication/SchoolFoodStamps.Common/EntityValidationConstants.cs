@@ -73,6 +73,9 @@
 
             public const int PhoneNumberMaxLength = 20;
             public const int PhoneNumberMinLength = 9;
+
+            public const int IdentificationNumberMaxLength = 20;
+            public const int IdentificationNumberMinLength = 9;
         }
 
         public static class ErrorMessages
