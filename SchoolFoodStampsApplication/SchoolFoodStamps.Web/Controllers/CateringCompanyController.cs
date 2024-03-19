@@ -17,13 +17,13 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IUserService userService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public CateringCompanyController(ICateringCompanyService _cateringCompanyService, UserManager<ApplicationUser> _userManager, ILogger<HomeController> _logger, IUserService _userService, SignInManager<ApplicationUser> _signInManager)
+        public CateringCompanyController(ICateringCompanyService cateringCompanyService, UserManager<ApplicationUser> userManager, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
         {
-            this.cateringCompanyService = _cateringCompanyService;
-            this.userManager = _userManager;
-            this.logger = _logger;
-            this.userService = _userService;
-            this.signInManager = _signInManager;
+            this.cateringCompanyService = cateringCompanyService;
+            this.userManager = userManager;
+            this.logger = logger;
+            this.userService = userService;
+            this.signInManager = signInManager;
         }
 
         [Authorize(Roles = "CateringCompany")]
@@ -98,7 +98,7 @@ namespace SchoolFoodStamps.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new catering company! Please try again or contact administrator.");
 
                 return View(model);
             }
@@ -106,7 +106,7 @@ namespace SchoolFoodStamps.Web.Controllers
             await signInManager.SignOutAsync();
 
             logger.LogInformation("User logged out.");
-            this.TempData[InformationMessage] = "You are created a profile successfully. Please sign in again.";
+            this.TempData[SuccessMessage] = "You are created a profile successfully. Please sign in again.";
 
             return this.RedirectToAction("Index", "Home");
         }

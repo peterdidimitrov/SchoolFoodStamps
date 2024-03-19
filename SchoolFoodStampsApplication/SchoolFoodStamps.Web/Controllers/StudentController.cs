@@ -4,6 +4,7 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using static SchoolFoodStamps.Common.HashHelper;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
 using System.Security.Claims;
 
 namespace SchoolFoodStamps.Web.Controllers
@@ -16,12 +17,12 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IStudentService studentService;
         private readonly IParentService parentService;
 
-        public StudentController(ISchoolService _schoolService, ILogger<HomeController> _logger, IStudentService _studentService, IParentService _parentService)
+        public StudentController(ISchoolService schoolService, ILogger<HomeController> logger, IStudentService studentService, IParentService parentService)
         {
-            this.schoolService = _schoolService;
-            this.logger = _logger;
-            this.studentService = _studentService;
-            this.parentService = _parentService;
+            this.schoolService = schoolService;
+            this.logger = logger;
+            this.studentService = studentService;
+            this.parentService = parentService;
         }
 
         [HttpGet]
@@ -99,7 +100,7 @@ namespace SchoolFoodStamps.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new student! Please try again or contact administrator.");
 
                 model.ClassNumbers = studentService.GetAllClassNumbers();
                 model.ClassLetters = studentService.GetAllClassLetters();

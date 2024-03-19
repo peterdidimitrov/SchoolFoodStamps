@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
+using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
@@ -17,13 +18,13 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IUserService userService;
 
-        public HomeController(ILogger<HomeController> _logger, SignInManager<ApplicationUser> _signInManager, UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole<Guid>> _roleManager, IUserService _userService)
+        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, IUserService userService)
         {
-            this.logger = _logger;
-            this.signInManager = _signInManager;
-            this.userManager = _userManager;
-            this.roleManager = _roleManager;
-            this.userService = _userService;
+            this.logger = logger;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -32,8 +33,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             if (signInManager.IsSignedIn(User))
             {
-                ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-                string? userEmail = await userManager.GetEmailAsync(currentUser);
+                string? userEmail = User.GetEmail()!;
 
                 bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 
@@ -52,17 +52,10 @@ namespace SchoolFoodStamps.Web.Controllers
             return View();
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Customization()
         {
-            if (!signInManager.IsSignedIn(User))
-            {
-                return View(nameof(Index));
-            }
-
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
+            string? userEmail = User.GetEmail()!;
 
             bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
 

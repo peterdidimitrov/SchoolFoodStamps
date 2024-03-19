@@ -18,14 +18,14 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IUserService userService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public ParentController(IParentService _parentService, UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole<Guid>> _roleManager, ILogger<HomeController> _logger, IUserService _userService, SignInManager<ApplicationUser> _signInManager)
+        public ParentController(IParentService parentService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
         {
-            this.parentService = _parentService;
-            this.userManager = _userManager;
-            this.roleManager = _roleManager;
-            this.logger = _logger;
-            this.userService = _userService;
-            this.signInManager = _signInManager;
+            this.parentService = parentService;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.logger = logger;
+            this.userService = userService;
+            this.signInManager = signInManager;
         }
         
         [Authorize(Roles = "Parent")]
@@ -100,7 +100,7 @@ namespace SchoolFoodStamps.Web.Controllers
             await signInManager.SignOutAsync();
 
             logger.LogInformation("User logged out.");
-            this.TempData[InformationMessage] = "You are created a profile successfully. Please sign in again.";
+            this.TempData[SuccessMessage] = "You are created a profile successfully. Please sign in again.";
 
             return this.RedirectToAction("Index", "Home");
         }

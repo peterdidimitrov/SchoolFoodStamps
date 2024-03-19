@@ -84,6 +84,7 @@
             public const string PhoneNumberErrorMessage = "The Phone Number must be in the format +359 123 456 789.";
             public const string ClassNumberErrorMessage = "The Class Number must be between 1 and 12.";
             public const string DateOfBirthErrorMessage = "The Date of Birth must be in the format dd/MM/yyyy.";
+            public const string UnexpectedErrorMessage = "Unexpected error occurred while trying to add new {0}! Please try again or contact administrator.";
         }
     }
 }
