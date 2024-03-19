@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
@@ -10,22 +9,19 @@ namespace SchoolFoodStamps.Services.Data
 {
     public class CateringCompanyService : ICateringCompanyService
     {
-        private readonly SchoolFoodStampsDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IRepository repository;
 
-        public CateringCompanyService(SchoolFoodStampsDbContext _dbContext, UserManager<ApplicationUser> _userManager, IRepository _repository)
+        public CateringCompanyService(UserManager<ApplicationUser> userManager, IRepository repository)
         {
-            dbContext = _dbContext;
-            userManager = _userManager;
-            repository = _repository;
+            this.userManager = userManager;
+            this.repository = repository;
         }
 
         public async Task<IEnumerable<CateringCompanyViewModel>> GetAllCateringCompaniesAsync()
         {
             return await repository
-                .AllReadOnly<CateringCompany>()
-               .AsNoTracking()
+               .AllReadOnly<CateringCompany>()
                .OrderBy(c => c.Name)
                .Select(c => new CateringCompanyViewModel()
                {
@@ -60,8 +56,8 @@ namespace SchoolFoodStamps.Services.Data
                 user.PhoneNumber = formModel.PhoneNumber;
             }
 
-            await dbContext.CateringCompanies.AddAsync(cateringCompany);
-            await dbContext.SaveChangesAsync();
+            await repository.AddAsync(cateringCompany);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsByIdentificationNumberAsync(string identificationNumber)

@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SchoolFoodStamps.Data.Models;
 
 namespace SchoolFoodStamps.Data.Common
 {
@@ -25,6 +26,21 @@ namespace SchoolFoodStamps.Data.Common
         public IQueryable<T> AllReadOnly<T>() where T : class
         {
             return this.DbSet<T>().AsNoTracking();
+        }
+
+        public async Task AddAsync<T>(T entity) where T : class
+        {
+            await DbSet<T>().AddAsync(entity);
+        }
+
+        public Task DeleteAsync<T>(T entity) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await this.context.SaveChangesAsync();
         }
     }
 }

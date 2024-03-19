@@ -37,10 +37,15 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
+            string? userId = User.GetId();
 
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+            if (userId == null)
+            {
+                logger.LogWarning("User is not found. The user's ID is null.");
+                return this.CustomizationError();
+            }
+
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
             {
@@ -56,18 +61,23 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ParentFormViewModel model)
         {
-            ApplicationUser? currentUser = await userManager.GetUserAsync(User);
-            string? userEmail = await userManager.GetEmailAsync(currentUser);
+            string? userId = User.GetId();
 
-            bool hasAnyParentWithCurrentUserId = await parentService.ExistsByUserIdAsync(currentUser.Id.ToString());
-
-            if (hasAnyParentWithCurrentUserId)
+            if (userId == null)
             {
-                logger.LogWarning("User with id {0} already registered as a parent.", currentUser.Id);
+                logger.LogWarning("User is not found. The user's ID is null.");
                 return this.CustomizationError();
             }
 
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
+            bool hasAnyParentWithCurrentUserId = await parentService.ExistsByUserIdAsync(userId);
+
+            if (hasAnyParentWithCurrentUserId)
+            {
+                logger.LogWarning("User with id {0} already registered as a parent.", userId);
+                return this.CustomizationError();
+            }
+
+            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
 
             if (hasAnyRole)
             {
@@ -83,7 +93,6 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                string userId = GetUserId();
                 model.UserId = userId;
                 await this.parentService.CreateAsync(model);
                 logger.LogInformation("Parent created successfully.");
@@ -107,10 +116,6 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             this.TempData[ErrorMessage] = "You already customized your profile.";
             return this.RedirectToAction(nameof(Index));
-        }
-        private string GetUserId()
-        {
-            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
         }
     }
 }

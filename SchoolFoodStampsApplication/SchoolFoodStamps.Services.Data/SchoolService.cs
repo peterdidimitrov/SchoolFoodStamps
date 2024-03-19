@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SchoolFoodStamps.Data;
+using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.School;
@@ -11,12 +12,14 @@ namespace SchoolFoodStamps.Services.Data
     {
         private readonly SchoolFoodStampsDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IRepository repository;
         
 
-        public SchoolService(SchoolFoodStampsDbContext _dbContext, UserManager<ApplicationUser> _userManager)
+        public SchoolService(SchoolFoodStampsDbContext dbContext, UserManager<ApplicationUser> userManager, IRepository repository)
         {
-            this.dbContext = _dbContext;
-            this.userManager = _userManager;
+            this.dbContext = dbContext;
+            this.userManager = userManager;
+            this.repository = repository;
         }
 
         public async Task CreateAsync(SchoolFormViewModel formModel)
@@ -41,34 +44,35 @@ namespace SchoolFoodStamps.Services.Data
             CateringCompany? cateringCompany = await dbContext.CateringCompanies.FindAsync(Guid.Parse(formModel.CateringCompanyId));
             cateringCompany!.Schools.Add(school);
 
-            await dbContext.Schools.AddAsync(school);
-            await dbContext.SaveChangesAsync();
+            await repository.AddAsync(school);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsByIdAsync(string Id)
         {
-            return await dbContext
-                .Schools
-                .AnyAsync(c => c.Id.ToString() == Id);
+            return await repository
+                .AllReadOnly<School>()
+                .AnyAsync(s => s.Id.ToString() == Id);
         }
 
         public async Task<bool> ExistsByIdentificationNumberAsync(string identificationNumber)
         {
-            return await dbContext
-                .Schools
+            return await repository
+                .AllReadOnly<School>()
                 .AnyAsync(s => s.IdentificationNumber == identificationNumber);
         }
 
         public async Task<bool> ExistsByUserIdAsync(string userId)
         {
-            return await dbContext.Schools.AnyAsync(s => s.UserId == Guid.Parse(userId));
+            return await repository
+                .AllReadOnly<School>()
+                .AnyAsync(s => s.UserId == Guid.Parse(userId));
         }
 
         public async Task<IEnumerable<SchoolViewModel>> GetAllSchoolsAsync()
         {
-            return await dbContext
-               .Schools
-               .AsNoTracking()
+            return await repository
+               .AllReadOnly<School>()
                .OrderBy(c => c.Name)
                .Select(c => new SchoolViewModel()
                {

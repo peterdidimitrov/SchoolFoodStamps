@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Data;
+using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Parent;
@@ -9,13 +9,13 @@ namespace SchoolFoodStamps.Services.Data
 {
     public class ParentService : IParentService
     {
-        private readonly SchoolFoodStampsDbContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IRepository repository;
 
-        public ParentService(SchoolFoodStampsDbContext _dbContext, UserManager<ApplicationUser> _userManager)
+        public ParentService(UserManager<ApplicationUser> userManager, IRepository repository)
         {
-            this.dbContext = _dbContext;
-            this.userManager = _userManager;
+            this.userManager = userManager;
+            this.repository = repository;
         }
 
         public async Task CreateAsync(ParentFormViewModel formModel)
@@ -36,18 +36,22 @@ namespace SchoolFoodStamps.Services.Data
                 user.PhoneNumber = formModel.PhoneNumber;
             }
 
-            await dbContext.Parents.AddAsync(parent);
-            await dbContext.SaveChangesAsync();
+            await repository.AddAsync(parent);
+            await repository.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsByUserIdAsync(string userId)
         {
-            return await dbContext.Parents.AnyAsync(p => p.UserId == Guid.Parse(userId));
+            return await repository
+                .AllReadOnly<Parent>()
+                .AnyAsync(p => p.UserId == Guid.Parse(userId));
         }
 
         public async Task<string?> GetParentIdAsync(string userId)
         {
-            Parent? parent = await dbContext.Parents.FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
+            Parent? parent = await repository
+                .AllReadOnly<Parent>()
+                .FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
 
             if (parent == null)
             {

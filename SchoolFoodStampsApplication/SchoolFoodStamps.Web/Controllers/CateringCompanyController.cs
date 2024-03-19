@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
-using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
@@ -90,7 +89,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                string userId = GetUserId();
+                string userId = User.GetId()!;
                 model.UserId = userId;
                 await this.cateringCompanyService.CreateAsync(model);
                 logger.LogInformation("Catering company created successfully.");
@@ -114,11 +113,6 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             this.TempData[ErrorMessage] = "You already customized your profile.";
             return this.RedirectToAction(nameof(Index));
-        }
-
-        private string GetUserId()
-        {
-            return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
         }
     }
 }
