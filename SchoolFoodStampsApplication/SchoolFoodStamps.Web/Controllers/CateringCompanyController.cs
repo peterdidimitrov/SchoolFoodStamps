@@ -48,6 +48,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddCatering(CateringCompanyFormViewModel model)
         {
             string? userId = User.GetId();

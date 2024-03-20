@@ -48,6 +48,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddParent(ParentFormViewModel model)
         {
             string? userId = User.GetId();

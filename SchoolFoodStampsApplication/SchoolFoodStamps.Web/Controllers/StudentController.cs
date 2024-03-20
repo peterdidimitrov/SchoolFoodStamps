@@ -53,6 +53,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddStudent(StudentFormViewModel model)
         {
             string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
