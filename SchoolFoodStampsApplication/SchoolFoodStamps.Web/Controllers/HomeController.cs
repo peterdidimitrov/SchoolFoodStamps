@@ -27,7 +27,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             if (signInManager.IsSignedIn(User))
             {
-                string? userEmail = User.GetEmail();
+                string userEmail = User.GetEmail();
 
                 if (!string.IsNullOrEmpty(User.GetRole()))
                 {
@@ -47,7 +47,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public IActionResult Customization()
         {
-            string? userEmail = User.GetEmail()!;
+            string userEmail = User.GetEmail();
 
             if (User.GetRole != null)
             {

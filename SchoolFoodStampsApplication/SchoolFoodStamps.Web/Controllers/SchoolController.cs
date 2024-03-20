@@ -52,13 +52,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddSchool(SchoolFormViewModel model)
         {
-            string? userId = User.GetId();
-
-            if (userId == null)
-            {
-                logger.LogWarning("User is not found. The user's ID is null.");
-                return this.CustomizationError();
-            }
+            string userId = User.GetId();
 
             bool hasAnySchoolWithCurrentUserId = await schoolService.ExistsByUserIdAsync(userId);
 
