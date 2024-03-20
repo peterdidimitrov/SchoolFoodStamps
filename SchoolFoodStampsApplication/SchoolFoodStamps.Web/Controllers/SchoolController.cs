@@ -14,15 +14,13 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly ISchoolService schoolService;
-        private readonly IUserService userService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public SchoolController(ICateringCompanyService cateringCompanyService, ISchoolService schoolService, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
+        public SchoolController(ICateringCompanyService cateringCompanyService, ISchoolService schoolService, ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
         {
             this.cateringCompanyService = cateringCompanyService;
             this.schoolService = schoolService;
             this.logger = logger;
-            this.userService = userService;
             this.signInManager = signInManager;
         }
 
@@ -36,9 +34,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddSchool()
         {
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
-
-            if (hasAnyRole)
+            if (User.GetRole() != null)
             {
                 logger.LogWarning("User already has a role.");
                 return this.CustomizationError();
@@ -72,9 +68,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return this.CustomizationError();
             }
 
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(User.GetEmail()!);
-
-            if (hasAnyRole)
+            if (User.GetRole() != null)
             {
                 logger.LogWarning("User already has a role.");
                 return this.CustomizationError();
