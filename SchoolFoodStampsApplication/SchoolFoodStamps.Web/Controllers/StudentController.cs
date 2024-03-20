@@ -31,7 +31,7 @@ namespace SchoolFoodStamps.Web.Controllers
             if (parentId == null)
             {
                 logger.LogWarning("Parent not found.");
-                return View();
+                return Unauthorized();
             }
 
             IEnumerable<StudentViewModel> students = await studentService.GetAllStudentByParentAsync(parentId);

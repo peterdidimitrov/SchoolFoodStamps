@@ -34,7 +34,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddSchool()
         {
-            if (User.GetRole() != null)
+            if (!string.IsNullOrEmpty(User.GetRole()))
             {
                 logger.LogWarning("User already has a role.");
                 return this.CustomizationError();
@@ -68,7 +68,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return this.CustomizationError();
             }
 
-            if (User.GetRole() != null)
+            if (!string.IsNullOrEmpty(User.GetRole()))
             {
                 logger.LogWarning("User already has a role.");
                 return this.CustomizationError();

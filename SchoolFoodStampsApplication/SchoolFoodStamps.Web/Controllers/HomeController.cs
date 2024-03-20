@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -14,30 +13,23 @@ namespace SchoolFoodStamps.Web.Controllers
     {
         private readonly ILogger<HomeController> logger;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole<Guid>> roleManager;
-        private readonly IUserService userService;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, IUserService userService)
+
+        public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
         {
             this.logger = logger;
             this.signInManager = signInManager;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-            this.userService = userService;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             if (signInManager.IsSignedIn(User))
             {
-                string? userEmail = User.GetEmail()!;
+                string? userEmail = User.GetEmail();
 
-                bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
-
-                if (hasAnyRole)
+                if (!string.IsNullOrEmpty(User.GetRole()))
                 {
                     logger.LogInformation("User with email {0} is already customized.", userEmail);
                     return View();
@@ -53,13 +45,11 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Customization()
+        public IActionResult Customization()
         {
             string? userEmail = User.GetEmail()!;
 
-            bool hasAnyRole = await userService.UserHasAnyRoleAsync(userEmail);
-
-            if (hasAnyRole)
+            if (User.GetRole != null)
             {
                 logger.LogInformation("User with email {0} is already customized.", userEmail);
 
