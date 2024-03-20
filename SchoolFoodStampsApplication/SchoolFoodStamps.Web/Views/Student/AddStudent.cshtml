@@ -53,8 +53,7 @@
                     <option disabled selected value="">Select School...</option>
                     @foreach (var school in Model.Schools)
                     {
-                        string hashedId = HashHelper.ConvertIdToHashedString(school.Id.ToString());
-                        <option value="@hashedId">@school.Name</option>
+                        <option value="@school.Id.ToString()">@school.Name</option>
                     }
                 </select>
                 <span asp-validation-for="@Model.SchoolId" class="text-danger"></span>

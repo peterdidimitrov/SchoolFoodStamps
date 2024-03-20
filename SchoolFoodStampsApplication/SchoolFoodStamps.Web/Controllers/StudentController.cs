@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
-using static SchoolFoodStamps.Common.HashHelper;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
@@ -68,12 +67,6 @@ namespace SchoolFoodStamps.Web.Controllers
             }
 
             model.ParentId = parentId;
-
-            logger.LogInformation("School id: {0}", model.SchoolId);
-
-            model.SchoolId = ReverseHashedStringToId(model.SchoolId);
-
-            logger.LogInformation("School id: {0}", model.SchoolId);
 
             bool schoolExists = await this.schoolService.ExistsByIdAsync(model.SchoolId);
 
