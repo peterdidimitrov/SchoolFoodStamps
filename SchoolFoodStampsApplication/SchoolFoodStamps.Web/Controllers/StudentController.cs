@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace SchoolFoodStamps.Web.Controllers
 {
     [Authorize(Roles = "Parent")]
-    public class StudentController : Controller
+    public class StudentController : BaseController
     {
         private readonly ISchoolService schoolService;
         private readonly ILogger<HomeController> logger;

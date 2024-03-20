@@ -10,7 +10,7 @@ using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 namespace SchoolFoodStamps.Web.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> logger;
         private readonly SignInManager<ApplicationUser> signInManager;

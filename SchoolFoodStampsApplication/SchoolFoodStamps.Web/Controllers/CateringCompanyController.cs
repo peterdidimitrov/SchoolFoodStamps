@@ -9,7 +9,7 @@ using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 namespace SchoolFoodStamps.Web.Controllers
 {
     [Authorize]
-    public class CateringCompanyController : Controller
+    public class CateringCompanyController : BaseController
     {
         private readonly ILogger<HomeController> logger;
         private readonly ICateringCompanyService cateringCompanyService;
@@ -109,12 +109,6 @@ namespace SchoolFoodStamps.Web.Controllers
             this.TempData[SuccessMessage] = "You are created a profile successfully. Please sign in again.";
 
             return this.RedirectToAction("Index", "Home");
-        }
-
-        private IActionResult CustomizationError()
-        {
-            this.TempData[ErrorMessage] = "You already customized your profile.";
-            return this.RedirectToAction(nameof(Index));
         }
     }
 }
