@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Parent;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.Parent
 {
@@ -21,7 +22,7 @@ namespace SchoolFoodStamps.Web.ViewModels.Parent
 
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength, ErrorMessage = ErrorMassageLength)]
         [Display(Name = "Phone")]
-        [RegularExpression(@"^\+(?:[0-9]\s?){6,14}[0-9]$", ErrorMessage = PhoneNumberErrorMessage)]
+        [RegularExpression(PhoneNumberRegex, ErrorMessage = PhoneNumberErrorMessage)]
         public string? PhoneNumber { get; set; }
 
         public string UserId { get; set; } = string.Empty;

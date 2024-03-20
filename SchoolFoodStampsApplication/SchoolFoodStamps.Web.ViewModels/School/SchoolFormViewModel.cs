@@ -2,6 +2,7 @@
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
 using static SchoolFoodStamps.Common.EntityValidationConstants.School;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.School
 {
@@ -21,11 +22,11 @@ namespace SchoolFoodStamps.Web.ViewModels.School
 
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength, ErrorMessage = ErrorMassageLength)]
         [Display(Name = "Phone")]
-        [RegularExpression(@"^\+(?:[0-9]\s?){6,14}[0-9]$", ErrorMessage = PhoneNumberErrorMessage)]
+        [RegularExpression(PhoneNumberRegex, ErrorMessage = PhoneNumberErrorMessage)]
         public string? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = RequireErrorMessage)]
-        [RegularExpression(@"^\d{9}$", ErrorMessage = IdentificationNumberErrorMessage)]
+        [RegularExpression(IdentificationNumberRegex, ErrorMessage = IdentificationNumberErrorMessage)]
         [Display(Name = "Identification number")]
         public string IdentificationNumber { get; set; } = null!;
 
