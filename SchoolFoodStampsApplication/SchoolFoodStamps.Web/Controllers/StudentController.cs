@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -77,6 +79,8 @@ namespace SchoolFoodStamps.Web.Controllers
                 this.ModelState.AddModelError(nameof(model.SchoolId), "School does not exist.");
             }
 
+            //TODO: Add validation for existing student with the same name, same birth date and class in the same school
+
             if (!ModelState.IsValid)
             {
                 logger.LogWarning("Model state is not valid.");
@@ -106,6 +110,39 @@ namespace SchoolFoodStamps.Web.Controllers
             this.TempData[SuccessMessage] = "Student added successfully.";
 
             return this.RedirectToAction("Index", "Student");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditStudent(Guid id)
+        {
+            Student student = await studentService.GetStudentByIdAsync(id);
+
+            if (student == null)
+            {
+                logger.LogWarning("Student not found.");
+                return BadRequest();
+            }
+
+            if (student.ParentId != Guid.Parse(await parentService.GetParentIdAsync(User.GetId())))
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            StudentFormViewModel formModel = new StudentFormViewModel()
+            {
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                DateOfBirth = student.DateOfBirth.ToString(DateFormat),
+                ClassNumber = student.ClassNumber.ToString(),
+                ClassLetter = student.ClassLetter.ToString(),
+                SchoolId = student.SchoolId.ToString(),
+                ClassNumbers = studentService.GetAllClassNumbers(),
+                ClassLetters = studentService.GetAllClassLetters(),
+                Schools = await this.schoolService.GetAllSchoolsAsync()
+            };
+
+            return View(formModel);
         }
     }
 }
