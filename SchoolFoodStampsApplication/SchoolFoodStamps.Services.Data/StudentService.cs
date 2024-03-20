@@ -108,5 +108,11 @@ namespace SchoolFoodStamps.Services.Data
                 })
                 .ToListAsync();
         }
+
+        public async Task<Student?> GetStudentByIdAsync(Guid studentId)
+        {
+            return await repository
+                .GetByIdAsync<Student>(studentId);
+        }
     }
 }
