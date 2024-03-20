@@ -15,15 +15,13 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly ISchoolService schoolService;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public SchoolController(ICateringCompanyService cateringCompanyService, ISchoolService schoolService, UserManager<ApplicationUser> userManager, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
+        public SchoolController(ICateringCompanyService cateringCompanyService, ISchoolService schoolService, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
         {
             this.cateringCompanyService = cateringCompanyService;
             this.schoolService = schoolService;
-            this.userManager = userManager;
             this.logger = logger;
             this.userService = userService;
             this.signInManager = signInManager;

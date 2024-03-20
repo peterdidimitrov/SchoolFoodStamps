@@ -13,16 +13,12 @@ namespace SchoolFoodStamps.Web.Controllers
     {
         private readonly ILogger<HomeController> logger;
         private readonly IParentService parentService;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole<Guid>> roleManager;
         private readonly IUserService userService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public ParentController(IParentService parentService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
+        public ParentController(IParentService parentService, ILogger<HomeController> logger, IUserService userService, SignInManager<ApplicationUser> signInManager)
         {
             this.parentService = parentService;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
             this.logger = logger;
             this.userService = userService;
             this.signInManager = signInManager;

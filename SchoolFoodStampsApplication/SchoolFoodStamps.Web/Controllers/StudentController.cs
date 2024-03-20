@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
+using System.Security.Claims;
 using static SchoolFoodStamps.Common.HashHelper;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
-using static SchoolFoodStamps.Common.EntityValidationConstants.ErrorMessages;
-using System.Security.Claims;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
