@@ -5,7 +5,7 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
-using static SchoolFoodStamps.Common.GeneralApplicationConstants;
+using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -41,7 +41,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddStudent()
+        public async Task<IActionResult> Add()
         {
             StudentFormViewModel formModel = new StudentFormViewModel()
             {
@@ -55,7 +55,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> AddStudent(StudentFormViewModel model)
+        public async Task<IActionResult> Add(StudentFormViewModel model)
         {
             string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
 
@@ -113,7 +113,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditStudent(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             Student student = await studentService.GetStudentByIdAsync(id);
 
@@ -133,7 +133,7 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                DateOfBirth = student.DateOfBirth.ToString(DateFormat),
+                DateOfBirth = student.DateOfBirth.ToString(DateOfBirthFormat),
                 ClassNumber = student.ClassNumber.ToString(),
                 ClassLetter = student.ClassLetter.ToString(),
                 SchoolId = student.SchoolId.ToString(),
