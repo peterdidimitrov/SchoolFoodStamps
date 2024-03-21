@@ -25,7 +25,7 @@
                             if (User.IsInRole("Parent"))
                             {
                                 <a class="navbar-brand" asp-area="" asp-controller="Parent" asp-action="Index">
-                                    <img src="../../images/favicon-32x32.png" alt />Healthy School Lunch
+                                    <img src="../../images/favicon-32x32.png" alt="site-icon" />Healthy School Lunch
                                 </a>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Parent" asp-action="Index">Home</a>
@@ -35,6 +35,18 @@
                                 </li>
                                 <li class="nav-item mx-2">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="SchoolFoodStamp" asp-action="Index">School food stamps</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("School"))
+                            {
+                                <a class="navbar-brand" asp-area="" asp-controller="School" asp-action="Index">
+                                    <img src="../../images/favicon-32x32.png" alt="site-icon" />Healthy School Lunch
+                                </a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="School" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Students</a>
                                 </li>
                             }
                         }
