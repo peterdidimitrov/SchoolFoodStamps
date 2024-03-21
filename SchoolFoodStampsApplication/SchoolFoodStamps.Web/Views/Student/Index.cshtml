@@ -4,49 +4,91 @@
     ViewData["Title"] = "All students";
 }
 
-<div class="text-center">
-    <a class="btn btn-primary m-2" role="button" style="margin-right: 0" asp-area="" asp-controller="Student" asp-action="Add">Add a student</a>
-</div>
+@if (User.IsInRole("Parent"))
+{
+    <div class="text-center">
+        <a class="btn btn-primary m-2" role="button" style="margin-right: 0" asp-area="" asp-controller="Student" asp-action="Add">Add a student</a>
+    </div>
 
-@if (Model.Count() == 0)
-{
-    <p class="text-center">No students have been added yet.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SchoolName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StudentClass)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    @if (Model.Count() == 0)
+    {
+        <p class="text-center">No students have been added yet.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SchoolName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudentClass)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id" class="btn btn-warning mb-2 w-100 p-1 fw-bold">Edit</a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SchoolName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentClass)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SchoolName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentClass)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id" class="btn btn-warning mb-2 w-100 p-1 fw-bold">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else if (true)
+{
+    @if (Model.Count() == 0)
+    {
+        <p class="text-center">No students have been added yet.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentClass)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                           @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentClass)
+                        </td>
+                        <td>
+                            <a asp-controller="FoodStamp" asp-action="All" class="btn btn-secondary">View Food Stamps</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
