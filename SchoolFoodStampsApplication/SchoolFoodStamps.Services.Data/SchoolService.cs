@@ -79,5 +79,19 @@ namespace SchoolFoodStamps.Services.Data
                })
                .ToListAsync();
         }
+
+        public async Task<string?> GetSchoolIdAsync(string userId)
+        {
+            School? school = await repository
+                .AllReadOnly<School>()
+                .FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
+
+            if (school == null)
+            {
+                return null;
+            }
+
+            return school.Id.ToString();
+        }
     }
 }
