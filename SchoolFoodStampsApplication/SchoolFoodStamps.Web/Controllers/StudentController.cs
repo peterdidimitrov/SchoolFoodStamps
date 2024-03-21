@@ -123,7 +123,15 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (student.ParentId != Guid.Parse(await parentService.GetParentIdAsync(User.GetId())))
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            if (student.ParentId != Guid.Parse(parentId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -157,7 +165,15 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (student.ParentId != Guid.Parse(await parentService.GetParentIdAsync(User.GetId())))
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            if (student.ParentId != Guid.Parse(parentId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
