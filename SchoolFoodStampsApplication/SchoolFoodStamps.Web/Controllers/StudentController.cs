@@ -115,7 +115,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            Student student = await studentService.GetStudentByIdAsync(id);
+            Student? student = await studentService.GetStudentByIdAsync(id);
 
             if (student == null)
             {
@@ -143,6 +143,63 @@ namespace SchoolFoodStamps.Web.Controllers
             };
 
             return View(formModel);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(StudentFormViewModel model, Guid id)
+        {
+            Student? student = await studentService.GetStudentByIdAsync(id);
+
+            if (student == null)
+            {
+                logger.LogWarning("Student not found.");
+                return BadRequest();
+            }
+
+            if (student.ParentId != Guid.Parse(await parentService.GetParentIdAsync(User.GetId())))
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            bool schoolExists = await this.schoolService.ExistsByIdAsync(model.SchoolId);
+
+            if (!schoolExists)
+            {
+                logger.LogWarning("School does not exist.");
+                this.ModelState.AddModelError(nameof(model.SchoolId), "School does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                logger.LogWarning("Model state is not valid.");
+                model.ClassNumbers = studentService.GetAllClassNumbers();
+                model.ClassLetters = studentService.GetAllClassLetters();
+                model.Schools = await this.schoolService.GetAllSchoolsAsync();
+                return View(model);
+            }
+
+            try
+            {
+                await this.studentService.EditAsync(model, student);
+                logger.LogInformation("Student edited successfully.");
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to edit student! Please try again or contact administrator.");
+
+                model.ClassNumbers = studentService.GetAllClassNumbers();
+                model.ClassLetters = studentService.GetAllClassLetters();
+                model.Schools = await this.schoolService
+                    .GetAllSchoolsAsync();
+
+                return View(model);
+            }
+
+            this.TempData[SuccessMessage] = "Student edited successfully.";
+
+            return this.RedirectToAction("Index", "Student");
         }
     }
 }

@@ -40,6 +40,18 @@ namespace SchoolFoodStamps.Services.Data
             await repository.SaveChangesAsync();
         }
 
+        public async Task EditAsync(StudentFormViewModel formModel, Student student)
+        {
+            student.FirstName = formModel.FirstName;
+            student.LastName = formModel.LastName;
+            student.DateOfBirth = DateTime.Parse(formModel.DateOfBirth!);
+            student.ClassNumber = Byte.Parse(formModel.ClassNumber);
+            student.ClassLetter = Char.Parse(formModel.ClassLetter);
+            student.SchoolId = Guid.Parse(formModel.SchoolId);
+
+            await repository.SaveChangesAsync();
+        }
+
         public List<ClassLetter> GetAllClassLetters()
         {
             List<ClassLetter> classLetters = new List<ClassLetter>();
@@ -114,5 +126,7 @@ namespace SchoolFoodStamps.Services.Data
             return await repository
                 .GetByIdAsync<Student>(studentId);
         }
+
+
     }
 }

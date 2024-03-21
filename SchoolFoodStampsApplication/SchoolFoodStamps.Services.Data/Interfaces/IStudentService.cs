@@ -18,5 +18,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId);
 
         Task<Student?> GetStudentByIdAsync(Guid studentId);
+
+        Task EditAsync (StudentFormViewModel formModel, Student student);
     }
 }
