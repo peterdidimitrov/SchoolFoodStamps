@@ -9,7 +9,7 @@ using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
-    [Authorize(Roles = "Parent")]
+    [Authorize]
     public class StudentController : BaseController
     {
         private readonly ISchoolService schoolService;
@@ -26,21 +26,40 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Parent, School")]
         public async Task<IActionResult> Index()
         {
-            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+            string userRole = User.GetRole()!;
+            IEnumerable<StudentViewModel> students;
 
-            if (parentId == null)
+            if (userRole == "Parent")
             {
-                logger.LogWarning("Parent not found.");
-                return Unauthorized();
+                string? parentId = await parentService.GetParentIdAsync(User.GetId());
+
+                if (parentId == null)
+                {
+                    logger.LogWarning("Parent not found.");
+                    return Unauthorized();
+                }
+
+                 students = await studentService.GetAllStudentByParentAsync(parentId);
+                return View(students);
             }
 
-            IEnumerable<StudentViewModel> students = await studentService.GetAllStudentByParentAsync(parentId);
-            return View(students);
+                string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
+
+                if (schoolId == null)
+                {
+                    logger.LogWarning("School not found.");
+                    return Unauthorized();
+                }
+
+                students = await studentService.GetAllStudentBySchoolAsync(schoolId);
+                return View(students);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Add()
         {
             StudentFormViewModel formModel = new StudentFormViewModel()
@@ -54,6 +73,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Parent")]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Add(StudentFormViewModel model)
         {
@@ -113,6 +133,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Edit(Guid id)
         {
             Student? student = await studentService.GetStudentByIdAsync(id);
@@ -154,6 +175,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Parent")]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(StudentFormViewModel model, Guid id)
         {
