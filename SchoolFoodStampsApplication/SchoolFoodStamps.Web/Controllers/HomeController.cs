@@ -49,7 +49,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             string userEmail = User.GetEmail();
 
-            if (User.GetRole != null)
+            if (User.GetRole() != null)
             {
                 logger.LogInformation("User with email {0} is already customized.", userEmail);
 
