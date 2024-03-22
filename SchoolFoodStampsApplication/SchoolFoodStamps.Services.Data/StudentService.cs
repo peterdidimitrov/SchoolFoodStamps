@@ -138,8 +138,8 @@ namespace SchoolFoodStamps.Services.Data
 
 
             IEnumerable<StudentViewModel> allStudents = await studentQuery
-                //.Skip((queryModel.CurrentPage - 1) * queryModel.StudentsPerPage)
-                //.Take(queryModel.StudentsPerPage)
+                .Skip((queryModel.CurrentPage - 1) * queryModel.StudentsPerPage)
+                .Take(queryModel.StudentsPerPage)
                 .Select(s => new StudentViewModel
                 {
                     Id = s.Id.ToString(),

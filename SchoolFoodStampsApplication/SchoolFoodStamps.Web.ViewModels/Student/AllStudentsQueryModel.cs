@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.Student
 {
@@ -6,6 +7,9 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
     {
         public AllStudentsQueryModel()
         {
+            CurrentPage = DefaultPage;
+            StudentsPerPage = EntitiesPerPage;
+
             ClassLetters = new HashSet<ClassLetter>();
             ClassNumbers = new HashSet<byte>();
             Students = new HashSet<StudentViewModel>();

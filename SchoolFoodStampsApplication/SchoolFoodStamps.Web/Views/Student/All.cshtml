@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label asp-for="StudentsPerPage"></label>
                 <select asp-for="StudentsPerPage" class="form-control">
+                    <option value="1">1</option>
                     <option value="3">3</option>
                     <option value="6">6</option>
                     <option value="9">9</option>
@@ -94,16 +95,6 @@
            asp-route-sorting="@((int)Model.StudentSorting)">>></a>
     </div>
 </div>
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-</nav>
 
 @if (!Model.Students.Any())
 {
