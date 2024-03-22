@@ -6,6 +6,7 @@ using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
+using SchoolFoodStamps.Services.Data.Models.Students;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -27,13 +28,13 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Parent, School")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] AllStudentsQueryModel queryModel)
         {
             string userRole = User.GetRole()!;
-            IEnumerable<StudentViewModel> students;
 
             if (userRole == "Parent")
             {
+                IEnumerable<StudentViewModel> parentStudents;
                 string? parentId = await parentService.GetParentIdAsync(User.GetId());
 
                 if (parentId == null)
@@ -42,20 +43,26 @@ namespace SchoolFoodStamps.Web.Controllers
                     return Unauthorized();
                 }
 
-                 students = await studentService.GetAllStudentByParentAsync(parentId);
-                return View(students);
+                parentStudents = await studentService.GetAllStudentByParentAsync(parentId);
+                return View(parentStudents);
             }
 
-                string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
+           AllStudentsFilteredAndPagedServiceModel schoolStudents;
 
-                if (schoolId == null)
-                {
-                    logger.LogWarning("School not found.");
-                    return Unauthorized();
-                }
+            string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
 
-                students = await studentService.GetAllStudentBySchoolAsync(schoolId);
-                return View(students);
+            if (schoolId == null)
+            {
+                logger.LogWarning("School not found.");
+                return Unauthorized();
+            }
+
+            schoolStudents = await studentService.GetAllStudentBySchoolAsync(queryModel, schoolId);
+
+            queryModel.Students = schoolStudents.Students;
+            queryModel.TotalStudents = schoolStudents.TotalStudentsCount;
+
+            return View("All", queryModel);
         }
 
         [HttpGet]
