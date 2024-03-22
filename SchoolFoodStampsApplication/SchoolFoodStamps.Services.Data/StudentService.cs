@@ -112,6 +112,14 @@ namespace SchoolFoodStamps.Services.Data
                                 EF.Functions.Like(h.LastName, wildCard));
             }
 
+            if (!string.IsNullOrWhiteSpace(queryModel.ClassLetter))
+            {
+                string wildCard = $"%{queryModel.ClassLetter.ToLower()}%";
+
+                studentQuery = studentQuery
+                    .Where(h => EF.Functions.Like(h.ClassLetter.ToString(), wildCard));
+            }
+
             studentQuery = queryModel.StudentSorting switch
             {
                 StudentSorting.Name => studentQuery
@@ -121,16 +129,17 @@ namespace SchoolFoodStamps.Services.Data
                     .OrderBy(s => s.ClassNumber)
                     .ThenBy(s => s.ClassLetter),
                 StudentSorting.HasFoodStamps => studentQuery
-                    .OrderBy(s => s.FoodStamps.Any()),
+                    .OrderByDescending(s => s.FoodStamps.Count()),
                 StudentSorting.School => studentQuery
                     .OrderByDescending(s => s.School.Name),
                 _ => studentQuery
                     .OrderBy(s => s.SchoolId.ToString() != null)
             };
 
+
             IEnumerable<StudentViewModel> allStudents = await studentQuery
-                .Skip((queryModel.CurrentPage - 1) * queryModel.StudentsPerPage)
-                .Take(queryModel.StudentsPerPage)
+                //.Skip((queryModel.CurrentPage - 1) * queryModel.StudentsPerPage)
+                //.Take(queryModel.StudentsPerPage)
                 .Select(s => new StudentViewModel
                 {
                     Id = s.Id.ToString(),
@@ -138,7 +147,7 @@ namespace SchoolFoodStamps.Services.Data
                     SchoolName = s.School.Name,
                     StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
                 })
-                .ToArrayAsync();
+                .ToListAsync();
             int totalStudents = studentQuery.Count();
 
             return new AllStudentsFilteredAndPagedServiceModel()

@@ -35,6 +35,7 @@
     <ProjectReference Include="..\SchoolFoodStamps.Common\SchoolFoodStamps.Common.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Data.Models\SchoolFoodStamps.Data.Models.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Data\SchoolFoodStamps.Data.csproj" />
+    <ProjectReference Include="..\SchoolFoodStamps.Services.Data.Models\SchoolFoodStamps.Services.Data.Models.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Services.Data\SchoolFoodStamps.Services.Data.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Web.Infrastructure\SchoolFoodStamps.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\SchoolFoodStamps.Web.ViewModels\SchoolFoodStamps.Web.ViewModels.csproj" />

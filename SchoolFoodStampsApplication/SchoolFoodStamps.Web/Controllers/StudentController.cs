@@ -27,6 +27,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Roles = "Parent, School")]
         public async Task<IActionResult> Index([FromQuery] AllStudentsQueryModel queryModel)
         {
