@@ -1,4 +1,5 @@
 ﻿using SchoolFoodStamps.Data.Models;
+using SchoolFoodStamps.Services.Data.Models.Students;
 using SchoolFoodStamps.Web.ViewModels.Student;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
@@ -13,7 +14,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         List<byte> GetAllClassNumbers();
 
-        Task<IEnumerable<StudentViewModel>> GetAllStudentBySchoolAsync(string schoolId);
+        Task<AllStudentsFilteredAndPagedServiceModel> GetAllStudentBySchoolAsync(AllStudentsQueryModel queryModel, string schoolId);
 
         Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId);
 
