@@ -7,7 +7,7 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<form asp-controller="Student" asp-action="Index" method="get">
+<form method="get">
     <div class="row">
         <div class="form-group col-md-3 d-flex justify-content-between">            
             <div class="form-group">
@@ -31,18 +31,10 @@
             <label asp-for="ClassNumber"></label>
             <select asp-for="ClassNumber" class="form-control">
                 <option value=""></option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
+                @for (int i = 1; i <= 12; i++)
+                {
+                    <option value="@i">@i</option>
+                }
             </select>
         </div>
 
@@ -50,12 +42,10 @@
             <label asp-for="ClassLetter"></label>
             <select asp-for="ClassLetter" class="form-control">
                 <option value=""></option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
+                @foreach (ClassLetter letter in Enum.GetValues(typeof(ClassLetter)))
+                {
+                    <option value="@letter">@letter</option>
+                }
             </select>
         </div>
 
@@ -63,10 +53,15 @@
             <div class="form-group">
                 <label asp-for="StudentSorting"></label>
                 <select asp-for="StudentSorting" class="form-control">
-                    <option value=""></option>
-                    <option value="0">Name</option>
-                    <option value="2">Class</option>
-                    <option value="3">HasFoodStamps</option>
+                    @{
+                        int enumCount = Enum.GetValues(typeof(StudentSorting)).Length;
+
+                        for (int i = 0; i < enumCount - 1; i++)
+                        {
+                            StudentSorting sort = (StudentSorting)Enum.GetValues(typeof(StudentSorting)).GetValue(i)!;
+                            <option value="@sort">@sort</option>
+                        }
+                    }
                 </select>
             </div>
         </div>
@@ -97,7 +92,10 @@
            asp-controller="Student"
            asp-action="Index"
            asp-route-currentPage="@previousPage"
+           asp-route-studentsPerPage="@Model.StudentsPerPage"
            asp-route-searchTerm="@Model.Name"
+           asp-route-classNumber="@Model.ClassNumber"
+           asp-route-classNumber="@Model.ClassLetter"
            asp-route-sorting="@((int)Model.StudentSorting)"><<</a>
     </div>
 
@@ -116,7 +114,10 @@
            asp-controller="Student"
            asp-action="Index"
            asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-studentsPerPage="@Model.StudentsPerPage"
            asp-route-searchTerm="@Model.Name"
+           asp-route-classNumber="@Model.ClassNumber"
+           asp-route-classNumber="@Model.ClassLetter"
            asp-route-sorting="@((int)Model.StudentSorting)">>></a>
     </div>
 </div>
