@@ -18,8 +18,8 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
         [Display(Name = "Search by name")]
         public string? Name { get; set; }
 
-        //[Display(Name = "Search by class number")]
-        //public string? ClassNumber { get; set; }
+        [Display(Name = "Search by class number")]
+        public string? ClassNumber { get; set; }
 
         [Display(Name = "Search by class letter")]
         public string? ClassLetter { get; set; }
