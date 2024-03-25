@@ -102,7 +102,7 @@ namespace SchoolFoodStamps.Services.Data
                 string wildCard = $"%{queryModel.Name.ToLower()}%";
 
                 studentQuery = studentQuery
-                    .Where(h => EF.Functions.Like(h.FirstName + h.LastName, wildCard));
+                    .Where(h => EF.Functions.Like(h.FirstName + " " + h.LastName, wildCard));
             }
 
             if (!string.IsNullOrWhiteSpace(queryModel.ClassNumber))
@@ -134,7 +134,6 @@ namespace SchoolFoodStamps.Services.Data
                 _ => studentQuery
                     .OrderBy(s => s.SchoolId.ToString() != null)
             };
-
 
             IEnumerable<StudentViewModel> allStudents = await studentQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.StudentsPerPage)
