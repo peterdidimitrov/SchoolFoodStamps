@@ -80,6 +80,23 @@ namespace SchoolFoodStamps.Services.Data
                .ToListAsync();
         }
 
+        public async Task<SchoolFormViewModel?> GetSchoolByUserIdAsync(string userId)
+        {
+            return await repository
+                .AllReadOnly<School>()
+                .Where(s => s.UserId == Guid.Parse(userId))
+                .Select(s => new SchoolFormViewModel()
+                {
+                    Name = s.Name,
+                    Address = s.Address,
+                    IdentificationNumber = s.IdentificationNumber,
+                    CateringCompanyId = s.CateringCompanyId.ToString(),
+                    UserId = s.UserId.ToString(),
+                    PhoneNumber = s.User.PhoneNumber
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<string?> GetSchoolIdAsync(string userId)
         {
             School? school = await repository

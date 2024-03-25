@@ -116,5 +116,47 @@ namespace SchoolFoodStamps.Web.Controllers
 
             return this.RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Authorize (Roles = "School")]
+        public async Task<IActionResult> Edit()
+        {
+            string userId = User.GetId();
+
+            if (string.IsNullOrEmpty(userId)) 
+            {
+                logger.LogWarning("User not found.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!await this.schoolService.ExistsByUserIdAsync(userId))
+            {
+                logger.LogWarning("School not found.");
+                this.TempData[ErrorMessage] = "School not found.";
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            Guid? id = Guid.Parse(await this.schoolService.GetSchoolIdAsync(userId));
+
+            if (!await this.schoolService.ExistsByIdAsync(id.ToString()))
+            {
+                logger.LogWarning("School not found.");
+                return RedirectToAction("Index", "Home");
+            }
+
+            SchoolFormViewModel? model = await this.schoolService.GetSchoolByUserIdAsync(userId);
+
+            if (model == null)
+            {
+                logger.LogWarning("School not found.");
+                return this.CustomizationError();
+            }
+
+            model.CateringCompanies = await this.cateringCompanyService
+                .GetAllCateringCompaniesAsync();
+
+            return View(model);
+        }
     }
 }
