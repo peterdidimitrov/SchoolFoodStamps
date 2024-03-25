@@ -49,6 +49,27 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Students</a>
                                 </li>
                             }
+                            else if (User.IsInRole("CateringCompany"))
+                            {
+                                <a class="navbar-brand" asp-area="" asp-controller="CateringCompany" asp-action="Index">
+                                    <img src="../../images/favicon-32x32.png" alt="site-icon" />Healthy School Lunch
+                                </a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="CateringCompany" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="FoodStamp" asp-action="Index">Food stamps</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                                    <img src="../../images/favicon-32x32.png" alt="site-icon" />Healthy School Lunch
+                                </a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                            }
                         }
                         else
                         {
