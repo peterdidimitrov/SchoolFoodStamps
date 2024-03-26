@@ -4,7 +4,6 @@ using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
-using SchoolFoodStamps.Web.ViewModels.School;
 
 namespace SchoolFoodStamps.Services.Data
 {

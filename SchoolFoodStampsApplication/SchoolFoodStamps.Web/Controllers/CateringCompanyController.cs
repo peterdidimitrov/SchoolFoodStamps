@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
-using SchoolFoodStamps.Web.ViewModels.School;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
