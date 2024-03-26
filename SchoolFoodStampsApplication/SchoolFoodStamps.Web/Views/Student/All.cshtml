@@ -9,7 +9,7 @@
 
 <form method="get">
     <div class="row">
-        <div class="form-group col-md-3 d-flex justify-content-between">            
+        <div class="form-group col-md-3 d-flex justify-content-between">
             <div class="form-group">
                 <label asp-for="StudentsPerPage"></label>
                 <select asp-for="StudentsPerPage" class="form-control">
@@ -86,41 +86,46 @@
         Model.StudentsPerPage);
 }
 
-<div class="d-flex justify-content-between">
-    <div class="fill flex">
-        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-           asp-controller="Student"
-           asp-action="Index"
-           asp-route-currentPage="@previousPage"
-           asp-route-studentsPerPage="@Model.StudentsPerPage"
-           asp-route-searchTerm="@Model.Name"
-           asp-route-classNumber="@Model.ClassNumber"
-           asp-route-classNumber="@Model.ClassLetter"
-           asp-route-sorting="@((int)Model.StudentSorting)"><<</a>
-    </div>
+@if (Model.Students.Any())
+{
+    <div class="d-flex justify-content-between">
+        <div class="fill flex">
+            <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+               asp-controller="Student"
+               asp-action="Index"
+               asp-route-currentPage="@previousPage"
+               asp-route-studentsPerPage="@Model.StudentsPerPage"
+               asp-route-searchTerm="@Model.Name"
+               asp-route-classNumber="@Model.ClassNumber"
+               asp-route-classNumber="@Model.ClassLetter"
+               asp-route-sorting="@((int)Model.StudentSorting)">&lt;&lt;</a>
+        </div>
 
-    <div class="fill flex">
-        <h2 class="text-center">Page: @Model.CurrentPage of @maxPage</h2>
-    </div>
 
-    @{
-        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+        <div class="fill flex">
+            <h2 class="text-center">Page: @Model.CurrentPage of @maxPage</h2>
+        </div>
+
+
+        @{
+            bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
             !Model.Students.Any();
-    }
+        }
 
-    <div class="fill flex">
-        <a class="btn btn-primary 
+        <div class="fill flex">
+            <a class="btn btn-primary
            @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-           asp-controller="Student"
-           asp-action="Index"
-           asp-route-currentPage="@(Model.CurrentPage + 1)"
-           asp-route-studentsPerPage="@Model.StudentsPerPage"
-           asp-route-searchTerm="@Model.Name"
-           asp-route-classNumber="@Model.ClassNumber"
-           asp-route-classNumber="@Model.ClassLetter"
-           asp-route-sorting="@((int)Model.StudentSorting)">>></a>
+               asp-controller="Student"
+               asp-action="Index"
+               asp-route-currentPage="@(Model.CurrentPage + 1)"
+               asp-route-studentsPerPage="@Model.StudentsPerPage"
+               asp-route-searchTerm="@Model.Name"
+               asp-route-classNumber="@Model.ClassNumber"
+               asp-route-classNumber="@Model.ClassLetter"
+               asp-route-sorting="@((int)Model.StudentSorting)">&gt;&gt;</a>
+        </div>
     </div>
-</div>
+}
 
 @if (Model.TotalStudents < 1)
 {
