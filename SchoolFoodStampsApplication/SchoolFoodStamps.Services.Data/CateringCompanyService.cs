@@ -4,6 +4,7 @@ using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
+using SchoolFoodStamps.Web.ViewModels.School;
 
 namespace SchoolFoodStamps.Services.Data
 {
@@ -72,6 +73,33 @@ namespace SchoolFoodStamps.Services.Data
             return await repository
                 .AllReadOnly<CateringCompany>()
                 .AnyAsync(s => s.UserId == Guid.Parse(userId));
+        }
+
+        public async Task<CateringCompanyFormViewModel?> GetCateringCompanyByUserIdAsync(string userId)
+        {
+            return await repository
+                .AllReadOnly<CateringCompany>()
+                .Where(c => c.UserId == Guid.Parse(userId))
+                .Select(c => new CateringCompanyFormViewModel()
+                {
+                    Id = c.Id.ToString(),
+                    Name = c.Name,
+                    Address = c.Address,
+                    IdentificationNumber = c.IdentificationNumber,
+                    PhoneNumber = c.User.PhoneNumber
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(CateringCompanyFormViewModel formModel)
+        {
+            CateringCompany? catering = await repository.GetByIdAsync<CateringCompany>(Guid.Parse(formModel.Id));
+
+            catering!.Name = formModel.Name;
+            catering.Address = formModel.Address;
+            catering.IdentificationNumber = formModel.IdentificationNumber;
+
+            await repository.SaveChangesAsync();
         }
     }
 }
