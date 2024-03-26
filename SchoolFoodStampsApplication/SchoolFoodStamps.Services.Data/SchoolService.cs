@@ -111,5 +111,17 @@ namespace SchoolFoodStamps.Services.Data
 
             return school.Id.ToString();
         }
+
+        public async Task UpdateAsync(SchoolFormViewModel formModel)
+        {
+            School? school = await repository.GetByIdAsync<School>(Guid.Parse(formModel.Id));
+
+            school!.Name = formModel.Name;
+            school.Address = formModel.Address;
+            school.IdentificationNumber = formModel.IdentificationNumber;
+            school.CateringCompanyId = Guid.Parse(formModel.CateringCompanyId);
+
+            await repository.SaveChangesAsync();
+        }
     }
 }
