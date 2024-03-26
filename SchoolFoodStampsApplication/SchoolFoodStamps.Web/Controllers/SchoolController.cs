@@ -123,14 +123,6 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             string userId = User.GetId();
 
-            if (string.IsNullOrEmpty(userId)) 
-            {
-                logger.LogWarning("User not found.");
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
-
-                return RedirectToAction("Index", "Home");
-            }
-
             SchoolFormViewModel? model = await this.schoolService.GetSchoolByUserIdAsync(userId);
 
             if (model == null)
@@ -138,7 +130,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 logger.LogWarning("School not found.");
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
 
-                return Unauthorized();
+                return BadRequest();
             }
 
             model.CateringCompanies = await this.cateringCompanyService
@@ -153,14 +145,6 @@ namespace SchoolFoodStamps.Web.Controllers
         public async Task<IActionResult> Edit(SchoolFormViewModel formModel)
         {
             string userId = User.GetId();
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                logger.LogWarning("User not found.");
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
-
-                return RedirectToAction("Index", "Home");
-            }
 
             bool schoolExists = await this.schoolService.ExistsByUserIdAsync(userId);
 
