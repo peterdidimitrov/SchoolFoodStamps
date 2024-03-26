@@ -87,6 +87,7 @@ namespace SchoolFoodStamps.Services.Data
                 .Where(s => s.UserId == Guid.Parse(userId))
                 .Select(s => new SchoolFormViewModel()
                 {
+                    Id = s.Id.ToString(),
                     Name = s.Name,
                     Address = s.Address,
                     IdentificationNumber = s.IdentificationNumber,
