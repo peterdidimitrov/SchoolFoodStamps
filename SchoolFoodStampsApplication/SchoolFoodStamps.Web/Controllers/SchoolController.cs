@@ -177,6 +177,7 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 await this.schoolService.UpdateAsync(formModel);
                 logger.LogInformation("School updated successfully.");
+                this.TempData[SuccessMessage] = "Personal info updated successfully.";
             }
             catch (Exception)
             {
