@@ -126,22 +126,8 @@ namespace SchoolFoodStamps.Web.Controllers
             if (string.IsNullOrEmpty(userId)) 
             {
                 logger.LogWarning("User not found.");
-                return RedirectToAction("Index", "Home");
-            }
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
 
-            if (!await this.schoolService.ExistsByUserIdAsync(userId))
-            {
-                logger.LogWarning("School not found.");
-                this.TempData[ErrorMessage] = "School not found.";
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            Guid? id = Guid.Parse(await this.schoolService.GetSchoolIdAsync(userId));
-
-            if (!await this.schoolService.ExistsByIdAsync(id.ToString()))
-            {
-                logger.LogWarning("School not found.");
                 return RedirectToAction("Index", "Home");
             }
 
@@ -150,6 +136,8 @@ namespace SchoolFoodStamps.Web.Controllers
             if (model == null)
             {
                 logger.LogWarning("School not found.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
                 return this.CustomizationError();
             }
 
