@@ -1,4 +1,5 @@
-﻿using SchoolFoodStamps.Web.ViewModels.Parent;
+﻿using SchoolFoodStamps.Web.ViewModels.CateringCompany;
+using SchoolFoodStamps.Web.ViewModels.Parent;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
@@ -9,5 +10,9 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task<bool> ExistsByUserIdAsync(string userId);
 
         Task<string?> GetParentIdAsync(string userId);
+
+        Task<ParentFormViewModel?> GetParentByUserIdAsync(string userId);
+
+        Task UpdateAsync(ParentFormViewModel formModel);
     }
 }
