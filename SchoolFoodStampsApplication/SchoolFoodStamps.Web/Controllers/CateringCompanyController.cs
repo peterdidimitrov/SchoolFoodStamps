@@ -108,7 +108,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             if (model == null)
             {
-                logger.LogWarning("School not found.");
+                logger.LogWarning("Catering company not found.");
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
 
                 return BadRequest();
