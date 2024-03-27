@@ -7,6 +7,7 @@ using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
 using SchoolFoodStamps.Services.Data.Models.Students;
+using System.Globalization;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -170,7 +171,7 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                DateOfBirth = student.DateOfBirth.ToString(DateOfBirthFormat),
+                DateOfBirth = student.DateOfBirth.ToString(DateOfBirthFormat, CultureInfo.InvariantCulture),
                 ClassNumber = student.ClassNumber.ToString(),
                 ClassLetter = student.ClassLetter.ToString(),
                 SchoolId = student.SchoolId.ToString(),

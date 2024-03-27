@@ -4,6 +4,7 @@ using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using SchoolFoodStamps.Services.Data.Models.Students;
+using System.Globalization;
 
 namespace SchoolFoodStamps.Services.Data
 {
@@ -24,7 +25,7 @@ namespace SchoolFoodStamps.Services.Data
             {
                 FirstName = formModel.FirstName,
                 LastName = formModel.LastName,
-                DateOfBirth = DateTime.Parse(formModel.DateOfBirth!),
+                DateOfBirth = DateTime.Parse(formModel.DateOfBirth!, CultureInfo.InvariantCulture),
                 ClassNumber = Byte.Parse(formModel.ClassNumber),
                 ClassLetter = Char.Parse(formModel.ClassLetter),
                 ParentId = Guid.Parse(formModel.ParentId),
