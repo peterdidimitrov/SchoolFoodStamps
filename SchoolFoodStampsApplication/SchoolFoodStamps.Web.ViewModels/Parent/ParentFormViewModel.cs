@@ -7,6 +7,8 @@ namespace SchoolFoodStamps.Web.ViewModels.Parent
 {
     public class ParentFormViewModel
     {
+        public string Id { get; set; } = string.Empty;
+
         [Required(ErrorMessage = RequireErrorMessage)]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength, ErrorMessage = ErrorMassageLength)]
         [Display(Name = "First name")]
