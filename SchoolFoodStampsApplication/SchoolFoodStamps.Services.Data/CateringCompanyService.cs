@@ -84,8 +84,7 @@ namespace SchoolFoodStamps.Services.Data
                     Id = c.Id.ToString(),
                     Name = c.Name,
                     Address = c.Address,
-                    IdentificationNumber = c.IdentificationNumber,
-                    PhoneNumber = c.User.PhoneNumber
+                    IdentificationNumber = c.IdentificationNumber
                 })
                 .FirstOrDefaultAsync();
         }
