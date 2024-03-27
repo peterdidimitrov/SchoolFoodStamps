@@ -92,8 +92,7 @@ namespace SchoolFoodStamps.Services.Data
                     Address = s.Address,
                     IdentificationNumber = s.IdentificationNumber,
                     CateringCompanyId = s.CateringCompanyId.ToString(),
-                    UserId = s.UserId.ToString(),
-                    PhoneNumber = s.User.PhoneNumber
+                    UserId = s.UserId.ToString()
                 })
                 .FirstOrDefaultAsync();
         }
