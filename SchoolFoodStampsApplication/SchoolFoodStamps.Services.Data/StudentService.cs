@@ -146,7 +146,8 @@ namespace SchoolFoodStamps.Services.Data
                     StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
                 })
                 .ToListAsync();
-            int totalStudents = studentQuery.Count();
+
+            int totalStudents = await studentQuery.CountAsync();
 
             return new AllStudentsFilteredAndPagedServiceModel()
             {
