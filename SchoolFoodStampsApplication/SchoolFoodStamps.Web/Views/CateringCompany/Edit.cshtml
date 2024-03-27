@@ -1,6 +1,6 @@
-﻿@model SchoolFormViewModel;
+﻿@model CateringCompanyFormViewModel;
 @{
-    ViewBag.Title = "School Info";
+    ViewBag.Title = "Edit Info";
 }
 
 
@@ -9,10 +9,11 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-controller="School" asp-action="AddSchool" method="post">
+        <form asp-controller="CateringCompany" asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="mb-3">
-                <label asp-for="Name" class="form-label-add-edit">School name</label>
+                <label asp-for="Name" class="form-label-add-edit">Name</label>
                 <input asp-for="Name" class="form-control" aria-required="true" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -22,29 +23,13 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="PhoneNumber" class="form-label-add-edit">Phone</label>
-                <input asp-for="PhoneNumber" class="form-control" aria-required="true" placeholder="+359888888888" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
                 <label asp-for="IdentificationNumber" class="form-label-add-edit">Identification number</label>
                 <input asp-for="IdentificationNumber" class="form-control" aria-required="true" />
                 <span asp-validation-for="IdentificationNumber" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="CateringCompanyId" class="form-label-add-edit">Select Catering company</label>
-                <select asp-for="CateringCompanyId" class="form-control" aria-required="true">
-                    <option disabled selected value="">Select Catering company...</option>
-                    @foreach (var company in Model.CateringCompanies)
-                    {
-                        <option value="@company.Id.ToString()" >@company.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="CateringCompanyId" class="text-danger"></span>
-            </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-danger">Confirm Information</button>
-                <a asp-controller="Home" asp-action="Customization" class="btn btn-secondary">Cancel</a>
+                <a asp-controller="Home" asp-action="RedirectToIdentityManage" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

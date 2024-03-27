@@ -97,19 +97,18 @@ namespace SchoolFoodStamps.Services.Data
                 .Where(s => s.SchoolId == Guid.Parse(schoolId))
                 .AsQueryable();
 
-            //if (!string.IsNullOrWhiteSpace(queryModel.Name))
-            //{
-            //    studentQuery = studentQuery
-            //        .Where(h => h.Category.Name == queryModel.Category);
-            //}
-
             if (!string.IsNullOrWhiteSpace(queryModel.Name))
             {
                 string wildCard = $"%{queryModel.Name.ToLower()}%";
 
                 studentQuery = studentQuery
-                    .Where(h => EF.Functions.Like(h.FirstName, wildCard) ||
-                                EF.Functions.Like(h.LastName, wildCard));
+                    .Where(h => EF.Functions.Like(h.FirstName + " " + h.LastName, wildCard));
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.ClassNumber))
+            {
+                studentQuery = studentQuery
+                    .Where(s => s.ClassNumber.ToString() == queryModel.ClassNumber);
             }
 
             if (!string.IsNullOrWhiteSpace(queryModel.ClassLetter))
@@ -129,13 +128,12 @@ namespace SchoolFoodStamps.Services.Data
                     .OrderBy(s => s.ClassNumber)
                     .ThenBy(s => s.ClassLetter),
                 StudentSorting.HasFoodStamps => studentQuery
-                    .OrderByDescending(s => s.FoodStamps.Count()),
+                    .Where(s => s.FoodStamps.Count() > 0),
                 StudentSorting.School => studentQuery
                     .OrderByDescending(s => s.School.Name),
                 _ => studentQuery
                     .OrderBy(s => s.SchoolId.ToString() != null)
             };
-
 
             IEnumerable<StudentViewModel> allStudents = await studentQuery
                 .Skip((queryModel.CurrentPage - 1) * queryModel.StudentsPerPage)
@@ -148,7 +146,8 @@ namespace SchoolFoodStamps.Services.Data
                     StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
                 })
                 .ToListAsync();
-            int totalStudents = studentQuery.Count();
+
+            int totalStudents = await studentQuery.CountAsync();
 
             return new AllStudentsFilteredAndPagedServiceModel()
             {

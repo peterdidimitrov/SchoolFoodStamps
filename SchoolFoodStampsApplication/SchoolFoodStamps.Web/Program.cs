@@ -17,6 +17,15 @@ builder.Services.AddControllersWithViews(options =>
 
 builder.Services.AddApplicationServices(typeof(IFoodStampService));
 
+//builder.Services.AddAuthentication()
+//   .AddFacebook(options =>
+//   {
+//       IConfigurationSection FBAuthNSection =
+//       config.GetSection("Authentication:FB");
+//       options.ClientId = FBAuthNSection["ClientId"];
+//       options.ClientSecret = FBAuthNSection["ClientSecret"];
+//   });
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -97,5 +97,64 @@ namespace SchoolFoodStamps.Web.Controllers
 
             return this.RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Authorize(Roles = "CateringCompany")]
+        public async Task<IActionResult> Edit()
+        {
+            string userId = User.GetId();
+
+            CateringCompanyFormViewModel? model = await this.cateringCompanyService.GetCateringCompanyByUserIdAsync(userId);
+
+            if (model == null)
+            {
+                logger.LogWarning("Catering company not found.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
+                return BadRequest();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "CateringCompany")]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(CateringCompanyFormViewModel formModel)
+        {
+            string userId = User.GetId();
+
+            bool cateringExists = await this.cateringCompanyService.ExistsByUserIdAsync(userId);
+
+            if (!cateringExists)
+            {
+                logger.LogWarning("Catering company not found.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                logger.LogWarning("Model state is not valid.");
+
+                return View(formModel);
+            }
+
+            try
+            {
+                await this.cateringCompanyService.UpdateAsync(formModel);
+                logger.LogInformation("Catering company updated successfully.");
+                this.TempData[SuccessMessage] = "Personal info updated successfully.";
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
+                return View(formModel);
+            }
+
+            return RedirectToAction("RedirectToIdentityManage", "Home");
+        }
     }
 }

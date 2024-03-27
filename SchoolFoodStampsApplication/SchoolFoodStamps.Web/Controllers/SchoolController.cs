@@ -116,5 +116,80 @@ namespace SchoolFoodStamps.Web.Controllers
 
             return this.RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Authorize (Roles = "School")]
+        public async Task<IActionResult> Edit()
+        {
+            string userId = User.GetId();
+
+            SchoolFormViewModel? model = await this.schoolService.GetSchoolByUserIdAsync(userId);
+
+            if (model == null)
+            {
+                logger.LogWarning("School not found.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
+                return BadRequest();
+            }
+
+            model.CateringCompanies = await this.cateringCompanyService
+                .GetAllCateringCompaniesAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize (Roles = "School")]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(SchoolFormViewModel formModel)
+        {
+            string userId = User.GetId();
+
+            bool schoolExists = await this.schoolService.ExistsByUserIdAsync(userId);
+
+            if (!schoolExists)
+            {
+                logger.LogWarning("School not found.");
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
+                return BadRequest();
+            }
+
+            bool companyExists = await this.cateringCompanyService
+                .ExistsByIdAsync(formModel.CateringCompanyId);
+
+            if (!companyExists)
+            {
+                logger.LogWarning("Catering company does not exist.");
+                this.ModelState.AddModelError(nameof(formModel.CateringCompanyId), "Catering company does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                logger.LogWarning("Model state is not valid.");
+                formModel.CateringCompanies = await this.cateringCompanyService
+                    .GetAllCateringCompaniesAsync();
+                return View(formModel);
+            }
+
+            try
+            {
+                await this.schoolService.UpdateAsync(formModel);
+                logger.LogInformation("School updated successfully.");
+                this.TempData[SuccessMessage] = "Personal info updated successfully.";
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add new school! Please try again or contact administrator.");
+
+                formModel.CateringCompanies = await this.cateringCompanyService
+                    .GetAllCateringCompaniesAsync();
+
+                return View(formModel);
+            }
+
+            return RedirectToAction("RedirectToIdentityManage", "Home");
+        }
     }
 }

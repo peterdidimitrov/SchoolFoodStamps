@@ -73,5 +73,31 @@ namespace SchoolFoodStamps.Services.Data
                 .AllReadOnly<CateringCompany>()
                 .AnyAsync(s => s.UserId == Guid.Parse(userId));
         }
+
+        public async Task<CateringCompanyFormViewModel?> GetCateringCompanyByUserIdAsync(string userId)
+        {
+            return await repository
+                .AllReadOnly<CateringCompany>()
+                .Where(c => c.UserId == Guid.Parse(userId))
+                .Select(c => new CateringCompanyFormViewModel()
+                {
+                    Id = c.Id.ToString(),
+                    Name = c.Name,
+                    Address = c.Address,
+                    IdentificationNumber = c.IdentificationNumber
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(CateringCompanyFormViewModel formModel)
+        {
+            CateringCompany? catering = await repository.GetByIdAsync<CateringCompany>(Guid.Parse(formModel.Id));
+
+            catering!.Name = formModel.Name;
+            catering.Address = formModel.Address;
+            catering.IdentificationNumber = formModel.IdentificationNumber;
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

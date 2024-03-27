@@ -9,6 +9,6 @@
         public const string PhoneNumberRegex = @"^\+(?:[0-9]\s?){6,14}[0-9]$";
 
         public const int DefaultPage = 1;
-        public const int EntitiesPerPage = 1;
+        public const int EntitiesPerPage = 10;
     }
 }

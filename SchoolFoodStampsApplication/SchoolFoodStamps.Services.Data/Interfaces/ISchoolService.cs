@@ -1,4 +1,5 @@
-﻿using SchoolFoodStamps.Web.ViewModels.School;
+﻿using SchoolFoodStamps.Data.Models;
+using SchoolFoodStamps.Web.ViewModels.School;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
@@ -15,5 +16,9 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task<bool> ExistsByIdAsync(string Id);
 
         Task<string?> GetSchoolIdAsync(string userId);
+
+        Task<SchoolFormViewModel?> GetSchoolByUserIdAsync(string userId);
+
+        Task UpdateAsync(SchoolFormViewModel formModel);
     }
 }

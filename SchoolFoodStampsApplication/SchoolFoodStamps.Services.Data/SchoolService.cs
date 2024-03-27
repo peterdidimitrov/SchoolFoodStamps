@@ -80,6 +80,23 @@ namespace SchoolFoodStamps.Services.Data
                .ToListAsync();
         }
 
+        public async Task<SchoolFormViewModel?> GetSchoolByUserIdAsync(string userId)
+        {
+            return await repository
+                .AllReadOnly<School>()
+                .Where(s => s.UserId == Guid.Parse(userId))
+                .Select(s => new SchoolFormViewModel()
+                {
+                    Id = s.Id.ToString(),
+                    Name = s.Name,
+                    Address = s.Address,
+                    IdentificationNumber = s.IdentificationNumber,
+                    CateringCompanyId = s.CateringCompanyId.ToString(),
+                    UserId = s.UserId.ToString()
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<string?> GetSchoolIdAsync(string userId)
         {
             School? school = await repository
@@ -92,6 +109,18 @@ namespace SchoolFoodStamps.Services.Data
             }
 
             return school.Id.ToString();
+        }
+
+        public async Task UpdateAsync(SchoolFormViewModel formModel)
+        {
+            School? school = await repository.GetByIdAsync<School>(Guid.Parse(formModel.Id));
+
+            school!.Name = formModel.Name;
+            school.Address = formModel.Address;
+            school.IdentificationNumber = formModel.IdentificationNumber;
+            school.CateringCompanyId = Guid.Parse(formModel.CateringCompanyId);
+
+            await repository.SaveChangesAsync();
         }
     }
 }

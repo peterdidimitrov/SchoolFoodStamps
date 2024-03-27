@@ -13,6 +13,8 @@ namespace SchoolFoodStamps.Web.ViewModels.School
             CateringCompanies = new HashSet<CateringCompanyViewModel>();
         }
 
+        public string Id { get; set; } = string.Empty;
+
         [Required(ErrorMessage = RequireErrorMessage)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = ErrorMassageLength)]
         public string Name { get; set; } = string.Empty;

@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using SchoolFoodStamps.Data.Models;
 
 namespace SchoolFoodStamps.Data.Common
 {
@@ -46,7 +45,6 @@ namespace SchoolFoodStamps.Data.Common
         public async Task<T?> GetByIdAsync<T>(Guid id) where T : class
         {
             return await context.Set<T>().FindAsync(id);
-
         }
     }
 }
