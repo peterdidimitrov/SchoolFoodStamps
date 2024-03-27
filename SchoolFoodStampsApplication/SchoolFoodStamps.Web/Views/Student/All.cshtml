@@ -108,8 +108,7 @@
 
 
         @{
-            bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
-            !Model.Students.Any();
+            bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage;
         }
 
         <div class="fill flex">
