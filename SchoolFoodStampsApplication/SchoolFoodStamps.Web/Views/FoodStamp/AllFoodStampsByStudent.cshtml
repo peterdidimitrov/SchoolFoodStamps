@@ -19,15 +19,6 @@
                 <option value="9">9</option>
             </select>
         </div>
-        @* <div class="form-group col-md-2">
-            <label asp-for="StartDate"></label>
-            <input asp-for="StartDate" class="form-control" placeholder="@DateFormat">
-        </div>
-        <div class="form-group col-md-2">
-            <label asp-for="EndDate"></label>
-            <input asp-for="EndDate" class="form-control" placeholder="@DateFormat">
-        </div> *@
-
         <div class="form-group col-md-2">
             <label asp-for="Status"></label>
             <select asp-for="Status" class="form-control">
@@ -38,7 +29,6 @@
                 }
             </select>
         </div>
-
         <div class="form-group col-md-2">
             <div class="form-group">
                 <label asp-for="FoodStampSorting"></label>
@@ -49,14 +39,14 @@
                         for (int i = 0; i < enumCount - 1; i++)
                         {
                             FoodStampSorting sort = (FoodStampSorting)Enum.GetValues(typeof(FoodStampSorting)).GetValue(i)!;
-                            <option value="@sort">@sort</option>
+                            <option value="@sort">@Html.DisplayFor(FoodStampSorting => sort)</option>
                         }
                     }
                 </select>
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 mb-4">
             <div class="form-group mt-4">
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
@@ -85,15 +75,13 @@
                asp-action="Index"
                asp-route-currentPage="@previousPage"
                asp-route-studentsPerPage="@Model.FoodStampsPerPage"
-               asp-route-searchStartDate="@Model.StartDate"
-               asp-route-searchEndDate="@Model.EndDate"
                asp-route-searchStatus="@Model.Status"
                asp-route-sorting="@((int)Model.FoodStampSorting)">&lt;&lt;</a>
         </div>
 
 
         <div class="fill flex">
-            <h2 class="text-center">Page: @Model.CurrentPage of @maxPage</h2>
+            <h5 class="text-center">Page: @Model.CurrentPage of @maxPage</h5>
         </div>
 
 
@@ -108,8 +96,6 @@
                asp-action="Index"
                asp-route-currentPage="@(Model.CurrentPage + 1)"
                asp-route-studentsPerPage="@Model.FoodStampsPerPage"
-               asp-route-searchStartDate="@Model.StartDate"
-               asp-route-searchEndDate="@Model.EndDate"
                asp-route-searchStatus="@Model.Status"
                asp-route-sorting="@((int)Model.FoodStampSorting)">&gt;&gt;</a>
         </div>
@@ -118,19 +104,18 @@
 
 @if (Model.TotalFoodStamps < 1)
 {
-    <h2 class="text-center">No food stamps found by the given criteria!</h2>
+    <h4 class="text-center">No food stamps found by the given criteria!</h4>
 }
 else if (Model.TotalFoodStamps == 1)
 {
-    <h2 class="text-center">There is only @Model.TotalFoodStamps food stamp found by the given criteria.</h2>
+    <h4 class="text-center">There is only @Model.TotalFoodStamps food stamp found by the given criteria.</h4>
 }
 else
 {
-    <h2 class="text-center">There are @Model.TotalFoodStamps food stamps found by the given criteria.</h2>
+    <h4 class="text-center">There are @Model.TotalFoodStamps food stamps found by the given criteria.</h4>
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<table class="table">
+<table class="table mt-4">
     <thead>
         <tr>
             <th>
