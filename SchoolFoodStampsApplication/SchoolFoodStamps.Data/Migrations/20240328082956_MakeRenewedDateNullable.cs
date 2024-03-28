@@ -4,7 +4,7 @@
 
 namespace SchoolFoodStamps.Data.Migrations
 {
-    public partial class MakeRenewedDateNullable : Migration
+    public partial class MakeRenewedDateNullAble : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

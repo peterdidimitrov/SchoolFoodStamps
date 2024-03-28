@@ -9,7 +9,7 @@ namespace SchoolFoodStamps.Data.Migrations
 {
     [DbContext(typeof(SchoolFoodStampsDbContext))]
     [Migration("20240328082956_MakeRenewedDateNullable")]
-    partial class MakeRenewedDateNullable
+    partial class MakeRenewedDateNullAble
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
