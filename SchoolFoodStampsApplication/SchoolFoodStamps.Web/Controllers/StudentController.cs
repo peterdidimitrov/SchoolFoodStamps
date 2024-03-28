@@ -32,10 +32,6 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Index()
         {
-            string userRole = User.GetRole()!;
-
-
-            IEnumerable<StudentViewModel> parentStudents;
             string? parentId = await parentService.GetParentIdAsync(User.GetId());
 
             if (parentId == null)
@@ -44,7 +40,8 @@ namespace SchoolFoodStamps.Web.Controllers
                 return Unauthorized();
             }
 
-            parentStudents = await studentService.GetAllStudentByParentAsync(parentId);
+            IEnumerable<StudentViewModel> parentStudents = await studentService.GetAllStudentByParentAsync(parentId);
+
             return View(parentStudents);
         }
 
@@ -53,10 +50,6 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "School")]
         public async Task<IActionResult> AllStudentsBySchool([FromQuery] AllStudentsQueryModel queryModel)
         {
-            string userRole = User.GetRole()!;
-
-            AllStudentsFilteredAndPagedServiceModel schoolStudents;
-
             string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
 
             if (schoolId == null)
@@ -65,7 +58,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return Unauthorized();
             }
 
-            schoolStudents = await studentService.GetAllStudentBySchoolAsync(queryModel, schoolId);
+            AllStudentsFilteredAndPagedServiceModel schoolStudents = await studentService.GetAllStudentBySchoolAsync(queryModel, schoolId);
 
             queryModel.Students = schoolStudents.Students;
             queryModel.TotalStudents = schoolStudents.TotalStudentsCount;
