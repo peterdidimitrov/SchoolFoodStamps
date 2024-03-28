@@ -24,8 +24,4 @@
     <ProjectReference Include="..\SchoolFoodStamps.Data.Models\SchoolFoodStamps.Data.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
