@@ -16,14 +16,7 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
         [Display(Name = "Student name")]
         public string StudentName { get; set; } = string.Empty;
 
-        [Display(Name = "Start date")]
-        public string? StartDate { get; set; }
-
-        [Display(Name = "End date")]
-        public string? EndDate { get; set; }
-
-        [Display(Name = "Status")]
-        public string? Status { get; set; }
+        public string Status { get; set; } = string.Empty;
 
         [Display(Name = "Sort by")]
         public FoodStampSorting FoodStampSorting { get; set; }
