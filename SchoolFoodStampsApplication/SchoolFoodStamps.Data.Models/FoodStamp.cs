@@ -26,9 +26,8 @@ namespace SchoolFoodStamps.Data.Models
         [Comment("Food stamp issue date")]
         public DateTime IssueDate { get; set; }
 
-        [Required]
-        [Comment("Food stamp use date")]
-        public DateTime UseDate { get; set; }
+        [Comment("Food stamp renewed date")]
+        public DateTime? RenewedDate { get; set; }
 
         [Required]
         [Comment("Food stamp expiry date")]
