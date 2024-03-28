@@ -39,7 +39,7 @@ namespace SchoolFoodStamps.Web.Controllers
             if (schoolId == null)
             {
                 logger.LogWarning("School not found.");
-                return BadRequest();
+                return Unauthorized();
             }
 
             Student? student = await studentService.GetStudentByIdAsync(Guid.Parse(id));
