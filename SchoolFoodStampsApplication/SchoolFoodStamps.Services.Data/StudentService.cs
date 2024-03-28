@@ -25,7 +25,7 @@ namespace SchoolFoodStamps.Services.Data
             {
                 FirstName = formModel.FirstName,
                 LastName = formModel.LastName,
-                DateOfBirth = DateTime.Parse(formModel.DateOfBirth!, CultureInfo.InvariantCulture),
+                DateOfBirth = DateTime.Parse(formModel.DateOfBirth, CultureInfo.InvariantCulture),
                 ClassNumber = Byte.Parse(formModel.ClassNumber),
                 ClassLetter = Char.Parse(formModel.ClassLetter),
                 ParentId = Guid.Parse(formModel.ParentId),
@@ -46,7 +46,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             student.FirstName = formModel.FirstName;
             student.LastName = formModel.LastName;
-            student.DateOfBirth = DateTime.Parse(formModel.DateOfBirth!);
+            student.DateOfBirth = DateTime.Parse(formModel.DateOfBirth, CultureInfo.InvariantCulture);
             student.ClassNumber = Byte.Parse(formModel.ClassNumber);
             student.ClassLetter = Char.Parse(formModel.ClassLetter);
             student.SchoolId = Guid.Parse(formModel.SchoolId);
