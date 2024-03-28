@@ -29,27 +29,33 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpGet]
         [AutoValidateAntiforgeryToken]
-        [Authorize(Roles = "Parent, School")]
-        public async Task<IActionResult> Index([FromQuery] AllStudentsQueryModel queryModel)
+        [Authorize(Roles = "Parent")]
+        public async Task<IActionResult> Index()
         {
             string userRole = User.GetRole()!;
 
-            if (userRole == "Parent")
+
+            IEnumerable<StudentViewModel> parentStudents;
+            string? parentId = await parentService.GetParentIdAsync(User.GetId());
+
+            if (parentId == null)
             {
-                IEnumerable<StudentViewModel> parentStudents;
-                string? parentId = await parentService.GetParentIdAsync(User.GetId());
-
-                if (parentId == null)
-                {
-                    logger.LogWarning("Parent not found.");
-                    return Unauthorized();
-                }
-
-                parentStudents = await studentService.GetAllStudentByParentAsync(parentId);
-                return View(parentStudents);
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
             }
 
-           AllStudentsFilteredAndPagedServiceModel schoolStudents;
+            parentStudents = await studentService.GetAllStudentByParentAsync(parentId);
+            return View(parentStudents);
+        }
+
+        [HttpGet]
+        [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "School")]
+        public async Task<IActionResult> AllStudentsBySchool([FromQuery] AllStudentsQueryModel queryModel)
+        {
+            string userRole = User.GetRole()!;
+
+            AllStudentsFilteredAndPagedServiceModel schoolStudents;
 
             string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
 
@@ -64,7 +70,7 @@ namespace SchoolFoodStamps.Web.Controllers
             queryModel.Students = schoolStudents.Students;
             queryModel.TotalStudents = schoolStudents.TotalStudentsCount;
 
-            return View("All", queryModel);
+            return View(queryModel);
         }
 
         [HttpGet]
