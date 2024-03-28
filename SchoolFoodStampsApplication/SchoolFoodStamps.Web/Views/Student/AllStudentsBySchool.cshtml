@@ -58,14 +58,14 @@
                         for (int i = 0; i < enumCount - 1; i++)
                         {
                             StudentSorting sort = (StudentSorting)Enum.GetValues(typeof(StudentSorting)).GetValue(i)!;
-                            <option value="@sort">@sort</option>
+                            <option value="@sort">@Html.DisplayFor(FoodStampSorting => sort)</option>
                         }
                     }
                 </select>
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2 mb-4">
             <div class="form-group mt-4">
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
@@ -102,7 +102,7 @@
 
 
         <div class="fill flex">
-            <h2 class="text-center">Page: @Model.CurrentPage of @maxPage</h2>
+            <h5 class="text-center">Page: @Model.CurrentPage of @maxPage</h5>
         </div>
 
 
@@ -127,18 +127,18 @@
 
 @if (Model.TotalStudents < 1)
 {
-    <h2 class="text-center">No students found by the given criteria!</h2>
+    <h4 class="text-center">No students found by the given criteria!</h4>
 }
 else if (Model.TotalStudents == 1)
 {
-    <h2 class="text-center">There is only @Model.TotalStudents student found by the given criteria.</h2>
+    <h4 class="text-center">There is only @Model.TotalStudents student found by the given criteria.</h4>
 }
 else
 {
-    <h2 class="text-center">There are @Model.TotalStudents students found by the given criteria.</h2>
+    <h4 class="text-center">There are @Model.TotalStudents students found by the given criteria.</h4>
 }
 
-<table class="table">
+<table class="table mt-4">
     <thead>
         <tr>
             <th>Student Name</th>
