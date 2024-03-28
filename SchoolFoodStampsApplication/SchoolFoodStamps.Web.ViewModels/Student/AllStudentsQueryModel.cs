@@ -15,21 +15,21 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
             Students = new HashSet<StudentViewModel>();
         }
 
-        [Display(Name = "Search by name")]
+        [Display(Name = "Name")]
         public string? Name { get; set; }
 
-        [Display(Name = "Search by class number")]
+        [Display(Name = "Class number")]
         public string? ClassNumber { get; set; }
 
-        [Display(Name = "Search by class letter")]
+        [Display(Name = "Class letter")]
         public string? ClassLetter { get; set; }
 
-        [Display(Name = "Sort Students By")]
+        [Display(Name = "Sort by")]
         public StudentSorting StudentSorting { get; set; }
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Show Students On Page")]
+        [Display(Name = "Pages")]
         public int StudentsPerPage { get; set; }
 
         public int TotalStudents { get; set; }
