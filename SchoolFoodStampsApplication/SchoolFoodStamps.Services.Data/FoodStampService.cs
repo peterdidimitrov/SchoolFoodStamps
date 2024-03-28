@@ -24,14 +24,18 @@ namespace SchoolFoodStamps.Services.Data
                 .Where(s => s.StudentId == Guid.Parse(studentId))
                 .AsQueryable();
 
-            
-            if (!string.IsNullOrWhiteSpace(queryModel.Status))
+            foodStampQuery = queryModel.Status switch
             {
-                string wildCard = $"%{queryModel.Status.ToLower()}%";
-
-                foodStampQuery = foodStampQuery
-                    .Where(fs => EF.Functions.Like(fs.Status.ToString().ToLower(), wildCard));
-            }
+                "Valid" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Valid),
+                "Used" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Used),
+                "Renewed" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Renewed),
+                "Expired" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Expired),
+                _ => foodStampQuery
+            };
 
             foodStampQuery = queryModel.FoodStampSorting switch
             {
