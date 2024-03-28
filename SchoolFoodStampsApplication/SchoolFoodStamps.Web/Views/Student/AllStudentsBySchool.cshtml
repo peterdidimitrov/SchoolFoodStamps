@@ -157,7 +157,7 @@ else
                     @Html.DisplayFor(modelItem => student.StudentClass)
                 </td>
                 <td>
-                    <a asp-controller="FoodStamp" asp-action="All" class="btn btn-secondary">View Food Stamps</a>
+                    <a asp-controller="FoodStamp" asp-action="AllFoodStampsByStudent" asp-route-id="@student.Id" class="btn btn-secondary">View Food Stamps</a>
                 </td>
             </tr>
         }
