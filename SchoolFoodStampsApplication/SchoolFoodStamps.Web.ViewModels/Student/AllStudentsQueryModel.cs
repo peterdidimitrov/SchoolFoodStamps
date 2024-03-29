@@ -29,7 +29,7 @@ namespace SchoolFoodStamps.Web.ViewModels.Student
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Pages")]
+        [Display(Name = "Per page by")]
         public int StudentsPerPage { get; set; }
 
         public int TotalStudents { get; set; }
