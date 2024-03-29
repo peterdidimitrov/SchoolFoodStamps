@@ -5,6 +5,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 {
     public interface IFoodStampService
     {
-        Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsByStudentAsync(AllFoodStampsQueryModel queryModel, string studentId);
+        Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsByStudentIdAsync(AllFoodStampsQueryModel queryModel, string studentId);
+        Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsByParentIdAsync(AllFoodStampsQueryModel queryModel, string parentId);
     }
 }
