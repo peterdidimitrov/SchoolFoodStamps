@@ -4,7 +4,9 @@ using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Services.Data.Models.FoodStamps;
 using SchoolFoodStamps.Web.ViewModels.FoodStamp;
+using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
+using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -14,19 +16,47 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IFoodStampService foodStampService;
         private readonly IStudentService studentService;
         private readonly ISchoolService schoolService;
+        private readonly IParentService parentService;
         private readonly ILogger<HomeController> logger;
 
-        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService)
+        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService)
         {
             this.foodStampService = foodStampService;
             this.logger = logger;
             this.schoolService = schoolService;
             this.studentService = studentService;
+            this.parentService = parentService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "Parent")]
+        public async Task<IActionResult> Index([FromQuery] AllFoodStampsQueryModel queryModel)
         {
-            return View();
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            IEnumerable<StudentViewModel> students = await studentService.GetAllStudentsByParentIdAsync(parentId);
+
+            if (!students.Any())
+            {
+                logger.LogWarning("Students not found.");
+                this.TempData[InformationMessage] = "You should add student before access this section! Please register your first one!";
+                return RedirectToAction("Index", "Student");
+            }
+
+            AllFoodStampsFilteredAndPagedServiceModel studentFoodStamps = await foodStampService.GetAllFoodStampsByParentIdAsync(queryModel, parentId);
+
+            queryModel.FoodStamps = studentFoodStamps.FoodStamps;
+            queryModel.TotalFoodStamps = studentFoodStamps.TotalFoodStampsCount;
+            queryModel.Students = students;
+
+            return View(queryModel);
         }
 
         [HttpGet]
@@ -56,7 +86,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            AllFoodStampsFilteredAndPagedServiceModel studentFoodStamps = await foodStampService.GetAllFoodStampsByStudentAsync(queryModel, id);
+            AllFoodStampsFilteredAndPagedServiceModel studentFoodStamps = await foodStampService.GetAllFoodStampsByStudentIdAsync(queryModel, id);
 
             queryModel.FoodStamps = studentFoodStamps.FoodStamps;
             queryModel.TotalFoodStamps = studentFoodStamps.TotalFoodStampsCount;
