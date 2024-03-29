@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolFoodStamps.Web.ViewModels.Student;
+using System.ComponentModel.DataAnnotations;
 using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
@@ -11,9 +12,13 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
             FoodStampsPerPage = EntitiesPerPage;
 
             FoodStamps = new HashSet<FoodStampViewModel>();
+            Students = new HashSet<StudentViewModel>();
         }
 
-        [Display(Name = "Student name")]
+        [Display(Name = "Student")]
+        public string StudentId { get; set; } = string.Empty;
+
+
         public string StudentName { get; set; } = string.Empty;
 
         public string Status { get; set; } = string.Empty;
@@ -23,11 +28,13 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Pages")]
+        [Display(Name = "Per page by")]
         public int FoodStampsPerPage { get; set; }
 
         public int TotalFoodStamps { get; set; }
 
         public IEnumerable<FoodStampViewModel> FoodStamps { get; set; }
+
+        public IEnumerable<StudentViewModel> Students { get; set; }
     }
 }
