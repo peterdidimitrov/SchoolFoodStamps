@@ -172,6 +172,21 @@ namespace SchoolFoodStamps.Services.Data
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<StudentViewModel>> GetAllStudentsByParentIdAsync(string parentId)
+        {
+            return await repository
+                .AllReadOnly<Student>()
+                .Where(s => s.ParentId == Guid.Parse(parentId))
+                .Select(s => new StudentViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = $"{s.FirstName} {s.LastName}",
+                    SchoolName = s.School.Name,
+                    StudentClass = $"{s.ClassNumber} {s.ClassLetter}"
+                })
+                .ToListAsync();
+        }
+
         public async Task<Student?> GetStudentByIdAsync(Guid studentId)
         {
             return await repository
