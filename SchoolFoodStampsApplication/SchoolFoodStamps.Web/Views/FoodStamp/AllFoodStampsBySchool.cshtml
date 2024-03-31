@@ -1,0 +1,176 @@
+﻿@model AllFoodStampsQueryModel<SchoolViewModel>;
+
+@{
+    ViewBag.Title = $"Catering company's food stamps.";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label asp-for="FoodStampsPerPage"></label>
+            <select asp-for="FoodStampsPerPage" class="form-control">
+                <option value="10">10</option>
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="SearchId"></label>
+            <select asp-for="SearchId" class="form-control">
+                <option value="">All</option>
+                @foreach (var student in Model.Filter)
+                {
+                    <option value="@student.Id">@student.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label asp-for="Status"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="">All</option>
+                @foreach (FoodStampStatus status in Enum.GetValues(typeof(FoodStampStatus)))
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <div class="form-group">
+                <label asp-for="FoodStampSorting"></label>
+                <select asp-for="FoodStampSorting" class="form-control">
+                    @{
+                        int enumCount = Enum.GetValues(typeof(FoodStampSorting)).Length;
+
+                        for (int i = 0; i < enumCount; i++)
+                        {
+                            FoodStampSorting sort = (FoodStampSorting)Enum.GetValues(typeof(FoodStampSorting)).GetValue(i)!;
+                            <option value="@sort">@Html.DisplayFor(FoodStampSorting => sort)</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-2 mb-4">
+            <div class="form-group mt-4">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@{
+    int previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+
+    int maxPage = (int)Math.Ceiling((double)Model.TotalFoodStamps /
+        Model.FoodStampsPerPage);
+}
+
+@if (Model.FoodStamps.Any())
+{
+    <div class="d-flex justify-content-between mt-4 mb-4">
+        <div class="fill flex">
+            <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+               asp-controller="FoodStamp"
+               asp-action="AllFoodStampsBySchool"
+               asp-route-currentPage="@previousPage"
+               asp-route-foodStampsPerPage="@Model.FoodStampsPerPage"
+               asp-route-studentId="@Model.SearchId"
+               asp-route-searchStatus="@Model.Status"
+               asp-route-sorting="@((int)Model.FoodStampSorting)">&lt;&lt;</a>
+        </div>
+
+
+        <div class="fill flex">
+            <h5 class="text-center">Page: @Model.CurrentPage of @maxPage</h5>
+        </div>
+
+
+        @{
+            bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage;
+        }
+
+        <div class="fill flex">
+            <a class="btn btn-primary
+           @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+               asp-controller="FoodStamp"
+               asp-action="AllFoodStampsBySchool"
+               asp-route-currentPage="@(Model.CurrentPage + 1)"
+               asp-route-foodStampsPerPage="@Model.FoodStampsPerPage"
+               asp-route-studentId="@Model.SearchId"
+               asp-route-searchStatus="@Model.Status"
+               asp-route-sorting="@((int)Model.FoodStampSorting)">&gt;&gt;</a>
+        </div>
+    </div>
+}
+
+@if (Model.TotalFoodStamps < 1)
+{
+    <h4 class="text-center">No food stamps found by the given criteria!</h4>
+}
+else if (Model.TotalFoodStamps == 1)
+{
+    <h4 class="text-center">There is only @Model.TotalFoodStamps food stamp found by the given criteria.</h4>
+}
+else
+{
+    <h4 class="text-center">There are @Model.TotalFoodStamps food stamps found by the given criteria.</h4>
+}
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>
+                Issue date
+            </th>
+            <th>
+                Expiry date
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                Renewed date
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FoodStamps)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpiryDate)
+                </td>
+                @if (item.Status == "Expired")
+                {
+                    <td class="text-danger">
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.RenewedDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
