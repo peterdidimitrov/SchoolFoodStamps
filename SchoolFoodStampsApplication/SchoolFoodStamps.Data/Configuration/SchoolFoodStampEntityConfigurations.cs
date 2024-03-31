@@ -58,6 +58,7 @@ namespace SchoolFoodStamps.Data.Configuration
                     StudentId = Guid.Parse("A1ABC1D5-3718-4639-AB42-D7A1E9A0FCB0"),
                     ParentId = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
                     CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234"),
+                    SchoolId = Guid.Parse("E3AF4B8E-8F07-4962-838E-670BD305758F")
                 },
                 new FoodStamp
                 {
@@ -70,6 +71,7 @@ namespace SchoolFoodStamps.Data.Configuration
                     StudentId = Guid.Parse("49D7ED09-30B0-4B52-B3D4-B2C7C318CCD1"),
                     ParentId = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
                     CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234"),
+                    SchoolId = Guid.Parse("E3AF4B8E-8F07-4962-838E-670BD305758F")
                 },
                 new FoodStamp
                 {
@@ -82,6 +84,7 @@ namespace SchoolFoodStamps.Data.Configuration
                     StudentId = Guid.Parse("69D5EEFD-E902-4706-8BD8-B523BB24B9B6"),
                     ParentId = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"),
                     CateringCompanyId = Guid.Parse("8E91E660-535C-4F3A-B2FB-CC4E28682345"),
+                    SchoolId = Guid.Parse("6CD00C11-B0CB-428A-9143-DF5743105A92")
                 }
             };
         }
