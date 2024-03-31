@@ -4,6 +4,7 @@ using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Services.Data.Models.FoodStamps;
 using SchoolFoodStamps.Web.ViewModels.FoodStamp;
+using SchoolFoodStamps.Web.ViewModels.School;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
@@ -17,21 +18,23 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IStudentService studentService;
         private readonly ISchoolService schoolService;
         private readonly IParentService parentService;
+        private readonly ICateringCompanyService cateringCompanyService;
         private readonly ILogger<HomeController> logger;
 
-        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService)
+        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService, ICateringCompanyService cateringCompanyService)
         {
             this.foodStampService = foodStampService;
             this.logger = logger;
             this.schoolService = schoolService;
             this.studentService = studentService;
             this.parentService = parentService;
+            this.cateringCompanyService = cateringCompanyService;
         }
 
         [HttpGet]
         [AutoValidateAntiforgeryToken]
         [Authorize(Roles = "Parent")]
-        public async Task<IActionResult> Index([FromQuery] AllFoodStampsQueryModel queryModel)
+        public async Task<IActionResult> Index([FromQuery] AllFoodStampsQueryModel<StudentViewModel> queryModel)
         {
             string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
 
@@ -54,7 +57,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             queryModel.FoodStamps = studentFoodStamps.FoodStamps;
             queryModel.TotalFoodStamps = studentFoodStamps.TotalFoodStampsCount;
-            queryModel.Students = students;
+            queryModel.Filter = students;
 
             return View(queryModel);
         }
@@ -62,7 +65,7 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         [AutoValidateAntiforgeryToken]
         [Authorize(Roles = "School")]
-        public async Task<IActionResult> AllFoodStampsByStudent([FromQuery] AllFoodStampsQueryModel queryModel, string id)
+        public async Task<IActionResult> AllFoodStampsByStudent([FromQuery] AllFoodStampsQueryModel<StudentViewModel> queryModel, string id)
         {
             string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
 
@@ -91,6 +94,37 @@ namespace SchoolFoodStamps.Web.Controllers
             queryModel.FoodStamps = studentFoodStamps.FoodStamps;
             queryModel.TotalFoodStamps = studentFoodStamps.TotalFoodStampsCount;
             queryModel.StudentName = student.FirstName + " " + student.LastName;
+
+            return View(queryModel);
+        }
+
+        [HttpGet]
+        [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "CateringCompany")]
+        public async Task<IActionResult> AllFoodStampsBySchool([FromQuery] AllFoodStampsQueryModel<SchoolViewModel> queryModel)
+        {
+            string? cateringCompany = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId()!);
+
+            if (cateringCompany == null)
+            {
+                logger.LogWarning("Catering company not found.");
+                return Unauthorized();
+            }
+
+            IEnumerable<SchoolViewModel> schools = await schoolService.GetAllSchoolsByCateringCompanyIdAsync(cateringCompany);
+
+            if (!schools.Any())
+            {
+                logger.LogWarning("Schools not found.");
+                this.TempData[InformationMessage] = "Currently no schools are using your services.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            AllFoodStampsFilteredAndPagedServiceModel foodStamps = await foodStampService.GetAllFoodStampsByCateringCompanyIdAsync(queryModel, cateringCompany);
+
+            queryModel.FoodStamps = foodStamps.FoodStamps;
+            queryModel.TotalFoodStamps = foodStamps.TotalFoodStampsCount;
+            queryModel.Filter = schools;
 
             return View(queryModel);
         }
