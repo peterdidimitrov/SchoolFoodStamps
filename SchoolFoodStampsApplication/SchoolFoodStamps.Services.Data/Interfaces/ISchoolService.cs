@@ -20,5 +20,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task<SchoolFormViewModel?> GetSchoolByUserIdAsync(string userId);
 
         Task UpdateAsync(SchoolFormViewModel formModel);
+
+        Task<IEnumerable<SchoolViewModel>> GetAllSchoolsByCateringCompanyIdAsync(string cateringId);
     }
 }
