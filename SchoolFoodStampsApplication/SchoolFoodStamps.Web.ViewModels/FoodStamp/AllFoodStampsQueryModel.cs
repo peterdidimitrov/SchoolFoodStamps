@@ -1,10 +1,9 @@
-﻿using SchoolFoodStamps.Web.ViewModels.Student;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
 {
-    public class AllFoodStampsQueryModel
+    public class AllFoodStampsQueryModel<T>
     {
         public AllFoodStampsQueryModel()
         {
@@ -12,11 +11,11 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
             FoodStampsPerPage = EntitiesPerPage;
 
             FoodStamps = new HashSet<FoodStampViewModel>();
-            Students = new HashSet<StudentViewModel>();
+            Filter = new HashSet<T>();
         }
 
-        [Display(Name = "Student")]
-        public string StudentId { get; set; } = string.Empty;
+        [Display(Name = "Name")]
+        public string SearchId { get; set; } = string.Empty;
 
 
         public string StudentName { get; set; } = string.Empty;
@@ -34,7 +33,6 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
         public int TotalFoodStamps { get; set; }
 
         public IEnumerable<FoodStampViewModel> FoodStamps { get; set; }
-
-        public IEnumerable<StudentViewModel> Students { get; set; }
+        public IEnumerable<T> Filter { get; set; }
     }
 }

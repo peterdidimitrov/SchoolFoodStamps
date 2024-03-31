@@ -2,7 +2,6 @@
 {
     public class FoodStampViewModel
     {
-
         public string IssueDate { get; set; } = string.Empty;
 
         public string ExpiryDate { get; set; } = string.Empty;
