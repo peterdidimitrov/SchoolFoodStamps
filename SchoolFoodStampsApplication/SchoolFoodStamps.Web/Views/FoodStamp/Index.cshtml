@@ -1,4 +1,4 @@
-﻿@model AllFoodStampsQueryModel;
+﻿@model AllFoodStampsQueryModel<StudentViewModel>;
 
 @{
     ViewBag.Title = $"All food stamps.";
@@ -24,10 +24,10 @@
             </select>
         </div>
         <div class="form-group col-md-2">
-            <label asp-for="StudentId"></label>
-            <select asp-for="StudentId" class="form-control">
+            <label asp-for="SearchId"></label>
+            <select asp-for="SearchId" class="form-control">
                 <option value="">All</option>
-                @foreach (var student in Model.Students)
+                @foreach (var student in Model.Filter)
                 {
                     <option value="@student.Id">@student.Name</option>
                 }
@@ -90,7 +90,7 @@
                asp-action="Index"
                asp-route-currentPage="@previousPage"
                asp-route-foodStampsPerPage="@Model.FoodStampsPerPage"
-               asp-route-studentId="@Model.StudentId"
+               asp-route-studentId="@Model.SearchId"
                asp-route-searchStatus="@Model.Status"
                asp-route-sorting="@((int)Model.FoodStampSorting)">&lt;&lt;</a>
         </div>
@@ -112,7 +112,7 @@
                asp-action="Index"
                asp-route-currentPage="@(Model.CurrentPage + 1)"
                asp-route-foodStampsPerPage="@Model.FoodStampsPerPage"
-               asp-route-studentId="@Model.StudentId"
+               asp-route-studentId="@Model.SearchId"
                asp-route-searchStatus="@Model.Status"
                asp-route-sorting="@((int)Model.FoodStampSorting)">&gt;&gt;</a>
         </div>
