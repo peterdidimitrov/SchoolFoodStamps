@@ -64,5 +64,12 @@ namespace SchoolFoodStamps.Data.Models
 
         [ForeignKey(nameof(CateringCompanyId))]
         public virtual CateringCompany CateringCompany { get; set; } = null!;
+
+        [Required]
+        [Comment("School identifier")]
+        public Guid SchoolId { get; set; }
+
+        [ForeignKey(nameof(SchoolId))]
+        public virtual School School { get; set; } = null!;
     }
 }
