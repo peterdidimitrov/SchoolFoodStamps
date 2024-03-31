@@ -5,7 +5,6 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Services.Data.Models.FoodStamps;
 using SchoolFoodStamps.Web.ViewModels.FoodStamp;
 using System.Globalization;
-using static SchoolFoodStamps.Common.EntityValidationConstants;
 using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Services.Data
@@ -55,7 +54,6 @@ namespace SchoolFoodStamps.Services.Data
                 .Take(queryModel.FoodStampsPerPage)
                 .Select(fs => new FoodStampViewModel
                 {
-                    Id = fs.Id.ToString(),
                     IssueDate = fs.IssueDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     ExpiryDate = fs.ExpiryDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     RenewedDate = fs.RenewedDate.HasValue ? fs.RenewedDate.Value.ToString(DateFormat, CultureInfo.InvariantCulture) : null!,
@@ -116,13 +114,10 @@ namespace SchoolFoodStamps.Services.Data
                 .Take(queryModel.FoodStampsPerPage)
                 .Select(fs => new FoodStampViewModel
                 {
-                    Id = fs.Id.ToString(),
                     IssueDate = fs.IssueDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     ExpiryDate = fs.ExpiryDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     RenewedDate = fs.RenewedDate.HasValue ? fs.RenewedDate.Value.ToString(DateFormat, CultureInfo.InvariantCulture) : null!,
-                    Status = fs.Status.ToString(),
-                    StudentId = fs.StudentId.ToString(),
-                    StudentName = fs.Student.FirstName + " " + fs.Student.LastName,
+                    Status = fs.Status.ToString()
                 })
                 .ToListAsync();
 
