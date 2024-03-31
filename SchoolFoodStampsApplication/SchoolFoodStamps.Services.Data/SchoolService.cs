@@ -80,6 +80,19 @@ namespace SchoolFoodStamps.Services.Data
                .ToListAsync();
         }
 
+        public async Task<IEnumerable<SchoolViewModel>> GetAllSchoolsByCateringCompanyIdAsync(string cateringId)
+        {
+            return await repository
+                .AllReadOnly<School>()
+                .Where(s => s.CateringCompanyId == Guid.Parse(cateringId))
+                .Select(s => new SchoolViewModel
+                {
+                    Id = s.Id.ToString(),
+                    Name = s.Name
+                })
+                .ToListAsync();
+        }
+
         public async Task<SchoolFormViewModel?> GetSchoolByUserIdAsync(string userId)
         {
             return await repository
