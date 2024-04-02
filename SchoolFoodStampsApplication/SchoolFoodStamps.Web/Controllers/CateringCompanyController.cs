@@ -11,11 +11,11 @@ namespace SchoolFoodStamps.Web.Controllers
     [Authorize]
     public class CateringCompanyController : BaseController
     {
-        private readonly ILogger<HomeController> logger;
+        private readonly ILogger<CateringCompanyController> logger;
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public CateringCompanyController(ICateringCompanyService cateringCompanyService, ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
+        public CateringCompanyController(ICateringCompanyService cateringCompanyService, ILogger<CateringCompanyController> logger, SignInManager<ApplicationUser> signInManager)
         {
             this.cateringCompanyService = cateringCompanyService;
             this.logger = logger;
