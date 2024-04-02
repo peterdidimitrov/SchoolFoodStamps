@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MenuViewModel>;
+@inject ICateringCompanyService cateringCompanyService;
+
+@{
+    ViewBag.Title = "All menus";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @foreach (MenuViewModel m in Model)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <div class="card-body">
+                <h3 class="card-title mt-1">@m.DayOfWeek</h3>
+                @foreach (DishViewModel dish in @m.Dishes)
+                {
+                    <p class="card-title mt-1">@dish.Name</p>
+                    <p class="card-title mt-1">@dish.Description</p>
+                    <p class="card-title mt-1">@dish.Weight</p>
+                }
+            </div>
+
+            <a asp-controller="Menu" asp-action="Details" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+            @if (await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId()) == m.CateringCompanyId)
+            {
+                <a asp-controller="Menu" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            }
+            else
+            {
+                <form class="input-group-sm" asp-controller="FoodStamp" asp-action="Buy" asp-route-id="@m.Id">
+                    <input type="submit" value="Buy food stamp" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
+                </form>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
