@@ -1,14 +1,18 @@
 ﻿@using System.Globalization
+@using System.Security.Claims;
 @using System.ComponentModel.DataAnnotations
 @using SchoolFoodStamps.Web
 @using SchoolFoodStamps.Common
 @using SchoolFoodStamps.Data.Models
 @using SchoolFoodStamps.Web.ViewModels.Home
+@using SchoolFoodStamps.Web.ViewModels.Menu
+@using SchoolFoodStamps.Web.ViewModels.Dish
 @using SchoolFoodStamps.Web.ViewModels.Parent
 @using SchoolFoodStamps.Web.ViewModels.School
 @using SchoolFoodStamps.Web.ViewModels.Student
 @using SchoolFoodStamps.Web.ViewModels.FoodStamp
 @using SchoolFoodStamps.Web.ViewModels.CateringCompany
+@using SchoolFoodStamps.Services.Data.Interfaces
 @using static SchoolFoodStamps.Common.EntityValidationConstants.Student
 @using static SchoolFoodStamps.Common.GeneralApplicationConstants
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
