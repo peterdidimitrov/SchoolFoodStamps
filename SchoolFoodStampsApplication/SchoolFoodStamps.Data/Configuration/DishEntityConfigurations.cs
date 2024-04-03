@@ -38,17 +38,7 @@ namespace SchoolFoodStamps.Data.Configuration
                 //Menu 5
                 new Dish { Id = 13, Name = "Veggie and Cheese Quesadillas", Description = "Whole wheat tortillas filled with sautéed bell peppers, onions, spinach, and shredded cheese. Served with a side of salsa for dipping.", Weight = 250, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
                 new Dish { Id = 14, Name = "Sweet Potato and Black Bean Salad", Description = "Roasted sweet potatoes mixed with black beans, corn, and diced red onions. Tossed in a lime vinaigrette dressing.", Weight = 200, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-                new Dish { Id = 15, Name = "Cucumber and Tomato Salad", Description = "Sliced cucumbers and cherry tomatoes tossed in a light balsamic vinaigrette dressing.", Weight = 150, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-
-                //Menu 6
-                new Dish { Id = 16, Name = "Chicken and Veggie Skewers", Description = "Grilled chicken and vegetable skewers (using cherry tomatoes, zucchini, and mushrooms). Served with a side of whole wheat couscous.", Weight = 250, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-                new Dish { Id = 17, Name = "Pita Bread with Hummus and Falafel", Description = "Whole wheat pita bread served with hummus and falafel balls. Accompanied by a side of sliced cucumbers and cherry tomatoes.", Weight = 320, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-                new Dish { Id = 18, Name = "Mixed Berry Smoothie", Description = "Blend of mixed berries, low-fat yogurt, and a splash of orange juice.", Weight = 300, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-
-                //Menu 7
-                new Dish { Id = 19, Name = "Egg Salad Sandwich", Description = "Whole wheat bread filled with egg salad (chopped hard-boiled eggs mixed with light mayo and mustard). Served with a side of carrot sticks and ranch dressing for dipping.", Weight = 250, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-                new Dish { Id = 20, Name = "Mango and Black Bean Quinoa Salad", Description = "Quinoa mixed with diced mango, black beans, red bell peppers, and cilantro. Tossed in a honey-lime dressing.", Weight = 200, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
-                new Dish { Id = 21, Name = "Cheese and Crackers Plate", Description = "Assorted cheese slices served with whole grain crackers and apple slices.", Weight = 200, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") },
+                new Dish { Id = 15, Name = "Cucumber and Tomato Salad", Description = "Sliced cucumbers and cherry tomatoes tossed in a light balsamic vinaigrette dressing.", Weight = 150, CateringCompanyId = Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234") }
             };
         }
     }
