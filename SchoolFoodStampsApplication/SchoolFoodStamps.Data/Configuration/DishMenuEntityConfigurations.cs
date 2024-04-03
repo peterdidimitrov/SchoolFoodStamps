@@ -4,7 +4,7 @@ using SchoolFoodStamps.Data.Models;
 
 namespace SchoolFoodStamps.Data.Configuration
 {
-    public class DishMenuEntityConfigurations : IEntityTypeConfiguration<DishMenu>
+    public class DishMenuEntityConfigurationsDishMenuEntityConfigurations : IEntityTypeConfiguration<DishMenu>
     {
         public void Configure(EntityTypeBuilder<DishMenu> builder)
         {
