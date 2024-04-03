@@ -92,15 +92,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("ae67adef-86a9-4c12-affb-457f91a3ee8e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d57f3323-deec-484b-becf-b3fc77c14c7e",
+                            ConcurrencyStamp = "2bf9bbc0-4ad7-42e2-9b73-53c32c2d1e2a",
                             Email = "dimitrichko_admin@org.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITRICHKO_ADMIN@ORG.BG",
                             NormalizedUserName = "DIMITRICHKO_ADMIN@ORG.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAECDZEfzTNPazW7C9X4+HVHIseze3+hPKLFdEZV1OFAqHiiC76CLVwpTLvDaHJh3aKA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEER+67aQpnM/ocBBCwzlKLmxe2Jc77mmxusKBj0HMETLnmLmiltg4d27ZTdzk991fA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "EB94C1DA-0572-430E-AEB6-E21BB29CDF08",
+                            SecurityStamp = "722032B4-FFD0-449F-8409-A3F05F93BA30",
                             TwoFactorEnabled = false,
                             UserName = "dimitrichko_admin@org.bg"
                         },
@@ -108,15 +108,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "221daf2e-f91e-4a0d-9ebf-7d690aaca6dd",
+                            ConcurrencyStamp = "bcb912c7-ace5-4f52-a5b0-a324d8d74426",
                             Email = "test@test.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.BG",
                             NormalizedUserName = "TEST@TEST.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOuvODb0UnnSlTquuOhBJ6rPLk45c+Hu6r5DQm3/lUxb5NpogjsUCuwDOjwT9Qr6RQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELv4KieESJnusAq2r6rhMO7Av9ETG9HWkwlzazDtoXYkb45AHJZSecuRDO4kHEsY8w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9F9AB887-AFC5-4692-A924-773D8462AD29",
+                            SecurityStamp = "1BEC69BC-0484-42ED-AF4A-2E0445738921",
                             TwoFactorEnabled = false,
                             UserName = "test@test.bg"
                         },
@@ -124,15 +124,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("97c32df3-7a02-49a9-871b-0b27c4c37cb5"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ee58087a-7e85-4d5a-94e4-b521b3f98a0b",
+                            ConcurrencyStamp = "8160af5d-8dcd-4721-809e-0228d3db44dc",
                             Email = "pesho@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO@ABV.BG",
                             NormalizedUserName = "PESHO@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAELUUZluo1b5kzUs8NJUYjwP6viZy1HCPefdlFZicbjSGKi/6ekW+wZ5hilKjJ7Le2A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPnabDtoaJwUDDB7dWQhzWGMq+ozfPBcoLQb0d7Kroit7csZyZyT+mWV6CXe8Ljiww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "E407D296-0C0C-48F6-A7EE-BA3FC4667EB0",
+                            SecurityStamp = "A2E808EE-A166-463C-B3EA-4F5AB7B80ACC",
                             TwoFactorEnabled = false,
                             UserName = "pesho@abv.bg"
                         },
@@ -140,15 +140,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("7a40a6c8-b237-4c18-8272-4c8d21c4b5d0"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e2858946-239c-49ff-93e5-b0a7c5db4a3b",
+                            ConcurrencyStamp = "d9c41a49-4cd8-4cbb-8c9f-30e2bfecf415",
                             Email = "patriarh.evtimi@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PATRIARH.EVTIMI@ABV.BG",
                             NormalizedUserName = "PATRIARH.EVTIMI@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI2NUc8R4wrXUWZRYIt2oQIPn8wOr2xoGQhq96lRoIT1i81Um6WQ2iPeR5TlOgluUA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGC2qB+Mudqbs2v+JFsSU3Crxmv5uCqJxkEsUVO9rK+CeTLE2ufqMlRCQcHlNtKbcw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "02C5BF46-CD13-4F17-83E8-85FB94B7D156",
+                            SecurityStamp = "68A0F7A0-E090-4E7C-A75A-E8B970151E7C",
                             TwoFactorEnabled = false,
                             UserName = "patriarh.evtimi@abv.bg"
                         },
@@ -156,15 +156,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("d35e9b04-d31b-40f6-8d0d-da225a969421"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7c216b36-1c18-4298-bded-c2217a78a0c0",
+                            ConcurrencyStamp = "9b37cda0-9530-4f77-ac23-b05154d70a95",
                             Email = "hristo.botev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HRISTO.BOTEV@ABV.BG",
                             NormalizedUserName = "HRISTO.BOTEV@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC+/ATaCsW57EfA4z2nTfbLx9R14Go4RhZNviae8uiZPLLLbo8AbGdaqukxnz173NA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKS5Rf1FUF3iv14FDvUKRr8gOwziFW09lGlaAVjUGlwlaBHavefVKCLSTaHIVOcyVg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "30C4EAF7-9C74-49EB-A2AD-03DCE49E4431",
+                            SecurityStamp = "54E7576F-50FC-4DB6-8B1D-D4CDC32F8720",
                             TwoFactorEnabled = false,
                             UserName = "hristo.botev@abv.bg"
                         },
@@ -172,15 +172,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("f4e56355-18ae-42a7-b082-25a2cf382d3d"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f78f90f3-98ee-4d17-8b1c-85c8d950e21a",
+                            ConcurrencyStamp = "433f5b96-ea5b-4096-ac30-1bb6b23e6430",
                             Email = "pesho@yahoo.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO@YAHOO.COM",
                             NormalizedUserName = "PESHO@YAHOO.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFW9g9dcZQKKvoWbe9ntjjCFNm7rao+nPZekN9z759oNNCo8JtA+DoS91D8PzIg5Lg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOrz6bjD/0+gReA800e6qwCz/3y9a55StxM23LTCSVT7JrK0gH4mcnZ6669Gnb+h2w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "428376DC-DF14-4EFB-ACD7-2DB53FF948F7",
+                            SecurityStamp = "EE97F6BC-2617-470B-9891-DC879894159F",
                             TwoFactorEnabled = false,
                             UserName = "pesho@yahoo.com"
                         },
@@ -188,15 +188,15 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = new Guid("4aa8654e-1465-4839-814c-a62a69d532e9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "effbe53a-a2d4-45c3-a4f5-bbdf36d7c69f",
+                            ConcurrencyStamp = "1e0d8aae-2b9b-4513-9978-7c7614e1c7a1",
                             Email = "gosho@yahoo.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GOSHO@YAHOO.COM",
                             NormalizedUserName = "GOSHO@YAHOO.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENA9QAcWm5mVf7gvFOT46/RxtHppd/4zbn/9T/NufyxaYFNPaLNMBwqKadI5129dUQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAK4/gaxDLI6t7PjhgUurUmq1qw1U2P0M5Ql28LFIGJCC4U477iPPe17L5ZBvNC65w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "333B7B22-1AAE-401A-8E3A-5D64845AD74A",
+                            SecurityStamp = "6F140441-5BE2-42EC-AE3E-93930C402416",
                             TwoFactorEnabled = false,
                             UserName = "gosho@yahoo.com"
                         });
@@ -655,54 +655,6 @@ namespace SchoolFoodStamps.Data.Migrations
                             Description = "Sliced cucumbers and cherry tomatoes tossed in a light balsamic vinaigrette dressing.",
                             Name = "Cucumber and Tomato Salad",
                             Weight = 150.0
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            Description = "Grilled chicken and vegetable skewers (using cherry tomatoes, zucchini, and mushrooms). Served with a side of whole wheat couscous.",
-                            Name = "Chicken and Veggie Skewers",
-                            Weight = 250.0
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            Description = "Whole wheat pita bread served with hummus and falafel balls. Accompanied by a side of sliced cucumbers and cherry tomatoes.",
-                            Name = "Pita Bread with Hummus and Falafel",
-                            Weight = 320.0
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            Description = "Blend of mixed berries, low-fat yogurt, and a splash of orange juice.",
-                            Name = "Mixed Berry Smoothie",
-                            Weight = 300.0
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            Description = "Whole wheat bread filled with egg salad (chopped hard-boiled eggs mixed with light mayo and mustard). Served with a side of carrot sticks and ranch dressing for dipping.",
-                            Name = "Egg Salad Sandwich",
-                            Weight = 250.0
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            Description = "Quinoa mixed with diced mango, black beans, red bell peppers, and cilantro. Tossed in a honey-lime dressing.",
-                            Name = "Mango and Black Bean Quinoa Salad",
-                            Weight = 200.0
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            Description = "Assorted cheese slices served with whole grain crackers and apple slices.",
-                            Name = "Cheese and Crackers Plate",
-                            Weight = 200.0
                         });
                 });
 
@@ -719,6 +671,83 @@ namespace SchoolFoodStamps.Data.Migrations
                     b.HasIndex("MenuId");
 
                     b.ToTable("DishMenus");
+
+                    b.HasData(
+                        new
+                        {
+                            DishId = 1,
+                            MenuId = 1
+                        },
+                        new
+                        {
+                            DishId = 2,
+                            MenuId = 1
+                        },
+                        new
+                        {
+                            DishId = 3,
+                            MenuId = 1
+                        },
+                        new
+                        {
+                            DishId = 4,
+                            MenuId = 2
+                        },
+                        new
+                        {
+                            DishId = 5,
+                            MenuId = 2
+                        },
+                        new
+                        {
+                            DishId = 6,
+                            MenuId = 2
+                        },
+                        new
+                        {
+                            DishId = 7,
+                            MenuId = 3
+                        },
+                        new
+                        {
+                            DishId = 8,
+                            MenuId = 3
+                        },
+                        new
+                        {
+                            DishId = 9,
+                            MenuId = 3
+                        },
+                        new
+                        {
+                            DishId = 10,
+                            MenuId = 4
+                        },
+                        new
+                        {
+                            DishId = 11,
+                            MenuId = 4
+                        },
+                        new
+                        {
+                            DishId = 12,
+                            MenuId = 4
+                        },
+                        new
+                        {
+                            DishId = 13,
+                            MenuId = 5
+                        },
+                        new
+                        {
+                            DishId = 14,
+                            MenuId = 5
+                        },
+                        new
+                        {
+                            DishId = 15,
+                            MenuId = 5
+                        });
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.FoodStamp", b =>
@@ -794,7 +823,7 @@ namespace SchoolFoodStamps.Data.Migrations
                             Id = new Guid("e3bcc07a-9a2f-4c54-8135-a5f1e21ed99d"),
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
                             ExpiryDate = new DateTime(2024, 9, 16, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            IssueDate = new DateTime(2024, 3, 31, 18, 37, 39, 214, DateTimeKind.Utc).AddTicks(3015),
+                            IssueDate = new DateTime(2024, 4, 3, 17, 56, 31, 567, DateTimeKind.Utc).AddTicks(1957),
                             MenuId = 1,
                             ParentId = new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"),
                             Price = 5.00m,
@@ -807,7 +836,7 @@ namespace SchoolFoodStamps.Data.Migrations
                             Id = new Guid("03c7dd57-8981-43af-ad5f-2a817214fb3e"),
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
                             ExpiryDate = new DateTime(2024, 9, 17, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            IssueDate = new DateTime(2024, 3, 31, 18, 37, 39, 214, DateTimeKind.Utc).AddTicks(3057),
+                            IssueDate = new DateTime(2024, 4, 3, 17, 56, 31, 567, DateTimeKind.Utc).AddTicks(1978),
                             MenuId = 2,
                             ParentId = new Guid("63281334-434e-4327-b1b7-84b32a9d3d82"),
                             Price = 5.00m,
@@ -820,7 +849,7 @@ namespace SchoolFoodStamps.Data.Migrations
                             Id = new Guid("fb33981c-ae8c-48ea-bf27-3dc5a763d7f9"),
                             CateringCompanyId = new Guid("8e91e660-535c-4f3a-b2fb-cc4e28682345"),
                             ExpiryDate = new DateTime(2024, 9, 18, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            IssueDate = new DateTime(2024, 3, 31, 18, 37, 39, 214, DateTimeKind.Utc).AddTicks(3072),
+                            IssueDate = new DateTime(2024, 4, 3, 17, 56, 31, 567, DateTimeKind.Utc).AddTicks(1987),
                             MenuId = 3,
                             ParentId = new Guid("fec4e958-bf56-4247-a6c8-51fae40d852d"),
                             Price = 5.00m,
@@ -870,49 +899,49 @@ namespace SchoolFoodStamps.Data.Migrations
                         {
                             Id = 1,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9499),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2727),
                             DayOfWeek = 1
                         },
                         new
                         {
                             Id = 2,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9557),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2745),
                             DayOfWeek = 2
                         },
                         new
                         {
                             Id = 3,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9569),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2748),
                             DayOfWeek = 3
                         },
                         new
                         {
                             Id = 4,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9604),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2751),
                             DayOfWeek = 4
                         },
                         new
                         {
                             Id = 5,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9624),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2757),
                             DayOfWeek = 5
                         },
                         new
                         {
                             Id = 6,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2760),
                             DayOfWeek = 6
                         },
                         new
                         {
                             Id = 7,
                             CateringCompanyId = new Guid("efd31b6c-2a3c-4989-824f-2387c9951234"),
-                            CreatedOn = new DateTime(2024, 3, 31, 18, 37, 39, 211, DateTimeKind.Utc).AddTicks(9633),
+                            CreatedOn = new DateTime(2024, 4, 3, 17, 56, 31, 566, DateTimeKind.Utc).AddTicks(2763),
                             DayOfWeek = 0
                         });
                 });
