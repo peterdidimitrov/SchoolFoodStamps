@@ -48,6 +48,7 @@ namespace SchoolFoodStamps.Services.Data
                         Id = dm.Dish.Id.ToString(),
                         Name = dm.Dish.Name,
                         Description = dm.Dish.Description,
+                        Weight = dm.Dish.Weight.ToString(),
                         Allergens = dm.Dish.AllergensDishes
                         .Select(ad => ad.Allergen.Name)
                         .ToList()
