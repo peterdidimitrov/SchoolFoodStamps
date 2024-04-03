@@ -15,16 +15,20 @@
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
                 <h3 class="card-title mt-1">@m.DayOfWeek</h3>
-                @foreach (DishViewModel dish in @m.Dishes)
-                {
-                    <p class="card-title mt-1">@dish.Name</p>
-                    <p class="card-title mt-1">@dish.Description</p>
-                    <p class="card-title mt-1">@dish.Weight</p>
-                }
+                <ol>
+                    @foreach (DishViewModel dish in @m.Dishes)
+                    {
+                        <li>
+                            <h5 class="card-title mt-1"> @dish.Name</h5>
+                            <p class="card-title mt-1">@dish.Description</p>
+                            <p class="card-title mt-1"><span style="font-weight: bold">Weight:</span> @dish.Weight gr.</p>
+                        </li>
+                    }
+                </ol>
             </div>
 
             <a asp-controller="Menu" asp-action="Details" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
-            @if (await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId()) == m.CateringCompanyId)
+            @if ((await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId())) == m.CateringCompanyId)
             {
                 <a asp-controller="Menu" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
             }
