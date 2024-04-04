@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Menu;
+using System.Security.Claims;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -9,19 +10,47 @@ namespace SchoolFoodStamps.Web.Controllers
     public class MenuController : BaseController
     {
         private readonly ILogger<MenuController> logger;
+        private readonly ICateringCompanyService cateringCompanyService;
+        private readonly IParentService parentService;
         private readonly IMenuService menuService;
 
-        public MenuController(IMenuService menuService, ILogger<MenuController> logger)
+        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IParentService parentService)
         {
             this.menuService = menuService;
             this.logger = logger;
+            this.cateringCompanyService = cateringCompanyService;
+            this.parentService = parentService;
         }
 
         [HttpGet]
         [Authorize(Roles = "CateringCompany, Parent")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string schoolId)
         {
-            IEnumerable<MenuViewModel> menus = await this.menuService.GetAllAsync();
+            string role = User.GetRole();
+            string? cateringCompanyId = string.Empty;
+
+            if (role == "CateringCompany")
+            {
+                cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId());
+
+                if (cateringCompanyId == null)
+                {
+                    logger.LogError("Catering company not found.");
+                    return BadRequest();
+                }
+            }
+            else if(role == "Parent")
+            {
+                cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdBySchoolIdAsync(schoolId);
+
+                if (cateringCompanyId == null)
+                {
+                    logger.LogError("Catering company not found.");
+                    return BadRequest();
+                }
+            }
+
+            IEnumerable<MenuViewModel> menus = await this.menuService.GetAllAsync(cateringCompanyId);
 
             return View(menus);
         }
