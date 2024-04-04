@@ -28,7 +28,8 @@
             </div>
 
             <a asp-controller="Menu" asp-action="Details" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
-            @if ((await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId())) == m.CateringCompanyId)
+
+            @if (@m.CateringCompanyId.ToLower() == (await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId())))
             {
                 <a asp-controller="Menu" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
             }
