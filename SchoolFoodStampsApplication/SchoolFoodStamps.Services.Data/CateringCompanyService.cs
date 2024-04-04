@@ -4,7 +4,6 @@ using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
-using SchoolFoodStamps.Web.ViewModels.Parent;
 
 namespace SchoolFoodStamps.Services.Data
 {
@@ -113,6 +112,15 @@ namespace SchoolFoodStamps.Services.Data
             }
 
             return cateringCompany.Id.ToString();
+        }
+
+        public async Task<string?> GetCateringCompanyIdBySchoolIdAsync(string schoolId)
+        {
+            return await repository
+                .AllReadOnly<School>()
+                .Where(s => s.Id.ToString() == schoolId)
+                .Select(s => s.CateringCompanyId.ToString())
+                .FirstOrDefaultAsync();
         }
     }
 }
