@@ -1,5 +1,4 @@
-﻿using SchoolFoodStamps.Web.ViewModels.CateringCompany;
-using SchoolFoodStamps.Web.ViewModels.Parent;
+﻿using SchoolFoodStamps.Web.ViewModels.Parent;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
