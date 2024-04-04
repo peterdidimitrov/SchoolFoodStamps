@@ -31,10 +31,11 @@ namespace SchoolFoodStamps.Services.Data
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<MenuViewModel>> GetAllAsync()
+        public async Task<IEnumerable<MenuViewModel>> GetAllAsync(string cateringCompanyId)
         {
             return await this.repository
                 .AllReadOnly<Menu>()
+                .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId)
                 .Include(m => m.DishesMenus)
                 .Select(m => new MenuViewModel
                 {
