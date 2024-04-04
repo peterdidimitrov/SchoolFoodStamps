@@ -12,7 +12,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<MenuViewModel> GetByIdAsync(int id);
 
-        Task<IEnumerable<MenuViewModel>> GetAllAsync();
+        Task<IEnumerable<MenuViewModel>> GetAllAsync(string cateringCompanyId);
 
         Task<IEnumerable<MenuViewModel>> GetAllByCateringCompanyAsync(string cateringCompanyId);
     }
