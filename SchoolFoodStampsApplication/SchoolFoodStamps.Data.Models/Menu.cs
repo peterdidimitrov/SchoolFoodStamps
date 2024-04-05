@@ -19,7 +19,7 @@ namespace SchoolFoodStamps.Data.Models
 
         [Required]
         [Comment("Menu day of week")]
-        public DayOfWeek DayOfWeek { get; set; }
+        public CustomDayOfWeek DayOfWeek { get; set; }
 
         [Required]
         [Comment("Menu date of creation")]
