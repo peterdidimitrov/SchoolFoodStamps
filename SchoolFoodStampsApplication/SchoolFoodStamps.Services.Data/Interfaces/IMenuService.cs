@@ -4,7 +4,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 {
     public interface IMenuService
     {
-        Task<int> CreateAsync(MenuFormViewModel input);
+        Task CreateAsync(MenuFormViewModel input);
 
         Task<int> EditAsync(MenuFormViewModel input);
 

@@ -16,9 +16,29 @@ namespace SchoolFoodStamps.Services.Data
             this.repository = repository;
         }
 
-        public Task<int> CreateAsync(MenuFormViewModel input)
+        public async Task CreateAsync(MenuFormViewModel formModel)
         {
-            throw new NotImplementedException();
+            Menu menu = new Menu
+            {
+                DayOfWeek = (CustomDayOfWeek)Enum.Parse(typeof(CustomDayOfWeek), formModel.DayOfWeek),
+                CateringCompanyId = Guid.Parse(formModel.CateringCompanyId)
+            };
+
+            await this.repository.AddAsync(menu);
+
+            foreach (DishViewModel dish in formModel.Dishes)
+            {
+                DishMenu dishesMenus = new DishMenu
+                {
+                    DishId = int.Parse(dish.Id),
+                    MenuId = menu.Id
+                };
+
+                await this.repository.AddAsync(dishesMenus);
+            }
+
+            await this.repository.SaveChangesAsync();
+
         }
 
         public Task<int> DeleteAsync(int id)
