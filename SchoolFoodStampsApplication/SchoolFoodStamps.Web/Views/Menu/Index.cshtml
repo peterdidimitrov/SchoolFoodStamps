@@ -4,7 +4,17 @@
 @{
     ViewBag.Title = "All menus";
 }
+@if (Model.Count() == 0)
+{
+    <h2 class="text-center">No menus available</h2>
+}
 
+@if (Model.Count() < 5)
+{
+    <div class="text-center">
+        <a class="btn btn-primary m-2" role="button" style="margin-right: 0" asp-area="" asp-controller="Menu" asp-action="Add">Create a menu</a>
+    </div>
+}
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
@@ -12,16 +22,14 @@
 <div class="text-center row">
     @foreach (MenuViewModel m in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
+        <div class="card col-4" style="width: 16.5rem; ">
             <div class="card-body">
                 <h3 class="card-title mt-1">@m.DayOfWeek</h3>
                 <ol>
                     @foreach (DishViewModel dish in @m.Dishes)
                     {
                         <li>
-                            <h5 class="card-title mt-1"> @dish.Name</h5>
-                            <p class="card-title mt-1">@dish.Description</p>
-                            <p class="card-title mt-1"><span style="font-weight: bold">Weight:</span> @dish.Weight gr.</p>
+                            <p class="card-text text-lg-start mt-1"> @dish.Name</p>
                         </li>
                     }
                 </ol>
@@ -31,6 +39,7 @@
             @if (@m.CateringCompanyId.ToLower() == (await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId())))
             {
                 <a asp-controller="Menu" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                <a asp-controller="Menu" asp-action="Delete" asp-route-id="@m.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
             }
             else
             {
@@ -42,6 +51,13 @@
         </div>
     }
 </div>
+
+@if (Model.Count() != 0)
+{
+    <div class="text-center">
+        <a class="btn btn-primary m-5" role="button" style="margin-right: 0" asp-area="" asp-controller="Dish" asp-action="Index">View all dishes</a>
+    </div>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
