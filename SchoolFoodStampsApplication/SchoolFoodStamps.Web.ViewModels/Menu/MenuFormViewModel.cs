@@ -1,15 +1,19 @@
-﻿namespace SchoolFoodStamps.Web.ViewModels.Menu
+﻿using SchoolFoodStamps.Web.ViewModels.Dish;
+
+namespace SchoolFoodStamps.Web.ViewModels.Menu
 {
     public class MenuFormViewModel
     {
         public MenuFormViewModel()
         {
-            this.Dishes = new HashSet<string>();
+            this.Dishes = new HashSet<DishViewModel>();
         }
         public string DayOfWeek { get; set; } = string.Empty;
 
+        public DateTime CreatedOn { get; set; }
+
         public string CateringCompanyId { get; set; } = string.Empty;
 
-        public ICollection<string> Dishes { get; set; }
+        public ICollection<DishViewModel> Dishes { get; set; }
     }
 }
