@@ -46,5 +46,16 @@ namespace SchoolFoodStamps.Data.Common
         {
             return await context.Set<T>().FindAsync(id);
         }
+
+        public async Task UpdateAsync<T>(T entity) where T : class
+        {
+            this.context.Update(entity);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<T?> GetByIntIdAsync<T>(int id) where T : class
+        {
+            return await context.Set<T>().FindAsync(id);
+        }
     }
 }
