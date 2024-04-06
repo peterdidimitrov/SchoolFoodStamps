@@ -71,8 +71,8 @@ namespace SchoolFoodStamps.Services.Data
                         Description = dm.Dish.Description,
                         Weight = dm.Dish.Weight.ToString(),
                         Allergens = dm.Dish.AllergensDishes
-                        .Select(ad => ad.Allergen.Name)
-                        .ToList()
+                            .Select(ad => ad.Allergen.Name)
+                            .ToList()
                     }).ToList()
                 })
                 .ToListAsync();
