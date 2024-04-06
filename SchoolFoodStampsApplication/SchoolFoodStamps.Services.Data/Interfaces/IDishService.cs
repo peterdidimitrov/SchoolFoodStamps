@@ -1,4 +1,5 @@
-﻿using SchoolFoodStamps.Web.ViewModels.Dish;
+﻿using SchoolFoodStamps.Data.Models;
+using SchoolFoodStamps.Web.ViewModels.Dish;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
@@ -6,11 +7,11 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
     {
         Task CreateAsync(DishFormViewModel input);
 
-        Task<int> EditAsync(DishFormViewModel input);
+        Task<int> EditAsync(DishFormViewModel input, Dish dish);
 
         Task<int> DeleteAsync(int id);
 
-        Task<DishViewModel> GetByIdAsync(int id);
+        Task<Dish?> GetDishByIdAsync(int id);
 
         Task<IEnumerable<DishViewModel>> GetAllAsync(string cateringCompanyId);
 

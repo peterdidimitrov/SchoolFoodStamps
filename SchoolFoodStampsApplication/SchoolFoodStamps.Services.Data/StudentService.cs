@@ -38,8 +38,8 @@ namespace SchoolFoodStamps.Services.Data
             School? school = await repository.GetByIdAsync<School>(Guid.Parse(formModel.SchoolId));
             school!.Students.Add(student);
 
-            await repository.AddAsync(student);
-            await repository.SaveChangesAsync();
+            await this.repository.AddAsync(student);
+            await this.repository.SaveChangesAsync();
         }
 
         public async Task EditAsync(StudentFormViewModel formModel, Student student)
@@ -51,7 +51,7 @@ namespace SchoolFoodStamps.Services.Data
             student.ClassLetter = Char.Parse(formModel.ClassLetter);
             student.SchoolId = Guid.Parse(formModel.SchoolId);
 
-            await repository.SaveChangesAsync();
+            await this.repository.SaveChangesAsync();
         }
 
         public List<ClassLetter> GetAllClassLetters()
@@ -78,7 +78,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentByParentAsync(string parentId)
         {
-            return await repository
+            return await this.repository
                 .AllReadOnly<Student>()
                 .Where(s => s.ParentId == Guid.Parse(parentId))
                 .Select(s => new StudentViewModel
@@ -159,7 +159,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentsAsync()
         {
-            return await repository
+            return await this.repository
                 .AllReadOnly<Student>()
                 .AsNoTracking()
                 .Select(s => new StudentViewModel
@@ -174,7 +174,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<IEnumerable<StudentViewModel>> GetAllStudentsByParentIdAsync(string parentId)
         {
-            return await repository
+            return await this.repository
                 .AllReadOnly<Student>()
                 .Where(s => s.ParentId == Guid.Parse(parentId))
                 .Select(s => new StudentViewModel
@@ -189,7 +189,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<Student?> GetStudentByIdAsync(Guid studentId)
         {
-            return await repository
+            return await this.repository
                 .GetByIdAsync<Student>(studentId);
         }
 

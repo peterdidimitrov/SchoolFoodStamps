@@ -2,8 +2,8 @@
 using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
-using SchoolFoodStamps.Web.ViewModels.Allergen;
 using SchoolFoodStamps.Web.ViewModels.Dish;
+
 
 
 namespace SchoolFoodStamps.Services.Data
@@ -16,28 +16,20 @@ namespace SchoolFoodStamps.Services.Data
         {
             this.repository = repository;
         }
-        public async Task CreateAsync(DishFormViewModel formMorel)
+        public async Task CreateAsync(DishFormViewModel formModel)
         {
             Dish dish = new Dish
             {
-                Name = formMorel.Name,
-                Description = formMorel.Description,
-                Weight = double.Parse(formMorel.Weight),
-                CateringCompanyId = Guid.Parse(formMorel.CateringCompanyId),
+                Name = formModel.Name,
+                Description = formModel.Description,
+                Weight = double.Parse(formModel.Weight),
+                CateringCompanyId = Guid.Parse(formModel.CateringCompanyId)
             };
 
             await this.repository.AddAsync(dish);
 
-            foreach (AllergenViewModel allergen in formMorel.Allergens)
-            {
-                AllergenDish dishAllergen = new AllergenDish
-                {
-                    DishId = dish.Id,
-                    AllergenId = int.Parse(allergen.Id),
-                };
-
-                await this.repository.AddAsync(dishAllergen);
-            }
+            CateringCompany? cateringCompany = await repository.GetByIdAsync<CateringCompany>(Guid.Parse(formModel.CateringCompanyId));
+            cateringCompany!.Dishes.Add(dish);
 
             await this.repository.SaveChangesAsync();
         }
@@ -47,9 +39,15 @@ namespace SchoolFoodStamps.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task<int> EditAsync(DishFormViewModel input)
+        public async Task<int> EditAsync(DishFormViewModel input, Dish dish)
         {
-            throw new NotImplementedException();
+            dish.Name = input.Name;
+            dish.Description = input.Description;
+            dish.Weight = double.Parse(input.Weight);
+
+            await this.repository.UpdateAsync(dish);
+
+            return await this.repository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<DishViewModel>> GetAllAsync(string cateringCompanyId)
@@ -76,9 +74,11 @@ namespace SchoolFoodStamps.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task<DishViewModel> GetByIdAsync(int id)
+        public async Task<Dish?> GetDishByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await this.repository.GetByIntIdAsync<Dish>(id);
+
+          
         }
     }
 }
