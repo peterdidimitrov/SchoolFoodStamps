@@ -27,13 +27,11 @@
                 <p class="card-text text-lg-start mt-1"><span class="fw-bold">Weight: </span>@m.Weight</p>
                 <p class="fw-bold text-lg-start">Allergens:</p>
 
-
                 <p class="card-text text-lg-start mt-1"> @string.Join(", ", m.Allergens)</p>
-
 
             </div>
 
-
+            <a asp-controller="Dish" asp-action="AddAllergenToDish" asp-route-id="@m.Id" class="btn btn-info mb-2 w-100 p-3 fw-bold">Add Allergen</a>
             <a asp-controller="Dish" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
             <a asp-controller="Dish" asp-action="Delete" asp-route-id="@m.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
         </div>
