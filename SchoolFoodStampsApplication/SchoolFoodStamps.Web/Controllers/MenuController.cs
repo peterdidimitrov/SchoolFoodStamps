@@ -11,15 +11,13 @@ namespace SchoolFoodStamps.Web.Controllers
     {
         private readonly ILogger<MenuController> logger;
         private readonly ICateringCompanyService cateringCompanyService;
-        private readonly IParentService parentService;
         private readonly IMenuService menuService;
 
-        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IParentService parentService)
+        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService)
         {
             this.menuService = menuService;
             this.logger = logger;
             this.cateringCompanyService = cateringCompanyService;
-            this.parentService = parentService;
         }
 
         [HttpGet]
