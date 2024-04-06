@@ -11,6 +11,7 @@ namespace SchoolFoodStamps.Web.ViewModels.Dish
         {
             this.Allergens = new HashSet<AllergenViewModel>();
         }
+
         [Required(ErrorMessage = RequireErrorMessage)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = ErrorMassageLength)]
         public string Name { get; set; } = string.Empty;
@@ -24,9 +25,9 @@ namespace SchoolFoodStamps.Web.ViewModels.Dish
 
         public string CateringCompanyId { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = RequireErrorMessage)]
-        [Display(Name = "Allergen")]
-        public string AllergenId { get; set; } = string.Empty;
+        //[Required(ErrorMessage = RequireErrorMessage)]
+        //[Display(Name = "Allergen")]
+        //public string AllergenId { get; set; } = string.Empty;
 
         public IEnumerable<AllergenViewModel> Allergens { get; set; }
     }
