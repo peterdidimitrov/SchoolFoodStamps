@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DishViewModel>;
+
+@{
+    ViewBag.Title = "All dishes";
+}
+@if (Model.Count() == 0)
+{
+    <h2 class="text-center">No dishes available</h2>
+}
+
+
+<div class="text-center">
+    <a class="btn btn-primary m-2" role="button" style="margin-right: 0" asp-area="" asp-controller="Dish" asp-action="Add">Create a dish</a>
+</div>
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @foreach (DishViewModel m in Model)
+    {
+        <div class="card col-4" style="width: 16.5rem; ">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@m.Name</h5>
+                <p class="fw-bold text-lg-start">Description:</p>
+                <p class="card-text text-lg-start mt-1">@m.Description</p>
+                <p class="card-text text-lg-start mt-1"><span class="fw-bold">Weight: </span>@m.Weight</p>
+                <p class="fw-bold text-lg-start">Allergens:</p>
+
+
+                <p class="card-text text-lg-start mt-1"> @string.Join(", ", m.Allergens)</p>
+
+
+            </div>
+
+
+            <a asp-controller="Dish" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            <a asp-controller="Dish" asp-action="Delete" asp-route-id="@m.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
