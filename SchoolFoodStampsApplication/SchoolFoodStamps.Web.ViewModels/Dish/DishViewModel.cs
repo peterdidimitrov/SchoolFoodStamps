@@ -14,6 +14,8 @@
 
         public string Weight { get; set; } = string.Empty;
 
+        public string CateringCompanyId { get; set; } = string.Empty;
+
         public IEnumerable<string> Allergens { get; set; }
     }
 }
