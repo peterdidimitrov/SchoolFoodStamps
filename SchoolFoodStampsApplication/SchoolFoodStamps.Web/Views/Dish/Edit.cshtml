@@ -1,0 +1,53 @@
+﻿@model DishFormViewModel;
+@{
+    ViewBag.Title = "Edit dish";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-controller="Dish" asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label-add-edit">Name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Description" class="form-label-add-edit">Description</label>
+                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Weight" class="form-label-add-edit">Weight</label>
+                <input asp-for="@Model.Weight" type="text" class="form-control" aria-required="true" placeholder="0.00" />
+                <span asp-validation-for="@Model.Weight" class="text-danger"></span>
+            </div>
+            @* <div class="mb-3">
+            <label asp-for="@Model.AllergenId" class="form-label-add-edit">Allergen</label>
+            <select asp-for="@Model.AllergenId" class="form-control" aria-required="true">
+            <option abled selected value="">Select Allergen...</option>
+            @foreach (AllergenViewModel allergen in Model.Allergens)
+            {
+            <option value="@allergen.Id.ToString()">@allergen.Name</option>
+            }
+            </select>
+            <span asp-validation-for="@Model.Allergens" class="text-danger"></span>
+            </div> *@
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Edit" />
+            </div>
+            <div class="mb-3">
+                <a asp-action="Index" asp-controller="Dish" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Back to all dishes</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
