@@ -25,5 +25,10 @@ namespace SchoolFoodStamps.Services.Data
                 })
                 .ToListAsync();
         }
+
+        public async Task<Allergen?> GetByIdAsync(string id)
+        {
+            return await this.repository.GetByIntIdAsync<Allergen>(int.Parse(id));
+        }
     }
 }
