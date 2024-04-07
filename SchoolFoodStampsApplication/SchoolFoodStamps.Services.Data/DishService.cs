@@ -2,6 +2,7 @@
 using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
+using SchoolFoodStamps.Web.ViewModels.Allergen;
 using SchoolFoodStamps.Web.ViewModels.Dish;
 
 
@@ -16,6 +17,22 @@ namespace SchoolFoodStamps.Services.Data
         {
             this.repository = repository;
         }
+
+        public async Task AddAllergenToDishAsync(Dish dish, Allergen allergen)
+        {
+            AllergenDish allergenDish = new AllergenDish
+            {
+                AllergenId = allergen.Id,
+                DishId = dish.Id
+            };
+
+            dish.AllergensDishes.Add(allergenDish);
+            allergen.AllergensDishes.Add(allergenDish);
+
+            await this.repository.AddAsync(allergenDish);
+            await this.repository.SaveChangesAsync();
+        }
+
         public async Task CreateAsync(DishFormViewModel formModel)
         {
             Dish dish = new Dish
@@ -63,7 +80,11 @@ namespace SchoolFoodStamps.Services.Data
                     Description = d.Description,
                     Weight = d.Weight.ToString(),
                     Allergens = d.AllergensDishes
-                        .Select(ad => ad.Allergen.Name)
+                        .Select(ad => new AllergenViewModel
+                        {
+                            Id = ad.Allergen.Id.ToString(),
+                            Name = ad.Allergen.Name
+                        })
                         .ToList()
                 })
                 .ToListAsync();
@@ -77,8 +98,6 @@ namespace SchoolFoodStamps.Services.Data
         public async Task<Dish?> GetDishByIdAsync(int id)
         {
             return await this.repository.GetByIntIdAsync<Dish>(id);
-
-          
         }
     }
 }
