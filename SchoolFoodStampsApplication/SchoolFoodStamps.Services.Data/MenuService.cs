@@ -2,6 +2,7 @@
 using SchoolFoodStamps.Data.Common;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
+using SchoolFoodStamps.Web.ViewModels.Allergen;
 using SchoolFoodStamps.Web.ViewModels.Dish;
 using SchoolFoodStamps.Web.ViewModels.Menu;
 
@@ -71,8 +72,12 @@ namespace SchoolFoodStamps.Services.Data
                         Description = dm.Dish.Description,
                         Weight = dm.Dish.Weight.ToString(),
                         Allergens = dm.Dish.AllergensDishes
-                            .Select(ad => ad.Allergen.Name)
-                            .ToList()
+                            .Select(ad => new AllergenViewModel
+                            {
+                                Id = ad.Allergen.Id.ToString(),
+                                Name = ad.Allergen.Name
+                            })
+                        .ToList()
                     }).ToList()
                 })
                 .ToListAsync();
