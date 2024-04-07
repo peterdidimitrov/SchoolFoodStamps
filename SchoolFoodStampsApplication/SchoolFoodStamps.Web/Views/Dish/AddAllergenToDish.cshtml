@@ -1,0 +1,37 @@
+﻿@model AddAllergenToDishFormModel;
+
+@{
+    ViewBag.Title = "Choose an allergen";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-controller="Dish" asp-action="AddAllergenToDish" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.AllergenId" class="form-label-add-edit">Allergen</label>
+                <select asp-for="@Model.AllergenId" class="form-control" aria-required="true">
+                    <option abled selected value="">Select Allergen...</option>
+                    @foreach (AllergenViewModel allergen in Model.Allergens)
+                    {
+                        <option value="@allergen.Id.ToString()">@allergen.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.Allergens" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+            </div>
+            <a asp-controller="Dish" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
