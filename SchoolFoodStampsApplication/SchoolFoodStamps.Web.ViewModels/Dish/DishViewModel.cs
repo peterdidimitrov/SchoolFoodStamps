@@ -1,10 +1,12 @@
-﻿namespace SchoolFoodStamps.Web.ViewModels.Dish
+﻿using SchoolFoodStamps.Web.ViewModels.Allergen;
+
+namespace SchoolFoodStamps.Web.ViewModels.Dish
 {
     public class DishViewModel
     {
         public DishViewModel()
         {
-            Allergens = new HashSet<string>();
+            Allergens = new HashSet<AllergenViewModel>();
         }
         public string Id { get; set; } = string.Empty;
 
@@ -16,6 +18,6 @@
 
         public string CateringCompanyId { get; set; } = string.Empty;
 
-        public IEnumerable<string> Allergens { get; set; }
+        public IEnumerable<AllergenViewModel> Allergens { get; set; }
     }
 }
