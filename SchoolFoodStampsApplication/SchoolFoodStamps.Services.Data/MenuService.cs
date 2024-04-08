@@ -64,7 +64,7 @@ namespace SchoolFoodStamps.Services.Data
                     DayOfWeek = m.DayOfWeek.ToString(),
                     CateringCompanyId = m.CateringCompanyId.ToString(),
                     Dishes = m.DishesMenus
-                    .Where(dm => dm.MenuId == m.Id || dm.Dish.IsActive == true)
+                    .Where(dm => dm.MenuId == m.Id && dm.Dish.IsActive == true)
                     .Select(dm => new DishViewModel
                     {
                         Id = dm.Dish.Id.ToString(),

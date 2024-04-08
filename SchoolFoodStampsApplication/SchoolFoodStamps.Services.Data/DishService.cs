@@ -5,8 +5,6 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Allergen;
 using SchoolFoodStamps.Web.ViewModels.Dish;
 
-
-
 namespace SchoolFoodStamps.Services.Data
 {
     public class DishService : IDishService
@@ -36,9 +34,18 @@ namespace SchoolFoodStamps.Services.Data
             await this.repository.SaveChangesAsync();
         }
 
-        public Task<int> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            Dish? dish = await this.repository.GetByIdAsync<Dish>(id);
+
+            dish!.Name = string.Empty;
+            dish.Description = string.Empty;
+
+            dish.IsActive = false;
+
+            await this.repository.UpdateAsync(dish);
+
+            return await this.repository.SaveChangesAsync();
         }
 
         public async Task<int> EditAsync(DishFormViewModel input, Dish dish)
