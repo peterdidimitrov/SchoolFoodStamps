@@ -367,6 +367,7 @@ namespace SchoolFoodStamps.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove allergen from dish! Please try again or contact administrator.";
+                return RedirectToAction(nameof(RemoveAllergenFromDish));
             }
 
             this.TempData[SuccessMessage] = "Allergen removed from dish successfully.";
@@ -374,29 +375,81 @@ namespace SchoolFoodStamps.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpPost]
-        //[AutoValidateAntiforgeryToken]
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    if (string.IsNullOrWhiteSpace(id))
-        //    {
-        //        logger.LogError("Dish id is null or empty.");
-        //        return BadRequest();
-        //    }
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(id));
 
-        //    try
-        //    {
-        //        await this.dishService.DeleteAsync(int.Parse(id));
-        //        logger.LogInformation("Dish deleted.");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        this.TempData[ErrorMessage] = "Unexpected error occurred while trying to delete dish! Please try again or contact administrator.";
-        //    }
+            if (dish == null || dish.IsActive == false)
+            {
+                logger.LogError("Dish not found.");
+                return BadRequest();
+            }
 
-        //    this.TempData[SuccessMessage] = "Dish deleted successfully.";
+            string? cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId());
 
-        //    return RedirectToAction(nameof(Index));
-        //}
+            if (cateringCompanyId == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            DishDeleteViewModel dishDeleteViewModel = new DishDeleteViewModel()
+            {
+                Id = dish.Id.ToString(),
+                Name = dish.Name!,
+                Description = dish.Description!
+            };
+
+            return View(dishDeleteViewModel);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> DeletePost(string id)
+        {
+            Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(id));
+
+            if (dish == null || dish.IsActive == false)
+            {
+                logger.LogError("Dish not found.");
+                return BadRequest();
+            }
+
+            string? cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId());
+
+            if (cateringCompanyId == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            try
+            {
+                await this.dishService.DeleteAsync(int.Parse(id));
+                logger.LogInformation("Dish deleted.");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to delete dish! Please try again or contact administrator.";
+                return RedirectToAction(nameof(Delete));
+            }
+
+            this.TempData[SuccessMessage] = "Dish deleted successfully.";
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
