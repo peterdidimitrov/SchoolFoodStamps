@@ -32,9 +32,9 @@ namespace SchoolFoodStamps.Data.Common
             await DbSet<T>().AddAsync(entity);
         }
 
-        public Task DeleteAsync<T>(T entity) where T : class
+        public void Delete<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            DbSet<T>().Remove(entity);
         }
 
         public async Task<int> SaveChangesAsync()
@@ -42,20 +42,15 @@ namespace SchoolFoodStamps.Data.Common
             return await this.context.SaveChangesAsync();
         }
 
-        public async Task<T?> GetByIdAsync<T>(Guid id) where T : class
+        public async Task<T?> GetByIdAsync<T>(object id) where T : class
         {
-            return await context.Set<T>().FindAsync(id);
+            return await DbSet<T>().FindAsync(id);
         }
 
         public async Task UpdateAsync<T>(T entity) where T : class
         {
             this.context.Update(entity);
             await this.context.SaveChangesAsync();
-        }
-
-        public async Task<T?> GetByIntIdAsync<T>(int id) where T : class
-        {
-            return await context.Set<T>().FindAsync(id);
         }
     }
 }
