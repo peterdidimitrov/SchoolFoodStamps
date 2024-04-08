@@ -11,6 +11,7 @@ namespace SchoolFoodStamps.Data.Models
         {
             this.DishesMenus = new HashSet<DishMenu>();
             this.CreatedOn = DateTime.UtcNow;
+            this.IsActive = true;
         }
 
         [Key]
@@ -27,6 +28,10 @@ namespace SchoolFoodStamps.Data.Models
 
         [Comment("Menu date of modify")]
         public DateTime? DateOfModify { get; set; }
+
+        [Required]
+        [Comment("Is active")]
+        public bool IsActive { get; set; }
 
         [Required]
         [Comment("Catering company identifier")]

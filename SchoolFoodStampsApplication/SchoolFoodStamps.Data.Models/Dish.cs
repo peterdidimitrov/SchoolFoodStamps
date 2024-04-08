@@ -12,25 +12,28 @@ namespace SchoolFoodStamps.Data.Models
         {
             this.AllergensDishes = new HashSet<AllergenDish>();
             this.DishesMenus = new HashSet<DishMenu>();
+            this.IsActive = true;
         }
 
         [Key]
         [Comment("Dish identifier")]
         public int Id { get; set; }
 
-        [Required]
         [Comment("Dish name")]
         [MaxLength(NameMaxLength)]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
-        [Required]
         [Comment("Dish description")]
         [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
 
         [Required]
         [Comment("Dish weight")]
         public double Weight { get; set; }
+
+        [Required]
+        [Comment("Is active")]
+        public bool IsActive { get; set; }
 
         [Required]
         [Comment("Catering company identifier")]
