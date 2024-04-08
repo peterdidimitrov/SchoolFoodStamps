@@ -56,7 +56,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             return await this.repository
                 .AllReadOnly<Menu>()
-                .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId)
+                .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId && m.IsActive == true)
                 .Include(m => m.DishesMenus)
                 .Select(m => new MenuViewModel
                 {
@@ -64,12 +64,12 @@ namespace SchoolFoodStamps.Services.Data
                     DayOfWeek = m.DayOfWeek.ToString(),
                     CateringCompanyId = m.CateringCompanyId.ToString(),
                     Dishes = m.DishesMenus
-                    .Where(dm => dm.MenuId == m.Id)
+                    .Where(dm => dm.MenuId == m.Id || dm.Dish.IsActive == true)
                     .Select(dm => new DishViewModel
                     {
                         Id = dm.Dish.Id.ToString(),
-                        Name = dm.Dish.Name,
-                        Description = dm.Dish.Description,
+                        Name = dm.Dish.Name!,
+                        Description = dm.Dish.Description!,
                         Weight = dm.Dish.Weight.ToString(),
                         Allergens = dm.Dish.AllergensDishes
                             .Select(ad => new AllergenViewModel

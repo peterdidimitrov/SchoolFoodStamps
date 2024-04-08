@@ -28,7 +28,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<Allergen?> GetByIdAsync(string id)
         {
-            return await this.repository.GetByIntIdAsync<Allergen>(int.Parse(id));
+            return await this.repository.GetByIdAsync<Allergen>(int.Parse(id));
         }
     }
 }

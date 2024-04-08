@@ -18,21 +18,6 @@ namespace SchoolFoodStamps.Services.Data
             this.repository = repository;
         }
 
-        public async Task AddAllergenToDishAsync(Dish dish, Allergen allergen)
-        {
-            AllergenDish allergenDish = new AllergenDish
-            {
-                AllergenId = allergen.Id,
-                DishId = dish.Id
-            };
-
-            dish.AllergensDishes.Add(allergenDish);
-            allergen.AllergensDishes.Add(allergenDish);
-
-            await this.repository.AddAsync(allergenDish);
-            await this.repository.SaveChangesAsync();
-        }
-
         public async Task CreateAsync(DishFormViewModel formModel)
         {
             Dish dish = new Dish
@@ -71,13 +56,13 @@ namespace SchoolFoodStamps.Services.Data
         {
             return await this.repository
                 .AllReadOnly<Dish>()
-                .Where(d => d.CateringCompanyId.ToString() == cateringCompanyId)
+                .Where(d => d.CateringCompanyId.ToString() == cateringCompanyId && d.IsActive == true)
                 .Include(d => d.AllergensDishes)
                 .Select(d => new DishViewModel
                 {
                     Id = d.Id.ToString(),
-                    Name = d.Name,
-                    Description = d.Description,
+                    Name = d.Name!,
+                    Description = d.Description!,
                     Weight = d.Weight.ToString(),
                     Allergens = d.AllergensDishes
                         .Select(ad => new AllergenViewModel
@@ -97,7 +82,7 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<Dish?> GetDishByIdAsync(int id)
         {
-            return await this.repository.GetByIntIdAsync<Dish>(id);
+            return await this.repository.GetByIdAsync<Dish>(id);
         }
     }
 }
