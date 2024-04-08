@@ -1,0 +1,25 @@
+﻿@model AllergenDishViewModel;
+@{
+    ViewBag.Title = "Remove allergen";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-danger mt-3">"Are you sure you want to remove @Model.AllergenName from @Model.DishName?"</p>
+            </div>
+            <div class="card-footer">
+                <form asp-action="RemoveAllergenFromDishPost" method="post">
+                    <input type="hidden" asp-for="@Model.AllergenId" />
+                    <input type="hidden" asp-for="@Model.DishId" />
+                    <button type="submit" class="btn btn-danger">Confirm remove</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
