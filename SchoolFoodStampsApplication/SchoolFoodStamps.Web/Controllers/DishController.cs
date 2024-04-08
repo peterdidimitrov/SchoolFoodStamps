@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Allergen;
+using SchoolFoodStamps.Web.ViewModels.AllergenDish;
 using SchoolFoodStamps.Web.ViewModels.Dish;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
@@ -16,13 +17,15 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly IDishService dishService;
         private readonly IAllergenService allergenService;
+        private readonly IAllergenDishService allergenDishService;
 
-        public DishController(ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IDishService dishService, IAllergenService allergenService)
+        public DishController(ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IDishService dishService, IAllergenService allergenService, IAllergenDishService allergenDishService)
         {
             this.logger = logger;
             this.cateringCompanyService = cateringCompanyService;
             this.dishService = dishService;
             this.allergenService = allergenService;
+            this.allergenDishService = allergenDishService;
         }
 
         public async Task<IActionResult> Index()
@@ -71,7 +74,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 formModel.Allergens = await this.allergenService.GetAllAsync();
                 return View(formModel);
             }
-            
+
             try
             {
                 await this.dishService.CreateAsync(formModel);
@@ -95,7 +98,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(id));
 
-            if (dish == null)
+            if (dish == null || dish.IsActive == false)
             {
                 logger.LogError("Dish not found.");
                 return BadRequest();
@@ -117,8 +120,8 @@ namespace SchoolFoodStamps.Web.Controllers
 
             DishFormViewModel dishFormViewModel = new DishFormViewModel()
             {
-                Name = dish.Name,
-                Description = dish.Description,
+                Name = dish.Name!,
+                Description = dish.Description!,
                 Weight = dish.Weight.ToString()
             };
 
@@ -131,7 +134,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             Dish? dish = await this.dishService.GetDishByIdAsync(id);
 
-            if (dish == null)
+            if (dish == null || dish.IsActive == false)
             {
                 logger.LogError("Dish not found.");
                 return BadRequest();
@@ -178,7 +181,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(id));
 
-            if (dish == null)
+            if (dish == null || dish.IsActive == false)
             {
                 logger.LogError("Dish not found.");
                 return BadRequest();
@@ -206,7 +209,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(id));
 
-            if (dish == null)
+            if (dish == null || dish.IsActive == false)
             {
                 logger.LogError("Dish not found.");
                 return BadRequest();
@@ -234,6 +237,15 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
+            AllergenDish? allergenDish = await this.allergenDishService.GetAllergenDishByDishIdAndAllergenIdAsync(dish.Id, allergen.Id);
+
+            if (allergenDish != null)
+            {
+                TempData[ErrorMessage] = "Allergen already added to dish.";
+                formModel.Allergens = await this.allergenService.GetAllAsync();
+                return RedirectToAction(nameof(AddAllergenToDish), new { id = id });
+            }
+
             if (!ModelState.IsValid)
             {
                 logger.LogWarning("Model state is not valid.");
@@ -243,7 +255,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                await this.dishService.AddAllergenToDishAsync(dish, allergen);
+                await this.allergenDishService.AddAllergenToDishAsync(dish, allergen);
                 logger.LogInformation("Allergen added to dish successfully.");
             }
             catch (Exception)
@@ -254,6 +266,110 @@ namespace SchoolFoodStamps.Web.Controllers
             }
 
             this.TempData[SuccessMessage] = "Dish updated successfully.";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveAllergenFromDish(string id)
+        {
+            string[] ids = id.Split(" ");
+            string dishId = ids[0];
+            string allergenId = ids[1];
+
+            Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(dishId));
+
+            if (dish == null || dish.IsActive == false)
+            {
+                logger.LogError("Dish not found.");
+                return BadRequest();
+            }
+
+            string? cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId());
+
+            if (cateringCompanyId == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            Allergen? allergen = await this.allergenService.GetByIdAsync(allergenId);
+
+            if (allergen == null)
+            {
+                logger.LogError("Allergen not found.");
+                return BadRequest();
+            }
+
+            AllergenDishViewModel allergenDishViewModel = new AllergenDishViewModel()
+            {
+                DishId = dishId,
+                AllergenId = allergenId,
+                DishName = dish.Name!,
+                AllergenName = allergen.Name
+            };
+            return View(allergenDishViewModel);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> RemoveAllergenFromDishPost(AllergenDishViewModel model)
+        {
+            Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(model.DishId));
+
+            if (dish == null || dish.IsActive == false)
+            {
+                logger.LogError("Dish not found.");
+                return BadRequest();
+            }
+
+            string? cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId());
+
+            if (cateringCompanyId == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            Allergen? allergen = await this.allergenService.GetByIdAsync(model.AllergenId);
+
+            if (allergen == null)
+            {
+                logger.LogError("Allergen not found.");
+                return BadRequest();
+            }
+
+            AllergenDish? allergenDish = await this.allergenDishService.GetAllergenDishByDishIdAndAllergenIdAsync(dish.Id, allergen.Id);
+
+            if (allergenDish == null)
+            {
+                logger.LogError("AllergenDish not found.");
+                return BadRequest();
+            }
+
+            try
+            {
+                await this.allergenDishService.RemoveAllergenFromDishAsync(dish, allergen, allergenDish);
+                logger.LogInformation("Allergen removed from dish successfully.");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to remove allergen from dish! Please try again or contact administrator.";
+            }
+
+            this.TempData[SuccessMessage] = "Allergen removed from dish successfully.";
 
             return RedirectToAction(nameof(Index));
         }
