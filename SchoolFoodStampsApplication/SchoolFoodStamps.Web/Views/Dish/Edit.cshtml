@@ -25,19 +25,8 @@
                 <input asp-for="@Model.Weight" type="text" class="form-control" aria-required="true" placeholder="0.00" />
                 <span asp-validation-for="@Model.Weight" class="text-danger"></span>
             </div>
-            @* <div class="mb-3">
-            <label asp-for="@Model.AllergenId" class="form-label-add-edit">Allergen</label>
-            <select asp-for="@Model.AllergenId" class="form-control" aria-required="true">
-            <option abled selected value="">Select Allergen...</option>
-            @foreach (AllergenViewModel allergen in Model.Allergens)
-            {
-            <option value="@allergen.Id.ToString()">@allergen.Name</option>
-            }
-            </select>
-            <span asp-validation-for="@Model.Allergens" class="text-danger"></span>
-            </div> *@
             <div class="mb-3">
-                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Edit" />
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Confirm changes" />
             </div>
             <div class="mb-3">
                 <a asp-action="Index" asp-controller="Dish" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Back to all dishes</a>
