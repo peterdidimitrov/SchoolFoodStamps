@@ -74,17 +74,26 @@ namespace SchoolFoodStamps.Services.Data
                 .AnyAsync(s => s.UserId == Guid.Parse(userId));
         }
 
-        public async Task<CateringCompanyFormViewModel?> GetCateringCompanyByUserIdAsync(string userId)
+        public async Task<CateringCompany?> GetCateringCompanyByUserIdAsync(string userId)
         {
             return await repository
                 .AllReadOnly<CateringCompany>()
+                .Include(c => c.Schools)
+                .Include(c => c.FoodStamps)
+                .Include(c => c.Menus)
+                .Include(c => c.Dishes)
+                .OrderBy(c => c.Name)
                 .Where(c => c.UserId == Guid.Parse(userId))
-                .Select(c => new CateringCompanyFormViewModel()
+                .Select(c => new CateringCompany()
                 {
-                    Id = c.Id.ToString(),
+                    Id = c.Id,
                     Name = c.Name,
                     Address = c.Address,
-                    IdentificationNumber = c.IdentificationNumber
+                    IdentificationNumber = c.IdentificationNumber,
+                    Menus = c.Menus,
+                    Schools = c.Schools,
+                    FoodStamps = c.FoodStamps,
+                    Dishes = c.Dishes
                 })
                 .FirstOrDefaultAsync();
         }
