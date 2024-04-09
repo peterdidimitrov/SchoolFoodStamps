@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using System.Security.Claims;
@@ -104,7 +105,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             string userId = User.GetId();
 
-            CateringCompanyFormViewModel? model = await this.cateringCompanyService.GetCateringCompanyByUserIdAsync(userId);
+            CateringCompany? model = await this.cateringCompanyService.GetCateringCompanyByUserIdAsync(userId);
 
             if (model == null)
             {

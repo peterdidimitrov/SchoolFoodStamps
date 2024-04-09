@@ -1,4 +1,6 @@
-﻿using SchoolFoodStamps.Web.ViewModels.CateringCompany;
+﻿using SchoolFoodStamps.Data.Models;
+using SchoolFoodStamps.Web.ViewModels.CateringCompany;
+using SchoolFoodStamps.Web.ViewModels.Menu;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
@@ -14,7 +16,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<bool> ExistsByUserIdAsync(string userId);
 
-        Task<CateringCompanyFormViewModel?> GetCateringCompanyByUserIdAsync(string userId);
+        Task<CateringCompany?> GetCateringCompanyByUserIdAsync(string userId);
 
         Task UpdateAsync(CateringCompanyFormViewModel formModel);
 
