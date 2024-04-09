@@ -11,7 +11,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<int> DeleteAsync(int id);
 
-        Task<MenuViewModel> GetByIdAsync(int id);
+        Task<Menu?> GetByIdAsync(int id);
 
         Task<IEnumerable<MenuViewModel>> GetAllAsync(string cateringCompanyId);
 
