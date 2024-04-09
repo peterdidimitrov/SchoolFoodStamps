@@ -8,7 +8,7 @@ using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "CateringCompany")]
     public class MenuController : BaseController
     {
         private readonly ILogger<MenuController> logger;
@@ -56,9 +56,22 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "CateringCompany")]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            if (cateringCompany.Menus.Count >= 5)
+            {
+                this.TempData[ErrorMessage] = $"You can't add more than {cateringCompany.Menus.Count} menus!";
+                return RedirectToAction(nameof(Index));
+            }
+
             MenuFormViewModel model = new MenuFormViewModel()
             {
                 DayOfWeek = string.Empty
@@ -68,7 +81,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "CateringCompany")]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Add(MenuFormViewModel model)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -105,6 +118,94 @@ namespace SchoolFoodStamps.Web.Controllers
             }
 
             this.TempData[SuccessMessage] = "Menu added successfully!";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+
+            if (menu == null)
+            {
+                logger.LogError("Menu not found.");
+                return BadRequest();
+            }
+
+            if (menu.CateringCompanyId != cateringCompany.Id)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            MenuFormViewModel model = new MenuFormViewModel()
+            {
+                Id = menu.Id.ToString(),
+                DayOfWeek = menu.DayOfWeek.ToString()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(MenuFormViewModel model, string id)
+        {
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+
+            if (menu == null)
+            {
+                logger.LogError("Menu not found.");
+                return BadRequest();
+            }
+
+            if (menu.CateringCompanyId != cateringCompany.Id)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            if (cateringCompany.Menus.Any(m => m.DayOfWeek.ToString() == model.DayOfWeek))
+            {
+                this.TempData[ErrorMessage] = $"Menu for {model.DayOfWeek} is already added!";
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                logger.LogWarning("Invalid model state.");
+                return View(model);
+            }
+
+            try
+            {
+                await this.menuService.EditAsync(model);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to edit menu! Please try again or contact administrator.";
+
+                return View(model);
+            }
+
+            this.TempData[SuccessMessage] = "Menu edited successfully!";
 
             return RedirectToAction(nameof(Index));
         }

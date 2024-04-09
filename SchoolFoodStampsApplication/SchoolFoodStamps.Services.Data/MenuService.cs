@@ -35,9 +35,15 @@ namespace SchoolFoodStamps.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task<int> EditAsync(MenuFormViewModel input)
+        public async Task<int> EditAsync(MenuFormViewModel input)
         {
-            throw new NotImplementedException();
+            Menu? menu = await this.repository.GetByIdAsync<Menu>(int.Parse(input.Id));
+
+            menu!.DayOfWeek = (CustomDayOfWeek)Enum.Parse(typeof(CustomDayOfWeek), input.DayOfWeek);
+
+            await this.repository.UpdateAsync(menu);
+
+            return await this.repository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<MenuViewModel>> GetAllAsync(string cateringCompanyId)
@@ -76,9 +82,9 @@ namespace SchoolFoodStamps.Services.Data
             throw new NotImplementedException();
         }
 
-        public Task<MenuViewModel> GetByIdAsync(int id)
+        public async Task<Menu?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await this.repository.GetByIdAsync<Menu>(id);
         }
     }
 }
