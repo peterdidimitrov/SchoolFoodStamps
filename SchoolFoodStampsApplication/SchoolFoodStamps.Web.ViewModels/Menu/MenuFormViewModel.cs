@@ -8,6 +8,9 @@ namespace SchoolFoodStamps.Web.ViewModels.Menu
         {
             this.Dishes = new HashSet<DishViewModel>();
         }
+
+        public string Id { get; set; } = string.Empty;
+
         public string DayOfWeek { get; set; } = string.Empty;
 
         public DateTime CreatedOn { get; set; }
