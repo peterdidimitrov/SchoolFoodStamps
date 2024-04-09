@@ -1,12 +1,13 @@
-﻿using SchoolFoodStamps.Web.ViewModels.Menu;
+﻿using SchoolFoodStamps.Data.Models;
+using SchoolFoodStamps.Web.ViewModels.Menu;
 
 namespace SchoolFoodStamps.Services.Data.Interfaces
 {
     public interface IMenuService
     {
-        Task CreateAsync(MenuFormViewModel input);
+        Task CreateAsync(MenuFormViewModel menu);
 
-        Task<int> EditAsync(MenuFormViewModel input);
+        Task<int> EditAsync(MenuFormViewModel menu);
 
         Task<int> DeleteAsync(int id);
 

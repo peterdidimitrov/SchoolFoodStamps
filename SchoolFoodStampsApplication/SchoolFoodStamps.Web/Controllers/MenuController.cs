@@ -95,7 +95,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             try
             {
-                await this.menuService.CreateAsync(model, cateringCompany);
+                await this.menuService.CreateAsync(model);
             }
             catch (Exception)
             {

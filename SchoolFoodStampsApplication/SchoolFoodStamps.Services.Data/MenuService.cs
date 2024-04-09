@@ -27,19 +27,7 @@ namespace SchoolFoodStamps.Services.Data
 
             await this.repository.AddAsync(menu);
 
-            foreach (DishViewModel dish in formModel.Dishes)
-            {
-                DishMenu dishesMenus = new DishMenu
-                {
-                    DishId = int.Parse(dish.Id),
-                    MenuId = menu.Id
-                };
-
-                await this.repository.AddAsync(dishesMenus);
-            }
-
             await this.repository.SaveChangesAsync();
-
         }
 
         public Task<int> DeleteAsync(int id)
