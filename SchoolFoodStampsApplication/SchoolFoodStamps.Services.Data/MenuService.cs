@@ -40,6 +40,7 @@ namespace SchoolFoodStamps.Services.Data
             Menu? menu = await this.repository.GetByIdAsync<Menu>(int.Parse(input.Id));
 
             menu!.DayOfWeek = (CustomDayOfWeek)Enum.Parse(typeof(CustomDayOfWeek), input.DayOfWeek);
+            menu.DateOfModify = DateTime.UtcNow;
 
             await this.repository.UpdateAsync(menu);
 
