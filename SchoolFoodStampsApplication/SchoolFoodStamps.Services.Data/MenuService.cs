@@ -30,9 +30,16 @@ namespace SchoolFoodStamps.Services.Data
             await this.repository.SaveChangesAsync();
         }
 
-        public Task<int> DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            Menu? menu = await this.repository.GetByIdAsync<Menu>(id);
+
+            menu!.IsActive = false;
+            menu.DateOfModify = DateTime.UtcNow;
+
+            await this.repository.UpdateAsync(menu);
+
+            return await this.repository.SaveChangesAsync();
         }
 
         public async Task<int> EditAsync(MenuFormViewModel input)
@@ -53,6 +60,7 @@ namespace SchoolFoodStamps.Services.Data
                 .AllReadOnly<Menu>()
                 .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId && m.IsActive == true)
                 .Include(m => m.DishesMenus)
+                .OrderBy(m => m.DayOfWeek)
                 .Select(m => new MenuViewModel
                 {
                     Id = m.Id,

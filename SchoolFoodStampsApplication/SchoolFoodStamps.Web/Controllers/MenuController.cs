@@ -66,7 +66,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (cateringCompany.Menus.Count >= 5)
+            if (cateringCompany.Menus.Where(m => m.IsActive == true).Count() >= 5)
             {
                 this.TempData[ErrorMessage] = $"You can't add more than {cateringCompany.Menus.Count} menus!";
                 return RedirectToAction(nameof(Index));
@@ -94,7 +94,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
             model.CateringCompanyId = cateringCompany.Id.ToString();
 
-            if (cateringCompany.Menus.Any(m => m.DayOfWeek.ToString() == model.DayOfWeek))
+            if (cateringCompany.Menus.Where(m => m.IsActive == true).Any(m => m.DayOfWeek.ToString() == model.DayOfWeek))
             {
                 this.TempData[ErrorMessage] = $"Menu for {model.DayOfWeek} is already added!";
                 return View(model);
@@ -206,6 +206,82 @@ namespace SchoolFoodStamps.Web.Controllers
             }
 
             this.TempData[SuccessMessage] = "Menu edited successfully!";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+
+            if (menu == null)
+            {
+                logger.LogError("Menu not found.");
+                return BadRequest();
+            }
+
+            if (menu.CateringCompanyId != cateringCompany.Id)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            MenuDeleteViewModel model = new MenuDeleteViewModel()
+            {
+                Id = menu.Id.ToString(),
+                DayOfWeek = menu.DayOfWeek.ToString()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> DeletePost(MenuDeleteViewModel model)
+        {
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(model.Id));
+
+            if (menu == null)
+            {
+                logger.LogError("Menu not found.");
+                return BadRequest();
+            }
+
+            if (menu.CateringCompanyId != cateringCompany.Id)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            try
+            {
+                await this.menuService.DeleteAsync(int.Parse(model.Id));
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to delete menu! Please try again or contact administrator.";
+
+                return View(model);
+            }
+
+            this.TempData[SuccessMessage] = "Menu deleted successfully!";
 
             return RedirectToAction(nameof(Index));
         }
