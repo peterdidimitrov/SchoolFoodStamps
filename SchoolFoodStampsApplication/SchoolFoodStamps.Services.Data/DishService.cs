@@ -28,9 +28,6 @@ namespace SchoolFoodStamps.Services.Data
 
             await this.repository.AddAsync(dish);
 
-            CateringCompany? cateringCompany = await repository.GetByIdAsync<CateringCompany>(Guid.Parse(formModel.CateringCompanyId));
-            cateringCompany!.Dishes.Add(dish);
-
             await this.repository.SaveChangesAsync();
         }
 
