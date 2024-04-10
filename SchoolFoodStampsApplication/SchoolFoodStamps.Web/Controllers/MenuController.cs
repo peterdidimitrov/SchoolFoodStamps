@@ -10,7 +10,7 @@ using SchoolFoodStamps.Web.ViewModels.Dish;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
-    [Authorize(Roles = "CateringCompany")]
+    [Authorize]
     public class MenuController : BaseController
     {
         private readonly ILogger<MenuController> logger;
@@ -18,19 +18,23 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IMenuService menuService;
         private readonly IDishService dishService;
         private readonly IDishMenuService dishMenuService;
+        private readonly ISchoolService schoolService;
+        private readonly IStudentService studentService;
 
-        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IDishService dishService, IDishMenuService dishMenuService)
+        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IDishService dishService, IDishMenuService dishMenuService, ISchoolService schoolService, IStudentService studentService)
         {
             this.menuService = menuService;
             this.logger = logger;
             this.cateringCompanyService = cateringCompanyService;
             this.dishService = dishService;
             this.dishMenuService = dishMenuService;
+            this.schoolService = schoolService;
+            this.studentService = studentService;
         }
 
         [HttpGet]
         [Authorize(Roles = "CateringCompany, Parent")]
-        public async Task<IActionResult> Index(string schoolId)
+        public async Task<IActionResult> Index(string searchId)
         {
             string role = User.GetRole();
             string? cateringCompanyId = string.Empty;
@@ -47,7 +51,15 @@ namespace SchoolFoodStamps.Web.Controllers
             }
             else if (role == "Parent")
             {
-                cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdBySchoolIdAsync(schoolId);
+                Student? student = await studentService.GetStudentByIdAsync(Guid.Parse(searchId));
+
+                if (student == null)
+                {
+                    logger.LogError("Student not found.");
+                    return BadRequest();
+                }
+
+                cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdBySchoolIdAsync(student.SchoolId.ToString());
 
                 if (cateringCompanyId == null)
                 {
@@ -62,6 +74,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> Add()
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -88,6 +101,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> Add(MenuFormViewModel model)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -129,6 +143,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> Edit(string id)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -164,6 +179,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> Edit(MenuFormViewModel model, string id)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -217,6 +233,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> Delete(string id)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -252,6 +269,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> DeletePost(MenuDeleteViewModel model)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -293,6 +311,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> AddDishToMenu(string id)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -349,6 +368,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> AddDishToMenu(AddDishToMenuFormModel model, string id)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
@@ -417,6 +437,7 @@ namespace SchoolFoodStamps.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> RemoveDishFromMenu(string id)
         {
             string[] ids = id.Split(" ");
@@ -466,6 +487,7 @@ namespace SchoolFoodStamps.Web.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> RemoveDishFromMenuPost(DishMenuViewModel model)
         {
             CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
