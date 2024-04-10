@@ -86,7 +86,23 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<Dish?> GetDishByIdAsync(int id)
         {
-            return await this.repository.GetByIdAsync<Dish>(id);
+            return await this.repository
+                .AllReadOnly<Dish>()
+                .Include(d => d.DishesMenus)
+                .Include(d => d.AllergensDishes)
+                .Where(d => d.Id == id && d.IsActive == true)
+                .Select(d => new Dish()
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Description = d.Description,
+                    Weight = d.Weight,
+                    CateringCompanyId = d.CateringCompanyId,
+                    DishesMenus = d.DishesMenus,
+                    AllergensDishes = d.AllergensDishes,
+                    IsActive = d.IsActive
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }
