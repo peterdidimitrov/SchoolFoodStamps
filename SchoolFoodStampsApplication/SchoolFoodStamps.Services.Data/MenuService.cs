@@ -96,14 +96,16 @@ namespace SchoolFoodStamps.Services.Data
             return await this.repository
                 .AllReadOnly<Menu>()
                 .Include(m => m.DishesMenus)
-                .OrderBy(m => m.DayOfWeek)
-                .Where(m => m.Id == id)
-                .Select(c => new Menu()
+                .Where(m => m.Id == id && m.IsActive == true)
+                .Select(d => new Menu()
                 {
-                    Id = c.Id,
-                    DayOfWeek = c.DayOfWeek,
-                    CateringCompanyId = c.CateringCompanyId,
-                    DishesMenus = c.DishesMenus
+                    Id = d.Id,
+                    DayOfWeek = d.DayOfWeek,
+                    CreatedOn = d.CreatedOn,
+                    DateOfModify = d.DateOfModify,
+                    IsActive = d.IsActive,
+                    CateringCompanyId = d.CateringCompanyId,
+                    DishesMenus = d.DishesMenus
                 })
                 .FirstOrDefaultAsync();
         }
