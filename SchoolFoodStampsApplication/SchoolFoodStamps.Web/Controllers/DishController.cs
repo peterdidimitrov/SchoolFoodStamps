@@ -179,12 +179,26 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AddAllergenToDish(string id)
         {
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByUserIdAsync(User.GetId());
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
             Dish? dish = await this.dishService.GetDishByIdAsync(int.Parse(id));
 
             if (dish == null || dish.IsActive == false)
             {
                 logger.LogError("Dish not found.");
                 return BadRequest();
+            }
+
+            if (dish.CateringCompanyId != cateringCompany.Id)
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
             }
 
             IEnumerable<AllergenViewModel> allergens = await this.allergenService.GetAllAsync();
@@ -237,15 +251,6 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            AllergenDish? allergenDish = await this.allergenDishService.GetAllergenDishByDishIdAndAllergenIdAsync(dish.Id, allergen.Id);
-
-            if (allergenDish != null)
-            {
-                TempData[ErrorMessage] = "Allergen already added to dish.";
-                formModel.Allergens = await this.allergenService.GetAllAsync();
-                return RedirectToAction(nameof(AddAllergenToDish), new { id = id });
-            }
-
             if (!ModelState.IsValid)
             {
                 logger.LogWarning("Model state is not valid.");
@@ -260,12 +265,12 @@ namespace SchoolFoodStamps.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add allergen to dish! Please try again or contact administrator.");
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to add dish to menu! Please try again or contact administrator.";
                 formModel.Allergens = await this.allergenService.GetAllAsync();
                 return View(formModel);
             }
 
-            this.TempData[SuccessMessage] = "Dish updated successfully.";
+            this.TempData[SuccessMessage] = "Allergen added successfully.";
 
             return RedirectToAction(nameof(Index));
         }
