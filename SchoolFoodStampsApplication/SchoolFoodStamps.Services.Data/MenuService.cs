@@ -91,9 +91,21 @@ namespace SchoolFoodStamps.Services.Data
             throw new NotImplementedException();
         }
 
-        public async Task<Menu?> GetByIdAsync(int id)
+        public async Task<Menu?> GetMenuByIdAsync(int id)
         {
-            return await this.repository.GetByIdAsync<Menu>(id);
+            return await this.repository
+                .AllReadOnly<Menu>()
+                .Include(m => m.DishesMenus)
+                .OrderBy(m => m.DayOfWeek)
+                .Where(m => m.Id == id)
+                .Select(c => new Menu()
+                {
+                    Id = c.Id,
+                    DayOfWeek = c.DayOfWeek,
+                    CateringCompanyId = c.CateringCompanyId,
+                    DishesMenus = c.DishesMenus
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

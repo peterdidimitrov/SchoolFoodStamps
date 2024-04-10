@@ -139,7 +139,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(id));
 
             if (menu == null)
             {
@@ -174,7 +174,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(id));
 
             if (menu == null)
             {
@@ -227,7 +227,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(id));
 
             if (menu == null)
             {
@@ -262,7 +262,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(model.Id));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(model.Id));
 
             if (menu == null)
             {
@@ -303,7 +303,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(id));
 
             if (menu == null)
             {
@@ -359,7 +359,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(id));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(id));
 
             if (menu == null)
             {
@@ -419,7 +419,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(menuId));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(menuId));
 
             if (menu == null)
             {
@@ -464,7 +464,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            Menu? menu = await this.menuService.GetByIdAsync(int.Parse(model.MenuId));
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(model.MenuId));
 
             if (menu == null)
             {

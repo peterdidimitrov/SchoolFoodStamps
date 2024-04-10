@@ -22,8 +22,8 @@ namespace SchoolFoodStamps.Services.Data
                 MenuId = menu.Id
             };
 
-            dish.DishesMenus.Add(dishMenu);
             menu.DishesMenus.Add(dishMenu);
+            dish.DishesMenus.Add(dishMenu);
 
             await this.repository.AddAsync(dishMenu);
             await repository.SaveChangesAsync();
