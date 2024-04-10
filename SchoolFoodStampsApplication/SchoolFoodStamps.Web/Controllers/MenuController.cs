@@ -317,7 +317,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return Unauthorized();
             }
 
-            if (menu.DishesMenus.Where(dm => dm.Dish.IsActive == true && dm.Menu.IsActive == true).Count() >= 3)
+            if (menu.DishesMenus.Count() >= 3)
             {
                 this.TempData[ErrorMessage] = $"You can't add more than {menu.DishesMenus.Count()} dishes to menu!";
                 return RedirectToAction(nameof(Index));
@@ -325,14 +325,14 @@ namespace SchoolFoodStamps.Web.Controllers
 
             IEnumerable<DishViewModel> dishes = await this.dishService.GetAllAsync(cateringCompany.Id.ToString());
 
-            if(dishes == null)
+            if (dishes == null)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to get dishes! Please try again or contact administrator.";
 
                 return RedirectToAction(nameof(Index));
             }
 
-            if(dishes.Count() == 0)
+            if (dishes.Count() == 0)
             {
                 this.TempData[ErrorMessage] = "You don't have any dishes added! Please add some dishes first.";
 
@@ -379,6 +379,18 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 logger.LogError("Dish not found.");
                 return BadRequest();
+            }
+
+            DishMenu? dishMenu = await this.dishMenuService.GetDishMenuByMenuIdAndDishIdAsync(int.Parse(model.DishId), int.Parse(id));
+
+            if (dishMenu != null)
+            {
+                if (dishMenu.MenuId == menu.Id && dishMenu.DishId == dish.Id)
+                {
+                    this.TempData[ErrorMessage] = "Dish is already added to menu!";
+                    model.Dishes = await this.dishService.GetAllAsync(cateringCompany.Id.ToString());
+                    return View(model);
+                }
             }
 
             if (!ModelState.IsValid)
