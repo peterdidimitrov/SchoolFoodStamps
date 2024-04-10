@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model AddDishToMenuFormModel;
+
 @{
+    ViewBag.Title = "Choose a dish";
 }
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-controller="Menu" asp-action="AddDishToMenu" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.DishId" class="form-label-add-edit">Dish</label>
+                <select asp-for="@Model.DishId" class="form-control" aria-required="true">
+                    <option abled selected value="">Select Dish...</option>
+                    @foreach (DishViewModel dish in Model.Dishes)
+                    {
+                        <option value="@dish.Id.ToString()">@dish.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.Dishes" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+            </div>
+            <a asp-controller="Menu" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
