@@ -8,6 +8,7 @@ using SchoolFoodStamps.Web.ViewModels.School;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -127,6 +128,50 @@ namespace SchoolFoodStamps.Web.Controllers
             queryModel.Filter = schools;
 
             return View(queryModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Parent")]
+        public async Task<IActionResult> Buy(string id)
+        {
+            string[] ids = id.Split(" ");
+            string menuId = ids[0];
+            string studentId = ids[1];
+            string cateringId = ids[2];
+
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            Student? student = await studentService.GetStudentByIdAsync(Guid.Parse(studentId));
+
+            if (student == null)
+            {
+                logger.LogWarning("Student not found.");
+                return BadRequest();
+            }
+
+            if (student.ParentId != Guid.Parse(parentId))
+            {
+                logger.LogWarning("Student not found in this parent.");
+                return BadRequest();
+            }
+
+            FoodStampFormViewModel foodStampFormViewModel = new FoodStampFormViewModel
+            {
+                StudentId = id,
+                MenuId = menuId,
+                ParentId = parentId,
+                CateringCompanyId = cateringId,
+                SchoolId = student.SchoolId.ToString(),
+                Price = FoodStampPrice
+            };
+
+            return View(foodStampFormViewModel);
         }
     }
 }

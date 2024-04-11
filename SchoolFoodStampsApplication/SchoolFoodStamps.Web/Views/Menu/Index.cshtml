@@ -56,7 +56,7 @@
                 else
                 {
                     <a asp-controller="Menu" asp-action="Details" asp-route-id="@m.Id @m.SearchId @m.CateringCompanyId" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
-                    <form class="input-group-sm" asp-controller="FoodStamp" asp-action="Buy" asp-route-id="@m">
+                    <form class="input-group-sm" asp-controller="FoodStamp" asp-action="Buy" asp-route-id="@m.Id @m.SearchId @m.CateringCompanyId">
                         <input type="submit" value="Buy food stamp" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
                     </form>
                 }

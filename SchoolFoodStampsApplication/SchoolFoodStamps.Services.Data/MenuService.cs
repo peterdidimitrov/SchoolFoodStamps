@@ -54,6 +54,13 @@ namespace SchoolFoodStamps.Services.Data
             return await this.repository.SaveChangesAsync();
         }
 
+        public async Task<bool> ExistsByIdAsync(int id)
+        {
+            return await this.repository
+                .AllReadOnly<Menu>()
+                .AnyAsync(m => m.Id == id);
+        }
+
         public async Task<IEnumerable<MenuViewModel>> GetAllAsync(string cateringCompanyId)
         {
             return await this.repository

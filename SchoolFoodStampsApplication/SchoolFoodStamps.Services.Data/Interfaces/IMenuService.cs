@@ -7,6 +7,8 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
     {
         Task CreateAsync(MenuFormViewModel menu);
 
+        Task<bool> ExistsByIdAsync(int id);
+
         Task<int> EditAsync(MenuFormViewModel menu);
 
         Task<int> DeleteAsync(int id);

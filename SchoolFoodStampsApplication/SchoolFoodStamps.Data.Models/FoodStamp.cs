@@ -11,6 +11,7 @@ namespace SchoolFoodStamps.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.IssueDate = DateTime.UtcNow;
+            this.Status = FoodStampStatus.Valid;
         }
 
         [Key]

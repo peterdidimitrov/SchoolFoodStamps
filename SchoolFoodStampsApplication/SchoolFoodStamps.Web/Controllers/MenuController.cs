@@ -169,9 +169,9 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Details(string id)
         {
-            ParentFormViewModel? parent = await parentService.GetParentByUserIdAsync(User.GetId());
+            bool isParentExist = await parentService.ExistsByUserIdAsync(User.GetId());
 
-            if (parent == null)
+            if (!isParentExist)
             {
                 logger.LogError("Parent not found.");
                 return BadRequest();
@@ -182,9 +182,9 @@ namespace SchoolFoodStamps.Web.Controllers
             string studentId = ids[1];
             string cateringCompanyId = ids[2];
 
-            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(menuId));
+            bool isMenuExist = await menuService.ExistsByIdAsync(int.Parse(menuId));
 
-            if (menu == null)
+            if (!isMenuExist)
             {
                 logger.LogError("Menu not found.");
                 return BadRequest();
@@ -198,7 +198,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (!cateringCompany.Menus.Where(m => m.IsActive == true).Any(m => m.Id == menu.Id))
+            if (!cateringCompany.Menus.Where(m => m.IsActive == true).Any(m => m.Id.ToString() == menuId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -237,7 +237,7 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to get dishes! Please try again or contact administrator.";
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), studentId);
             }
         }
 
