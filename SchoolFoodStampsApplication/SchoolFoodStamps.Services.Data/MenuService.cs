@@ -86,11 +86,6 @@ namespace SchoolFoodStamps.Services.Data
                 .ToListAsync();
         }
 
-        public Task<IEnumerable<MenuViewModel>> GetAllByCateringCompanyAsync(string cateringCompanyId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Menu?> GetMenuByIdAsync(int id)
         {
             return await this.repository
@@ -106,6 +101,37 @@ namespace SchoolFoodStamps.Services.Data
                     IsActive = d.IsActive,
                     CateringCompanyId = d.CateringCompanyId,
                     DishesMenus = d.DishesMenus
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<MenuViewModel?> GetMenuDetailsByIdAsync(int id)
+        {
+            return await this.repository
+                .AllReadOnly<Menu>()
+                .Where(m => m.Id == id && m.IsActive == true)
+                .Include(m => m.DishesMenus)
+                .Select(m => new MenuViewModel
+                {
+                    Id = m.Id,
+                    DayOfWeek = m.DayOfWeek.ToString(),
+                    CateringCompanyId = m.CateringCompanyId.ToString(),
+                    Dishes = m.DishesMenus
+                    .Where(dm => dm.MenuId == m.Id && dm.Dish.IsActive == true)
+                    .Select(dm => new DishViewModel
+                    {
+                        Id = dm.Dish.Id.ToString(),
+                        Name = dm.Dish.Name!,
+                        Description = dm.Dish.Description!,
+                        Weight = dm.Dish.Weight.ToString(),
+                        Allergens = dm.Dish.AllergensDishes
+                            .Select(ad => new AllergenViewModel
+                            {
+                                Id = ad.Allergen.Id.ToString(),
+                                Name = ad.Allergen.Name
+                            })
+                        .ToList()
+                    }).ToList()
                 })
                 .FirstOrDefaultAsync();
         }

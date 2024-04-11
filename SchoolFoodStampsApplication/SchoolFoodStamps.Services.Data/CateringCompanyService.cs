@@ -131,5 +131,29 @@ namespace SchoolFoodStamps.Services.Data
                 .Select(s => s.CateringCompanyId.ToString())
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<CateringCompany?> GetCateringCompanyByIdAsync(string cateringCompanyId)
+        {
+            return await repository
+                .AllReadOnly<CateringCompany>()
+                .Include(c => c.Schools)
+                .Include(c => c.FoodStamps)
+                .Include(c => c.Menus)
+                .Include(c => c.Dishes)
+                .OrderBy(c => c.Name)
+                .Where(c => c.Id.ToString() == cateringCompanyId)
+                .Select(c => new CateringCompany()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Address = c.Address,
+                    IdentificationNumber = c.IdentificationNumber,
+                    Menus = c.Menus,
+                    Schools = c.Schools,
+                    FoodStamps = c.FoodStamps,
+                    Dishes = c.Dishes
+                })
+                .FirstOrDefaultAsync();
+        }
     }
 }

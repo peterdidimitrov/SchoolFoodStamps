@@ -7,6 +7,7 @@ using SchoolFoodStamps.Web.ViewModels.DishMenu;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 using SchoolFoodStamps.Web.ViewModels.Dish;
+using SchoolFoodStamps.Web.ViewModels.Parent;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -20,8 +21,9 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly IDishMenuService dishMenuService;
         private readonly ISchoolService schoolService;
         private readonly IStudentService studentService;
+        private readonly IParentService parentService;
 
-        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IDishService dishService, IDishMenuService dishMenuService, ISchoolService schoolService, IStudentService studentService)
+        public MenuController(IMenuService menuService, ILogger<MenuController> logger, ICateringCompanyService cateringCompanyService, IDishService dishService, IDishMenuService dishMenuService, ISchoolService schoolService, IStudentService studentService, IParentService parentService)
         {
             this.menuService = menuService;
             this.logger = logger;
@@ -30,6 +32,7 @@ namespace SchoolFoodStamps.Web.Controllers
             this.dishMenuService = dishMenuService;
             this.schoolService = schoolService;
             this.studentService = studentService;
+            this.parentService = parentService;
         }
 
         [HttpGet]
@@ -51,12 +54,24 @@ namespace SchoolFoodStamps.Web.Controllers
             }
             else if (role == "Parent")
             {
-                Student? student = await studentService.GetStudentByIdAsync(Guid.Parse(searchId));
+                Guid studentId;
+                Student? student;
 
-                if (student == null)
+                if (Guid.TryParse(searchId, out studentId))
                 {
-                    logger.LogError("Student not found.");
-                    return BadRequest();
+                    student = await studentService.GetStudentByIdAsync(studentId);
+
+                    if (student == null)
+                    {
+                        logger.LogError("Student not found.");
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    logger.LogError("Invalid student id.");
+                    TempData[ErrorMessage] = "Choose a student!";
+                    return RedirectToAction(nameof(Index), "FoodStamp");
                 }
 
                 cateringCompanyId = await cateringCompanyService.GetCateringCompanyIdBySchoolIdAsync(student.SchoolId.ToString());
@@ -69,6 +84,14 @@ namespace SchoolFoodStamps.Web.Controllers
             }
 
             IEnumerable<MenuViewModel> menus = await this.menuService.GetAllAsync(cateringCompanyId);
+
+            if (User.GetRole() == "Parent")
+            {
+                foreach (MenuViewModel menu in menus)
+                {
+                    menu.SearchId = searchId;
+                }
+            }
 
             return View(menus);
         }
@@ -140,6 +163,82 @@ namespace SchoolFoodStamps.Web.Controllers
             this.TempData[SuccessMessage] = "Menu added successfully!";
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Parent")]
+        public async Task<IActionResult> Details(string id)
+        {
+            ParentFormViewModel? parent = await parentService.GetParentByUserIdAsync(User.GetId());
+
+            if (parent == null)
+            {
+                logger.LogError("Parent not found.");
+                return BadRequest();
+            }
+
+            string[] ids = id.Split(" ");
+            string menuId = ids[0];
+            string studentId = ids[1];
+            string cateringCompanyId = ids[2];
+
+            Menu? menu = await this.menuService.GetMenuByIdAsync(int.Parse(menuId));
+
+            if (menu == null)
+            {
+                logger.LogError("Menu not found.");
+                return BadRequest();
+            }
+
+            CateringCompany? cateringCompany = await cateringCompanyService.GetCateringCompanyByIdAsync(cateringCompanyId);
+
+            if (cateringCompany == null)
+            {
+                logger.LogError("Catering company not found.");
+                return BadRequest();
+            }
+
+            if (!cateringCompany.Menus.Where(m => m.IsActive == true).Any(m => m.Id == menu.Id))
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            Student? student = await studentService.GetStudentByIdAsync(Guid.Parse(studentId));
+
+            if (student == null)
+            {
+                logger.LogError("Student not found.");
+                return BadRequest();
+            }
+
+            if (!cateringCompany.Schools.Any(s => s.Id == student.SchoolId))
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            try
+            {
+                MenuViewModel? model = await this.menuService.GetMenuDetailsByIdAsync(int.Parse(menuId));
+
+                if (model == null)
+                {
+                    this.TempData[ErrorMessage] = "Unexpected error occurred while trying to get menu details! Please try again or contact administrator.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                model.SearchId = studentId;
+
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to get dishes! Please try again or contact administrator.";
+
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         [HttpGet]

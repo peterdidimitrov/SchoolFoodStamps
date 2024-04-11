@@ -1,0 +1,39 @@
+﻿@model MenuViewModel;
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    <div class="card-body">
+        <h3 class="card-title mt-1">@Model.DayOfWeek</h3>
+        @{
+            List<string> allergens = new List<string>();
+        }
+        <ol>
+            @foreach (DishViewModel dish in @Model.Dishes)
+            {
+                <li>
+                    <p class="card-text text-lg-start mt-1"> @dish.Name</p>
+                    <p class="card-text text-lg-start mt-1"> @dish.Description</p>
+                    <p class="card-text text-lg-start mt-1"> <span class="font-weight-bold">@dish.Weight</span> gr.</p>
+                    @foreach (var allergen in dish.Allergens)
+                    {
+                        allergens.Add(allergen.Name);
+                    }
+                    <hr />
+                </li>
+            }
+        </ol>
+        <p class="card-text text-lg-start mt-1">AlLergens: @string.Join(", ", allergens)</p>
+
+        <a asp-controller="Menu" asp-action="Index" asp-route-id="@Model.SearchId" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -10,7 +10,7 @@
         <div class="form-group col-md-2">
             <label asp-for="SearchId"></label>
             <select asp-for="SearchId" class="form-control">
-                <option value="">All</option>
+                <option value="" disabled>Choose a student</option>
                 @foreach (var student in Model.Filter)
                 {
                     <option value="@student.Id">@student.Name</option>

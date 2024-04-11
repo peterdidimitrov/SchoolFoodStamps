@@ -14,6 +14,8 @@ namespace SchoolFoodStamps.Web.ViewModels.Menu
 
         public string CateringCompanyId { get; set; } = string.Empty;
 
+        public string SearchId { get; set; } = string.Empty;
+
         public ICollection<DishViewModel> Dishes { get; set; }
     }
 }

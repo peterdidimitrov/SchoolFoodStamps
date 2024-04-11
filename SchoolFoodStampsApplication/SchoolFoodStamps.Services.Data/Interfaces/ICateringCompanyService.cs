@@ -22,6 +22,8 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<string?> GetCateringCompanyIdAsync(string userId);
 
+        Task<CateringCompany?> GetCateringCompanyByIdAsync(string cateringCompanyId);
+
         Task<string?> GetCateringCompanyIdBySchoolIdAsync(string schoolId);
     }
 }

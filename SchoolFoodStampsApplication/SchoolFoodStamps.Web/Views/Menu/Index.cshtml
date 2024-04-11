@@ -10,7 +10,7 @@
     <h2 class="text-center">No menus available</h2>
 }
 
-@if (Model.Count() < 5)
+@if (Model.Count() < 5 && User.GetRole() == "CateringCompany")
 {
     <div class="text-center">
         <a class="btn btn-primary m-2" role="button" style="margin-right: 0" asp-area="" asp-controller="Menu" asp-action="Add">Create a menu</a>
@@ -31,7 +31,10 @@
                     {
                         <li>
                             <p class="card-text text-lg-start mt-1"> @dish.Name</p>
-                            <a asp-controller="Menu" asp-action="RemoveDishFromMenu" asp-route-id="@m.Id @dish.Id" class="btn btn-primary mb-2 w-100 p-1 fw-bold"><span style="font-size:small">Remove</span></a>
+                            @if (User.GetRole() == "CateringCompany")
+                            {
+                                <a asp-controller="Menu" asp-action="RemoveDishFromMenu" asp-route-id="@m.Id @dish.Id" class="btn btn-primary mb-2 w-100 p-1 fw-bold"><span style="font-size:small">Remove</span></a>
+                            }
                             <hr />
                         </li>
                     }
@@ -46,10 +49,17 @@
             }
             else
             {
-                <a asp-controller="Menu" asp-action="Details" asp-route-id="@m.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
-                <form class="input-group-sm" asp-controller="FoodStamp" asp-action="Buy" asp-route-id="@m.Id">
-                    <input type="submit" value="Buy food stamp" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
-                </form>
+                @if (User.GetRole() == "Parent" && !m.Dishes.Any())
+                {
+                    <p class="p-3 mb-2 bg-light text-dark">The menu is not created yet.</p>
+                }
+                else
+                {
+                    <a asp-controller="Menu" asp-action="Details" asp-route-id="@m.Id @m.SearchId @m.CateringCompanyId" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+                    <form class="input-group-sm" asp-controller="FoodStamp" asp-action="Buy" asp-route-id="@m">
+                        <input type="submit" value="Buy food stamp" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
+                    </form>
+                }
             }
         </div>
     }
