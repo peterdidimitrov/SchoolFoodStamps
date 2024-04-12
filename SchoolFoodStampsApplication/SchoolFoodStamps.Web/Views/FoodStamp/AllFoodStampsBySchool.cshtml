@@ -47,7 +47,7 @@
                     @{
                         int enumCount = Enum.GetValues(typeof(FoodStampSorting)).Length;
 
-                        for (int i = 0; i < enumCount; i++)
+                        for (int i = 0; i < enumCount - 1; i++)
                         {
                             FoodStampSorting sort = (FoodStampSorting)Enum.GetValues(typeof(FoodStampSorting)).GetValue(i)!;
                             <option value="@sort">@Html.DisplayFor(FoodStampSorting => sort)</option>

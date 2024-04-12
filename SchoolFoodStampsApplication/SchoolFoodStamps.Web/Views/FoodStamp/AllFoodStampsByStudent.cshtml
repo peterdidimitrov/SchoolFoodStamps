@@ -142,9 +142,18 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => item.ExpiryDate)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
+                @if (item.Status == "Expired")
+                {
+                    <td class="text-danger">
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.RenewedDate)
                 </td>
