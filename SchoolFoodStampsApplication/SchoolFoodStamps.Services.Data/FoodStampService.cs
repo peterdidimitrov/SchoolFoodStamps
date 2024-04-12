@@ -7,7 +7,6 @@ using SchoolFoodStamps.Web.ViewModels.FoodStamp;
 using SchoolFoodStamps.Web.ViewModels.School;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Globalization;
-using static SchoolFoodStamps.Common.EntityValidationConstants;
 using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Services.Data
@@ -80,6 +79,14 @@ namespace SchoolFoodStamps.Services.Data
                 .Where(s => s.ParentId == Guid.Parse(parentId))
                 .AsQueryable();
 
+            //foreach (FoodStamp item in foodStampQuery)
+            //{
+            //    if (item.ExpiryDate < DateTime.UtcNow)
+            //    {
+            //        await EditAsync(item);
+            //    }
+            //}
+
             if (!string.IsNullOrWhiteSpace(queryModel.SearchId))
             {
                 foodStampQuery = foodStampQuery
@@ -108,6 +115,9 @@ namespace SchoolFoodStamps.Services.Data
                     .OrderBy(s => s.ExpiryDate),
                 FoodStampSorting.RenewedDate => foodStampQuery
                     .OrderBy(s => s.RenewedDate),
+                FoodStampSorting.StudentName => foodStampQuery
+                    .OrderBy(s => s.Student.FirstName)
+                    .ThenBy(s => s.Student.LastName),
                 _ => foodStampQuery
                     .OrderBy(s => s.IssueDate)
             };
@@ -117,10 +127,12 @@ namespace SchoolFoodStamps.Services.Data
                 .Take(queryModel.FoodStampsPerPage)
                 .Select(fs => new FoodStampViewModel
                 {
+                    Id = fs.Id.ToString(),
                     IssueDate = fs.IssueDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     ExpiryDate = fs.ExpiryDate.ToString(DateFormat, CultureInfo.InvariantCulture),
                     RenewedDate = fs.RenewedDate.HasValue ? fs.RenewedDate.Value.ToString(DateFormat, CultureInfo.InvariantCulture) : null!,
-                    Status = fs.Status.ToString()
+                    Status = fs.Status.ToString(),
+                    StudentName = fs.Student.FirstName + " " + fs.Student.LastName
                 })
                 .ToListAsync();
 
@@ -191,6 +203,56 @@ namespace SchoolFoodStamps.Services.Data
                 TotalFoodStampsCount = totalFoodstamps,
                 FoodStamps = allFoodStamps
             };
+        }
+
+        public async Task BuyFoodStampAsync(int menuId, Guid studentId, Guid parentId, Guid cateringCompanyId, Guid schoolId)
+        {
+            Menu? menu = await repository.AllReadOnly<Menu>().FirstOrDefaultAsync(m => m.Id == menuId);
+
+            DayOfWeek menuDayOfWeek = (DayOfWeek)menu!.DayOfWeek;
+
+            DateTime startDay = DateTime.UtcNow;
+            DateTime expiryDate = new DateTime();
+
+            DayOfWeek day = startDay.DayOfWeek;
+
+            while (true)
+            {
+                startDay = startDay.AddDays(1);
+                if (startDay.DayOfWeek == DayOfWeek.Saturday || startDay.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    continue;
+                }
+
+                if (startDay.DayOfWeek == menuDayOfWeek)
+                {
+                    expiryDate = startDay;
+                    break;
+                }
+            }
+
+            FoodStamp newFoodStamp = new FoodStamp
+            {
+                StudentId = studentId,
+                ParentId = parentId,
+                CateringCompanyId = cateringCompanyId,
+                SchoolId = schoolId,
+                MenuId = menuId,
+                IssueDate = DateTime.UtcNow,
+                ExpiryDate = expiryDate,
+                Status = FoodStampStatus.Valid
+            };
+
+            await repository.AddAsync(newFoodStamp);
+            await repository.SaveChangesAsync();
+        }
+
+        public async Task<int> EditAsync(FoodStamp foodStamp)
+        {
+            foodStamp!.Status = FoodStampStatus.Expired;
+
+            await repository.UpdateAsync(foodStamp);
+            return await repository.SaveChangesAsync();
         }
     }
 }

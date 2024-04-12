@@ -192,7 +192,5 @@ namespace SchoolFoodStamps.Services.Data
             return await this.repository
                 .GetByIdAsync<Student>(studentId);
         }
-
-
     }
 }

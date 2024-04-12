@@ -8,7 +8,6 @@ using SchoolFoodStamps.Web.ViewModels.School;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
-using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -130,7 +129,8 @@ namespace SchoolFoodStamps.Web.Controllers
             return View(queryModel);
         }
 
-        [HttpGet]
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Buy(string id)
         {
@@ -161,17 +161,25 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            FoodStampFormViewModel foodStampFormViewModel = new FoodStampFormViewModel
+            if (DateTime.UtcNow.Hour > 16)
             {
-                StudentId = id,
-                MenuId = menuId,
-                ParentId = parentId,
-                CateringCompanyId = cateringId,
-                SchoolId = student.SchoolId.ToString(),
-                Price = FoodStampPrice
-            };
+                this.TempData[ErrorMessage] = "You can buy food stamps only until 16:00!";
+                return RedirectToAction("Index");
+            }
 
-            return View(foodStampFormViewModel);
+            try
+            {
+                await foodStampService.BuyFoodStampAsync(int.Parse(menuId), Guid.Parse(studentId), Guid.Parse(parentId), Guid.Parse(cateringId), student.SchoolId);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error while buying food stamp.");
+                this.TempData[ErrorMessage] = "Error while buying food stamp.";
+                return RedirectToAction("Index");
+            }
+
+            this.TempData[SuccessMessage] = "Food stamp bought successfully!";
+            return RedirectToAction("Index");
         }
     }
 }
