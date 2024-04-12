@@ -7,5 +7,7 @@ public enum FoodStampSorting
     [Display(Name = "Expiry date")]
     ExpiryDate = 1,
     [Display(Name = "Renewed date")]
-    RenewedDate = 2
+    RenewedDate = 2,
+    [Display(Name = "Student name")]
+    StudentName = 3
 }
