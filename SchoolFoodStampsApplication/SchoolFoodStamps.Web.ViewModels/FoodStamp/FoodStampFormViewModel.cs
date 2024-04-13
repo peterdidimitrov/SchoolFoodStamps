@@ -6,7 +6,6 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
     {
         public FoodStampFormViewModel()
         {
-            this.Dates = new HashSet<DateTime>();
             this.Price = FoodStampPrice;
         }
         public string Id { get; set; } = string.Empty;
@@ -17,6 +16,10 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
 
         public string ExpiryDate { get; set; } = string.Empty;
 
+        public string Status { get; set; } = string.Empty;
+
+        public string RenewedDate { get; set; } = string.Empty;
+
         public string MenuId { get; set; } = string.Empty;
 
         public string StudentId { get; set; } = string.Empty;
@@ -26,7 +29,5 @@ namespace SchoolFoodStamps.Web.ViewModels.FoodStamp
         public string CateringCompanyId { get; set; } = string.Empty;
 
         public string SchoolId { get; set; } = string.Empty;
-
-        public IEnumerable<DateTime> Dates { get; set; }
     }
 }
