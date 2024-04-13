@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Data.Roles;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
@@ -13,6 +14,7 @@ builder.Services.AddControllersWithViews(options =>
 {
     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
     options.ModelBinderProviders.Insert(1, new DateModelBinderProvider());
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 builder.Services.AddApplicationServices(typeof(IFoodStampService));
@@ -48,8 +50,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    //endpoints.MapControllerRoute(
+    //   name: "default",
+    //   pattern: "{controller=Home}/{action=Index}/{id?}",
+    //   defaults: new { Controller = "", Action = "" });
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
 
 using (IServiceScope scope = app.Services.CreateScope())
 {
