@@ -1,6 +1,5 @@
 ﻿using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Models.FoodStamps;
-using SchoolFoodStamps.Web.ViewModels.Dish;
 using SchoolFoodStamps.Web.ViewModels.FoodStamp;
 using SchoolFoodStamps.Web.ViewModels.School;
 using SchoolFoodStamps.Web.ViewModels.Student;
@@ -15,8 +14,12 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsByCateringCompanyIdAsync(AllFoodStampsQueryModel<SchoolViewModel> queryModel, string cateringCompanyId);
 
-        Task BuyFoodStampAsync (int menuId, Guid studentId, Guid parentId, Guid cateringCompanyId, Guid schoolId);
+        Task BuyFoodStampAsync(int menuId, Guid studentId, Guid parentId, Guid cateringCompanyId, Guid schoolId);
 
-        Task<int> EditAsync(FoodStamp foodStamp);
+        Task<FoodStamp?> GetFoodStampByIdAsync(string foodStampId);
+
+        Task<DateTime> GenerateExpiryDate(int menuId, DateTime startDate, bool isRenew);
+
+        Task<int> UpdateFoodStampAsync(FoodStamp foodStamp, FoodStampFormViewModel model);
     }
 }

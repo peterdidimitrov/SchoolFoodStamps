@@ -74,18 +74,23 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsByParentIdAsync(AllFoodStampsQueryModel<StudentViewModel> queryModel, string parentId)
         {
-            IQueryable<FoodStamp> foodStampQuery = repository
-            .AllReadOnly<FoodStamp>()
-                .Where(s => s.ParentId == Guid.Parse(parentId))
-                .AsQueryable();
+            //IEnumerable<FoodStamp> foodStamps = await repository
+            //    .All<FoodStamp>()
+            //    .Where(s => s.ParentId == Guid.Parse(parentId) && (s.Status.ToString() == "Valid" || s.Status.ToString() == "Renewed"))
+            //    .ToListAsync();
 
-            //foreach (FoodStamp item in foodStampQuery)
+            //foreach (FoodStamp item in foodStamps)
             //{
             //    if (item.ExpiryDate < DateTime.UtcNow)
             //    {
             //        await EditAsync(item);
             //    }
             //}
+
+            IQueryable<FoodStamp> foodStampQuery = repository
+                .AllReadOnly<FoodStamp>()
+                .Where(s => s.ParentId == Guid.Parse(parentId))
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchId))
             {
@@ -207,29 +212,9 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task BuyFoodStampAsync(int menuId, Guid studentId, Guid parentId, Guid cateringCompanyId, Guid schoolId)
         {
-            Menu? menu = await repository.AllReadOnly<Menu>().FirstOrDefaultAsync(m => m.Id == menuId);
 
-            DayOfWeek menuDayOfWeek = (DayOfWeek)menu!.DayOfWeek;
-
-            DateTime startDay = DateTime.UtcNow;
-            DateTime expiryDate = new DateTime();
-
-            DayOfWeek day = startDay.DayOfWeek;
-
-            while (true)
-            {
-                startDay = startDay.AddDays(1);
-                if (startDay.DayOfWeek == DayOfWeek.Saturday || startDay.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    continue;
-                }
-
-                if (startDay.DayOfWeek == menuDayOfWeek)
-                {
-                    expiryDate = startDay;
-                    break;
-                }
-            }
+            DateTime startDate = DateTime.Now.Date;
+            DateTime expiryDate = await GenerateExpiryDate(menuId, startDate, false);
 
             FoodStamp newFoodStamp = new FoodStamp
             {
@@ -247,9 +232,60 @@ namespace SchoolFoodStamps.Services.Data
             await repository.SaveChangesAsync();
         }
 
-        public async Task<int> EditAsync(FoodStamp foodStamp)
+        public async Task<DateTime> GenerateExpiryDate(int menuId, DateTime startDate, bool isRenew)
         {
-            foodStamp!.Status = FoodStampStatus.Expired;
+            Menu? menu = await repository.AllReadOnly<Menu>().FirstOrDefaultAsync(m => m.Id == menuId);
+            DayOfWeek menuDayOfWeek = (DayOfWeek)menu!.DayOfWeek;
+            DateTime expiryDate = new DateTime();
+            DayOfWeek day = startDate.DayOfWeek;
+
+            if (isRenew)
+            {
+                while (true)
+                {
+                    startDate = startDate.AddDays(1);
+                    if (startDate.DayOfWeek == DayOfWeek.Saturday || startDate.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        continue;
+                    }
+
+                    expiryDate = startDate.AddHours(16);
+                    break;
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    startDate = startDate.AddDays(1);
+                    if (startDate.DayOfWeek == DayOfWeek.Saturday || startDate.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        continue;
+                    }
+
+                    if (startDate.DayOfWeek == menuDayOfWeek)
+                    {
+                        expiryDate = startDate.AddHours(16);
+                        break;
+                    }
+                }
+            }
+
+            return expiryDate;
+        }
+
+        public async Task<FoodStamp?> GetFoodStampByIdAsync(string foodStampId)
+        {
+            return await repository.AllReadOnly<FoodStamp>()
+                .FirstOrDefaultAsync(fs => fs.Id == Guid.Parse(foodStampId));
+        }
+
+        public async Task<int> UpdateFoodStampAsync(FoodStamp foodStamp, FoodStampFormViewModel model)
+        {
+            foodStamp.ExpiryDate = DateTime.ParseExact(model.ExpiryDate, DateFormat, CultureInfo.InvariantCulture);
+            foodStamp.RenewedDate = model.RenewedDate != null ? DateTime.ParseExact(model.RenewedDate, DateFormat, CultureInfo.InvariantCulture) : null;
+            foodStamp.Status = (FoodStampStatus)Enum.Parse(typeof(FoodStampStatus), model.Status);
+            foodStamp.MenuId = int.Parse(model.MenuId);
 
             await repository.UpdateAsync(foodStamp);
             return await repository.SaveChangesAsync();

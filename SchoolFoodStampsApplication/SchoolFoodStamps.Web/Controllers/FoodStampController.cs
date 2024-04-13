@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Services.Data.Models.FoodStamps;
 using SchoolFoodStamps.Web.ViewModels.FoodStamp;
+using SchoolFoodStamps.Web.ViewModels.Parent;
 using SchoolFoodStamps.Web.ViewModels.School;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -19,9 +22,10 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ISchoolService schoolService;
         private readonly IParentService parentService;
         private readonly ICateringCompanyService cateringCompanyService;
+        private readonly IMenuService menuService;
         private readonly ILogger<HomeController> logger;
 
-        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService, ICateringCompanyService cateringCompanyService)
+        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService, ICateringCompanyService cateringCompanyService, IMenuService menuService)
         {
             this.foodStampService = foodStampService;
             this.logger = logger;
@@ -29,6 +33,7 @@ namespace SchoolFoodStamps.Web.Controllers
             this.studentService = studentService;
             this.parentService = parentService;
             this.cateringCompanyService = cateringCompanyService;
+            this.menuService = menuService;
         }
 
         [HttpGet]
@@ -158,6 +163,14 @@ namespace SchoolFoodStamps.Web.Controllers
             if (student.ParentId != Guid.Parse(parentId))
             {
                 logger.LogWarning("Student not found in this parent.");
+                return Unauthorized();
+            }
+
+            Menu? menu = await menuService.GetMenuByIdAsync(int.Parse(menuId));
+
+            if (menu == null)
+            {
+                logger.LogWarning("Menu not found.");
                 return BadRequest();
             }
 
@@ -174,11 +187,118 @@ namespace SchoolFoodStamps.Web.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error while buying food stamp.");
-                this.TempData[ErrorMessage] = "Error while buying food stamp.";
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to buy food stamp! Please try again or contact administrator.";
                 return RedirectToAction("Index");
             }
 
             this.TempData[SuccessMessage] = "Food stamp bought successfully!";
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Parent")]
+        public async Task<IActionResult> Renew(string id)
+        {
+            ParentFormViewModel? parent = await parentService.GetParentByUserIdAsync(User.GetId()!);
+
+            if (parent == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            FoodStamp? foodStamp = await foodStampService.GetFoodStampByIdAsync(id);
+
+            if (foodStamp == null)
+            {
+                logger.LogWarning("Food stamp not found.");
+                return BadRequest();
+            }
+
+            if (foodStamp.ParentId.ToString() != parent.Id.ToLower())
+            {
+                logger.LogWarning("Food stamp not found in this parent.");
+                return Unauthorized();
+            }
+
+            if (foodStamp.Status != FoodStampStatus.Valid)
+            {
+                logger.LogWarning("Food stamp is not valid.");
+                this.TempData[ErrorMessage] = "You can renew only valid food stamps!";
+                return RedirectToAction("Index");
+            }
+
+            DateTime expiryDate = await foodStampService.GenerateExpiryDate(foodStamp.MenuId, foodStamp.ExpiryDate.Date, true);
+
+            DayOfWeek dayOfWeek = expiryDate.DayOfWeek;
+
+            Menu? menu = await menuService.GetMenuByCateringCompanyIdAndDayOfWeekAsync(foodStamp.CateringCompanyId.ToString(), (CustomDayOfWeek)dayOfWeek);
+
+            if (menu == null)
+            {
+                logger.LogWarning("Menu not found.");
+                this.TempData[ErrorMessage] = "Menu not found for this day of week!";
+                return RedirectToAction("Index");
+            }
+
+            FoodStampFormViewModel model = new FoodStampFormViewModel()
+            {
+                Id = id,
+                ExpiryDate = expiryDate.ToString("dd/MM/yyyy HH:mm"),
+                RenewedDate = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm"),
+                Status = FoodStampStatus.Renewed.ToString(),
+                MenuId = menu.Id.ToString(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Parent")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Renew(FoodStampFormViewModel model)
+        {
+            ParentFormViewModel? parent = await parentService.GetParentByUserIdAsync(User.GetId()!);
+
+            if (parent == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            FoodStamp? foodStamp = await foodStampService.GetFoodStampByIdAsync(model.Id);
+
+            if (foodStamp == null)
+            {
+                logger.LogWarning("Food stamp not found.");
+                return BadRequest();
+            }
+
+            if (foodStamp.ParentId.ToString() != parent.Id.ToLower())
+            {
+                logger.LogWarning("Food stamp not found in this parent.");
+                return Unauthorized();
+            }
+
+            if (foodStamp.Status != FoodStampStatus.Valid)
+            {
+                logger.LogWarning("Food stamp is not valid.");
+                this.TempData[ErrorMessage] = "You can renew only valid food stamps!";
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                await foodStampService.UpdateFoodStampAsync(foodStamp, model);
+                logger.LogInformation("Food stamp renewed successfully!");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Unexpected error occurred while trying to renew food stamp! Please try again or contact administrator.");
+            }
+
+
+            this.TempData[SuccessMessage] = "Food stamp renewed successfully!";
             return RedirectToAction("Index");
         }
     }
