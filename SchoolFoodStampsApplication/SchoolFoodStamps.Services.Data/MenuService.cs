@@ -93,6 +93,22 @@ namespace SchoolFoodStamps.Services.Data
                 .ToListAsync();
         }
 
+        public async Task<Menu?> GetMenuByCateringCompanyIdAndDayOfWeekAsync(string cateringCompanyId, CustomDayOfWeek day)
+        {
+            return await this.repository
+                .AllReadOnly<Menu>()
+                .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId && m.DayOfWeek == day && m.IsActive == true)
+                .Include(m => m.DishesMenus)
+                .Select(m => new Menu
+                {
+                    Id = m.Id,
+                    DayOfWeek = m.DayOfWeek,
+                    CateringCompanyId = m.CateringCompanyId,
+                    DishesMenus = m.DishesMenus
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Menu?> GetMenuByIdAsync(int id)
         {
             return await this.repository
