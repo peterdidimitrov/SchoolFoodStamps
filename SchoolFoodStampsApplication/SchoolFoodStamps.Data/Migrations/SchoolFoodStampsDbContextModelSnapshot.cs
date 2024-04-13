@@ -352,7 +352,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Allergens");
+                    b.ToTable("Allergens", (string)null);
 
                     b.HasData(
                         new
@@ -439,7 +439,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("DishId");
 
-                    b.ToTable("AllergenDishes");
+                    b.ToTable("AllergenDishes", (string)null);
                 });
 
             modelBuilder.Entity("SchoolFoodStamps.Data.Models.CateringCompany", b =>
@@ -477,7 +477,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CateringCompanies");
+                    b.ToTable("CateringCompanies", (string)null);
 
                     b.HasComment("Catering company table");
 
@@ -533,7 +533,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("CateringCompanyId");
 
-                    b.ToTable("Dishes");
+                    b.ToTable("Dishes", (string)null);
 
                     b.HasComment("Dish table");
 
@@ -687,7 +687,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("MenuId");
 
-                    b.ToTable("DishMenus");
+                    b.ToTable("DishMenus", (string)null);
 
                     b.HasData(
                         new
@@ -830,7 +830,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("FoodStamps");
+                    b.ToTable("FoodStamps", (string)null);
 
                     b.HasComment("Food stamp table");
 
@@ -911,7 +911,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("CateringCompanyId");
 
-                    b.ToTable("Menus");
+                    b.ToTable("Menus", (string)null);
 
                     b.HasComment("Menu table");
 
@@ -990,7 +990,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Parents");
+                    b.ToTable("Parents", (string)null);
 
                     b.HasComment("Parent table");
 
@@ -1054,7 +1054,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("Schools", (string)null);
 
                     b.HasComment("School table");
 
@@ -1125,7 +1125,7 @@ namespace SchoolFoodStamps.Data.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
 
                     b.HasComment("Child table");
 
