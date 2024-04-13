@@ -17,6 +17,8 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<IEnumerable<MenuViewModel>> GetAllAsync(string cateringCompanyId);
 
+        Task<Menu?> GetMenuByCateringCompanyIdAndDayOfWeekAsync(string cateringCompanyId, CustomDayOfWeek day);
+
         Task<MenuViewModel?> GetMenuDetailsByIdAsync(int id);
     }
 }
