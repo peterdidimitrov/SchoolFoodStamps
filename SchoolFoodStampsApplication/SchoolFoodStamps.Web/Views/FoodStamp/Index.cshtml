@@ -195,9 +195,12 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => item.RenewedDate)
                 </td>
-                <td>
-                    <a asp-action="Renew" asp-controller="FoodStamp" asp-route-id="@item.Id" class="btn btn-warning mb-2 w-100 p-1 fw-bold">Renew</a>
-                </td>
+                @if (item.Status == "Valid")
+                {
+                    <td>
+                        <a asp-action="Renew" asp-controller="FoodStamp" asp-route-id="@item.Id" class="btn btn-warning mb-2 w-100 p-1 fw-bold">Renew</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>
