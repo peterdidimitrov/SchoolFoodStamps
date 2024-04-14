@@ -5,6 +5,7 @@ using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 
+
 namespace SchoolFoodStamps.Services.Data
 {
     public class CateringCompanyService : ICateringCompanyService
@@ -111,23 +112,18 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<string?> GetCateringCompanyIdAsync(string userId)
         {
-            CateringCompany? cateringCompany = await repository
+            return await repository
                 .AllReadOnly<CateringCompany>()
-                .FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
-
-            if (cateringCompany == null)
-            {
-                return null;
-            }
-
-            return cateringCompany.Id.ToString();
+                .Where(c => c.UserId == Guid.Parse(userId))
+                .Select(c => c.Id.ToString())
+                .FirstOrDefaultAsync();
         }
 
         public async Task<string?> GetCateringCompanyIdBySchoolIdAsync(string schoolId)
         {
             return await repository
                 .AllReadOnly<School>()
-                .Where(s => s.Id.ToString() == schoolId)
+                .Where(s => s.Id == Guid.Parse(schoolId))
                 .Select(s => s.CateringCompanyId.ToString())
                 .FirstOrDefaultAsync();
         }
@@ -141,7 +137,7 @@ namespace SchoolFoodStamps.Services.Data
                 .Include(c => c.Menus)
                 .Include(c => c.Dishes)
                 .OrderBy(c => c.Name)
-                .Where(c => c.Id.ToString() == cateringCompanyId)
+                .Where(c => c.Id == Guid.Parse(cateringCompanyId))
                 .Select(c => new CateringCompany()
                 {
                     Id = c.Id,
