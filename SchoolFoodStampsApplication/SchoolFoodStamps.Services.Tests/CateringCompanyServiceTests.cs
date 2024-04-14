@@ -9,6 +9,7 @@ using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using static SchoolFoodStamps.Services.Tests.DataBaseSeeder;
 using Microsoft.Extensions.Logging;
+using YourNamespace.Tests;
 
 namespace SchoolFoodStamps.Services.Tests
 {
@@ -32,21 +33,34 @@ namespace SchoolFoodStamps.Services.Tests
 
             SeedDataBase(this.dbContext);
 
-            var formModel = new CateringCompanyFormViewModel
-            {
-                Id = "97C32DF3-7A02-49A9-871B-0B27C4C37CB5",
-                Name = "New Company Name",
-                Address = "New Company Address",
-                IdentificationNumber = "123456789"
-            };
+            //var formModel = new CateringCompanyFormViewModel
+            //{
+            //    Id = "97C32DF3-7A02-49A9-871B-0B27C4C37CB5",
+            //    Name = "New Company Name",
+            //    Address = "New Company Address",
+            //    IdentificationNumber = "123456789"
+            //};
 
             var repositoryMock = new Mock<IRepository>();
-            repositoryMock.Setup(r => r.AllReadOnly<CateringCompany>()).Returns(this.dbContext.CateringCompanies.AsQueryable());
+            repositoryMock.Setup(repo => repo.AllReadOnly<CateringCompany>())
+                .Returns(this.dbContext.CateringCompanies.AsQueryable().AsNoTracking());
 
+            repositoryMock.Setup(repo => repo.AllReadOnly<School>())
+                .Returns(this.dbContext.Schools.AsQueryable().AsNoTracking());
 
-            repositoryMock.Setup(r => r.GetByIdAsync<CateringCompany>(formModel.Id))
-    .Returns((object id) => this.dbContext.CateringCompanies.FindAsync(id));
+            repositoryMock.Setup(repo => repo.All<CateringCompany>())
+                .Returns(this.dbContext.CateringCompanies.AsQueryable());
 
+            repositoryMock.Setup(r => r.AddAsync(It.IsAny<CateringCompany>()))
+                .Callback((CateringCompany cateringCompany) =>
+                {
+                    this.dbContext.CateringCompanies.Add(cateringCompany);
+                });
+            repositoryMock.Setup(r => r.SaveChangesAsync())
+                .Returns(() => this.dbContext.SaveChangesAsync());
+
+            repositoryMock.Setup(r => r.GetByIdAsync<CateringCompany>(It.IsAny<object>()))
+                .Returns<object>(id => this.dbContext.CateringCompanies.FindAsync(id).AsTask());
 
             var userManagerMock = new Mock<UserManager<ApplicationUser>>(Mock.Of<IUserStore<ApplicationUser>>(), null!, null!, null!, null!, null!, null!, null!, null!);
             userManagerMock.Setup(u => u.FindByIdAsync(It.IsAny<string>()))
@@ -54,6 +68,8 @@ namespace SchoolFoodStamps.Services.Tests
                 {
                     return new ApplicationUser { Id = Guid.Parse(userId), UserName = "testuUser" };
                 });
+            userManagerMock.Setup(u => u.AddToRoleAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Success);
 
             this.cateringCompanyService = new CateringCompanyService(userManagerMock.Object, repositoryMock.Object);
         }
@@ -99,7 +115,7 @@ namespace SchoolFoodStamps.Services.Tests
                 PhoneNumber = "123456789"
             };
 
-            this.cateringCompanyService.CreateAsync(formModel).Wait();
+            this.cateringCompanyService.CreateAsync(formModel);
 
             var result = this.cateringCompanyService.ExistsByIdentificationNumberAsync("123456789").Result;
 
@@ -160,7 +176,7 @@ namespace SchoolFoodStamps.Services.Tests
         {
             var formModel = new CateringCompanyFormViewModel
             {
-                Id = "97C32DF3-7A02-49A9-871B-0B27C4C37CB5",
+                Id = "8E91E660-535C-4F3A-B2FB-CC4E28682345",
                 Name = "New Company Name",
                 Address = "New Company Address",
                 IdentificationNumber = "123456789"
@@ -173,7 +189,59 @@ namespace SchoolFoodStamps.Services.Tests
             Assert.That(formModel.Name, Is.EqualTo(cateringCompany!.Name));
             Assert.That(cateringCompany.Address, Is.EqualTo(formModel.Address));
             Assert.That(cateringCompany.IdentificationNumber, Is.EqualTo(formModel.IdentificationNumber));
-            //repositoryMock.Verify(r => r.SaveChangesAsync(), Times.Once);
+        }
+
+        [Test]
+        public void GetCateringCompanyIdAsync_Returns_CateringCompanyId()
+        {
+            IList<CateringCompany> companies = this.dbContext.CateringCompanies.ToList();
+
+            var result = this.cateringCompanyService.GetCateringCompanyIdAsync("FEC4E958-BF56-4247-A6C8-51FAE40D852D").Result;
+
+            Assert.That(result, Is.EqualTo("EFD31B6C-2A3C-4989-824F-2387C9951234".ToLower()));
+        }
+
+        [Test]
+        public void GetCateringCompanyIdAsync_Returns_Null_If_Company_Does_Not_Exist()
+        {
+            var result = this.cateringCompanyService.GetCateringCompanyIdAsync("FEC4E958-BF56-4247-A6C8-51FAE40D852E").Result;
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void GetCateringCompanyByIdAsync_Returns_CateringCompany()
+        {
+            var result = this.cateringCompanyService.GetCateringCompanyByIdAsync("EFD31B6C-2A3C-4989-824F-2387C9951234").Result;
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result!.Name, Is.EqualTo("ET SAM-DPD"));
+            Assert.That(result!.IdentificationNumber, Is.EqualTo("121756888"));
+            Assert.That(result!.Id, Is.EqualTo(Guid.Parse("EFD31B6C-2A3C-4989-824F-2387C9951234".ToLower())));
+        }
+
+        [Test]
+        public void GetCateringCompanyByIdAsync_Returns_Null_If_Company_Does_Not_Exist()
+        {
+            var result = this.cateringCompanyService.GetCateringCompanyByIdAsync("EFD31B6C-2A3C-4989-824F-2387C9951235").Result;
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void GetCateringCompanyIdBySchoolIdAsync_Returns_CateringCompanyId()
+        {
+            var result = this.cateringCompanyService.GetCateringCompanyIdBySchoolIdAsync("E3AF4B8E-8F07-4962-838E-670BD305758F").Result;
+
+            Assert.That(result, Is.EqualTo("EFD31B6C-2A3C-4989-824F-2387C9951234".ToLower()));
+        }
+
+        [Test]
+        public void GetCateringCompanyIdBySchoolIdAsync_Returns_Null_If_Company_Does_Not_Exist()
+        {
+            var result = this.cateringCompanyService.GetCateringCompanyIdBySchoolIdAsync("EFD31B6C-2A3C-4989-824F-2387C9951235").Result;
+
+            Assert.That(result, Is.Null);
         }
 
 
