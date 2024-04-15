@@ -37,17 +37,13 @@ namespace SchoolFoodStamps.Services.Data
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // Get the current time
                 var currentTime = DateTime.UtcNow;
 
-                // Check if it's the end of the day
-                if (currentTime.Hour == 23 && currentTime.Minute == 59)
+                if (currentTime.Hour >= 16 && currentTime.Minute >= 00)
                 {
-                    // Execute food stamp status validation
                     await ValidateFoodStampStatusesAsync();
                 }
 
-                // Delay for one minute
                 await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }

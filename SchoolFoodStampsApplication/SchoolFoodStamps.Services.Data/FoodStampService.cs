@@ -74,19 +74,6 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsByParentIdAsync(AllFoodStampsQueryModel<StudentViewModel> queryModel, string parentId)
         {
-            //IEnumerable<FoodStamp> foodStamps = await repository
-            //    .All<FoodStamp>()
-            //    .Where(s => s.ParentId == Guid.Parse(parentId) && (s.Status.ToString() == "Valid" || s.Status.ToString() == "Renewed"))
-            //    .ToListAsync();
-
-            //foreach (FoodStamp item in foodStamps)
-            //{
-            //    if (item.ExpiryDate < DateTime.UtcNow)
-            //    {
-            //        await EditAsync(item);
-            //    }
-            //}
-
             IQueryable<FoodStamp> foodStampQuery = repository
                 .AllReadOnly<FoodStamp>()
                 .Where(s => s.ParentId == Guid.Parse(parentId))
