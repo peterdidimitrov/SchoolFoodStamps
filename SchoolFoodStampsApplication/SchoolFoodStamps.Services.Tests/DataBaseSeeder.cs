@@ -8,6 +8,7 @@ namespace SchoolFoodStamps.Services.Tests
         public static List<ApplicationUser> Users = null!;
         public static List<CateringCompany> Companies = null!;
         public static List<School> Schools = null!;
+        public static List<Parent> Parents = null!;
 
         public static void SeedDataBase(SchoolFoodStampsDbContext dbContext)
         {
@@ -112,10 +113,30 @@ namespace SchoolFoodStamps.Services.Tests
                     UserId = Guid.Parse("D35E9B04-D31B-40F6-8D0D-DA225A969421")
                 },
             };
+            Parents = new List<Parent>()
+            {
+                new Parent()
+                {
+                    Id = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
+                    FirstName = "Petar",
+                    LastName = "Ivanov",
+                    Address = "Sofia, Bulgaria",
+                    UserId = Guid.Parse("F4E56355-18AE-42A7-B082-25A2CF382D3D")
+                },
+                    new Parent()
+                    {
+                    Id = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"),
+                    FirstName = "Georgi",
+                    LastName = "Petrov",
+                    Address = "Stara Zagora, Bulgaria",
+                    UserId = Guid.Parse("4AA8654E-1465-4839-814C-A62A69D532E9")
+                },
+            };
 
             dbContext.Users.AddRange(Users);
             dbContext.CateringCompanies.AddRange(Companies);
             dbContext.Schools.AddRange(Schools);
+            dbContext.Parents.AddRange(Parents);
             dbContext.SaveChanges();
         }
     }

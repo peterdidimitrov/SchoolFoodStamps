@@ -58,6 +58,8 @@ namespace SchoolFoodStamps.Services.Data
                     FirstName = p.FirstName,
                     LastName = p.LastName,
                     Address = p.Address,
+                    PhoneNumber = p.User.PhoneNumber,
+                    UserId = p.UserId.ToString()
                 })
                 .FirstOrDefaultAsync();
         }
@@ -66,7 +68,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             Parent? parent = await repository
                 .AllReadOnly<Parent>()
-                .FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
+                .FirstOrDefaultAsync(p => p.UserId == Guid.Parse(userId));
 
             if (parent == null)
             {
