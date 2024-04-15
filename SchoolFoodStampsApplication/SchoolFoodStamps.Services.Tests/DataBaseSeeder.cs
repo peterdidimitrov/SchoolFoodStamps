@@ -1,6 +1,5 @@
 ﻿using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Models;
-using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 
 namespace SchoolFoodStamps.Services.Tests
 {
