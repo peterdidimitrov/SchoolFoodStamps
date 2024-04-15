@@ -12,25 +12,23 @@ namespace SchoolFoodStamps.Data.Models
         {
             this.Id = Guid.NewGuid();
             this.FoodStamps = new HashSet<FoodStamp>();
+            this.IsActive = true;
         }
 
         [Key]
         [Comment("Student identifier")]
         public Guid Id { get; set; }
 
-        [Required]
         [Comment("Student first name")]
         [MaxLength(FirstNameMaxLength)]
-        public string FirstName { get; set; } = string.Empty;
+        public string? FirstName { get; set; }
 
-        [Required]
         [Comment("Student last name")]
         [MaxLength(LastNameMaxLength)]
-        public string LastName { get; set; } = string.Empty;
+        public string? LastName { get; set; }
 
-        [Required]
         [Comment("Student date of birth")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [Required]
         [Comment("Student class number in school")]
@@ -39,6 +37,10 @@ namespace SchoolFoodStamps.Data.Models
         [Required]
         [Comment("Student class letter in school")]
         public char ClassLetter { get; set; }
+
+        [Required]
+        [Comment("Is active")]
+        public bool IsActive { get; set; }
 
         [Required]
         [Comment("Parent identifier")]
