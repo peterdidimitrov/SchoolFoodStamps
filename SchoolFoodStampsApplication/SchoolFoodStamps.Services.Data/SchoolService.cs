@@ -38,10 +38,6 @@ namespace SchoolFoodStamps.Services.Data
                 user.PhoneNumber = formModel.PhoneNumber;
             }
 
-            CateringCompany? cateringCompany = await repository.GetByIdAsync<CateringCompany>(Guid.Parse(formModel.CateringCompanyId));
-
-            cateringCompany!.Schools.Add(school);
-
             await repository.AddAsync(school);
             await repository.SaveChangesAsync();
         }
@@ -114,7 +110,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             School? school = await repository
                 .AllReadOnly<School>()
-                .FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
+                .FirstOrDefaultAsync(p => p.UserId == Guid.Parse(userId));
 
             if (school == null)
             {
