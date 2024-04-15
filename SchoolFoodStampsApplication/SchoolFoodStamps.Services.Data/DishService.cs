@@ -79,11 +79,6 @@ namespace SchoolFoodStamps.Services.Data
                 .ToListAsync();
         }
 
-        public Task<IEnumerable<DishViewModel>> GetAllByCateringCompanyAsync(string cateringCompanyId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Dish?> GetDishByIdAsync(int id)
         {
             return await this.repository
