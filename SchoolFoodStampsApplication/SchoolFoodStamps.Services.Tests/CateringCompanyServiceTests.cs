@@ -8,8 +8,6 @@ using SchoolFoodStamps.Services.Data;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.CateringCompany;
 using static SchoolFoodStamps.Services.Tests.DataBaseSeeder;
-using Microsoft.Extensions.Logging;
-using YourNamespace.Tests;
 
 namespace SchoolFoodStamps.Services.Tests
 {
@@ -32,14 +30,6 @@ namespace SchoolFoodStamps.Services.Tests
             this.dbContext.Database.EnsureDeleted();
 
             SeedDataBase(this.dbContext);
-
-            //var formModel = new CateringCompanyFormViewModel
-            //{
-            //    Id = "97C32DF3-7A02-49A9-871B-0B27C4C37CB5",
-            //    Name = "New Company Name",
-            //    Address = "New Company Address",
-            //    IdentificationNumber = "123456789"
-            //};
 
             var repositoryMock = new Mock<IRepository>();
             repositoryMock.Setup(repo => repo.AllReadOnly<CateringCompany>())
