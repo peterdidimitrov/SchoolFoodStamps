@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using SchoolFoodStamps.Data.Models;
 using SchoolFoodStamps.Services.Data.Interfaces;
+using SchoolFoodStamps.Services.Data.Models.Students;
 using SchoolFoodStamps.Web.ViewModels.Student;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
-using static SchoolFoodStamps.Common.EntityValidationConstants.Student;
-using SchoolFoodStamps.Services.Data.Models.Students;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 using System.Globalization;
 
 namespace SchoolFoodStamps.Web.Controllers
@@ -146,7 +147,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             Student? student = await studentService.GetStudentByIdAsync(id);
 
-            if (student == null)
+            if (student == null || student.IsActive == false)
             {
                 logger.LogWarning("Student not found.");
                 return BadRequest();
@@ -168,9 +169,9 @@ namespace SchoolFoodStamps.Web.Controllers
 
             StudentFormViewModel formModel = new StudentFormViewModel()
             {
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                DateOfBirth = student.DateOfBirth.ToString(DateOfBirthFormat, CultureInfo.InvariantCulture),
+                FirstName = student.FirstName!,
+                LastName = student.LastName!,
+                DateOfBirth = student.DateOfBirth.ToString()!,
                 ClassNumber = student.ClassNumber.ToString(),
                 ClassLetter = student.ClassLetter.ToString(),
                 SchoolId = student.SchoolId.ToString(),
@@ -244,6 +245,86 @@ namespace SchoolFoodStamps.Web.Controllers
             }
 
             this.TempData[SuccessMessage] = "Student edited successfully.";
+
+            return this.RedirectToAction("Index", "Student");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Parent")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            Student? student = await studentService.GetStudentByIdAsync(id);
+
+            if (student == null || student.IsActive == false)
+            {
+                logger.LogWarning("Student not found.");
+                return BadRequest();
+            }
+
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            if (student.ParentId != Guid.Parse(parentId))
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            StudentDeleteViewModel studentModel = new StudentDeleteViewModel()
+            {
+                Id = student.Id.ToString(),
+                FirstName = student.FirstName!,
+                LastName = student.LastName!
+            };
+
+            return View(studentModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Parent")]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Delete(StudentDeleteViewModel model)
+        {
+            Student? student = await studentService.GetStudentByIdAsync(Guid.Parse(model.Id));
+
+            if (student == null || student.IsActive == false)
+            {
+                logger.LogWarning("Student not found.");
+                return BadRequest();
+            }
+
+            string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
+
+            if (parentId == null)
+            {
+                logger.LogWarning("Parent not found.");
+                return Unauthorized();
+            }
+
+            if (student.ParentId != Guid.Parse(parentId))
+            {
+                logger.LogWarning("Unauthorized access.");
+                return Unauthorized();
+            }
+
+            try
+            {
+                await this.studentService.DeleteAsync(Guid.Parse(model.Id));
+                logger.LogInformation("Student deleted successfully.");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while trying to delete student! Please try again or contact administrator.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            this.TempData[SuccessMessage] = "Student deleted successfully.";
 
             return this.RedirectToAction("Index", "Student");
         }

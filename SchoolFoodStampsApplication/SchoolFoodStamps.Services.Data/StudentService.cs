@@ -29,7 +29,8 @@ namespace SchoolFoodStamps.Services.Data
                 ClassNumber = Byte.Parse(formModel.ClassNumber),
                 ClassLetter = Char.Parse(formModel.ClassLetter),
                 ParentId = Guid.Parse(formModel.ParentId),
-                SchoolId = Guid.Parse(formModel.SchoolId)
+                SchoolId = Guid.Parse(formModel.SchoolId),
+                IsActive = true
             };
 
             Parent? parent = await repository.GetByIdAsync<Parent>(Guid.Parse(formModel.ParentId));
@@ -40,6 +41,20 @@ namespace SchoolFoodStamps.Services.Data
 
             await this.repository.AddAsync(student);
             await this.repository.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteAsync(Guid studentId)
+        {
+            Student? student = await this.repository.GetByIdAsync<Student>(studentId);
+
+            student!.FirstName = string.Empty;
+            student.LastName = string.Empty;
+            student.DateOfBirth = null;
+            student.IsActive = false;
+
+            await this.repository.SaveChangesAsync();
+
+            return await this.repository.SaveChangesAsync();
         }
 
         public async Task EditAsync(StudentFormViewModel formModel, Student student)
@@ -80,7 +95,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             return await this.repository
                 .AllReadOnly<Student>()
-                .Where(s => s.ParentId == Guid.Parse(parentId))
+                .Where(s => s.ParentId == Guid.Parse(parentId) && s.IsActive == true)
                 .Select(s => new StudentViewModel
                 {
                     Id = s.Id.ToString(),
@@ -95,7 +110,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             IQueryable<Student> studentQuery = repository
                 .AllReadOnly<Student>()
-                .Where(s => s.SchoolId == Guid.Parse(schoolId))
+                .Where(s => s.SchoolId == Guid.Parse(schoolId) && s.IsActive == true)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.Name))
@@ -162,6 +177,7 @@ namespace SchoolFoodStamps.Services.Data
             return await this.repository
                 .AllReadOnly<Student>()
                 .AsNoTracking()
+                .Where(s => s.IsActive == true)
                 .Select(s => new StudentViewModel
                 {
                     Id = s.Id.ToString(),
@@ -176,7 +192,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             return await this.repository
                 .AllReadOnly<Student>()
-                .Where(s => s.ParentId == Guid.Parse(parentId))
+                .Where(s => s.ParentId == Guid.Parse(parentId) && s.IsActive == true)
                 .Select(s => new StudentViewModel
                 {
                     Id = s.Id.ToString(),
@@ -189,8 +205,24 @@ namespace SchoolFoodStamps.Services.Data
 
         public async Task<Student?> GetStudentByIdAsync(Guid studentId)
         {
-            return await this.repository
-                .GetByIdAsync<Student>(studentId);
+            return await repository
+                .AllReadOnly<Student>()
+                .Include(s => s.FoodStamps)
+                .Where(c => c.Id == studentId && c.IsActive == true)
+                .Select(s => new Student()
+                {
+                    Id = s.Id,
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    ClassLetter = s.ClassLetter,
+                    ClassNumber = s.ClassNumber,
+                    DateOfBirth = s.DateOfBirth,
+                    FoodStamps = s.FoodStamps,
+                    IsActive = s.IsActive,
+                    ParentId = s.ParentId,
+                    SchoolId = s.SchoolId
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

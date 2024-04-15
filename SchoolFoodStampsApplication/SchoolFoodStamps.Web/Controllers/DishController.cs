@@ -449,7 +449,7 @@ namespace SchoolFoodStamps.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while trying to delete dish! Please try again or contact administrator.";
-                return RedirectToAction(nameof(Delete));
+                return RedirectToAction(nameof(Index));
             }
 
             this.TempData[SuccessMessage] = "Dish deleted successfully.";

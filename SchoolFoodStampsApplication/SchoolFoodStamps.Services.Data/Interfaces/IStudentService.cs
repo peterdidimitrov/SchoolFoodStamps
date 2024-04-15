@@ -23,5 +23,7 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
         Task EditAsync (StudentFormViewModel formModel, Student student);
 
         Task<IEnumerable<StudentViewModel>> GetAllStudentsByParentIdAsync(string parentId);
+
+        Task<int> DeleteAsync(Guid studentId);
     }
 }
