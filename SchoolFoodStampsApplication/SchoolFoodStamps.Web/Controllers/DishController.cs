@@ -112,7 +112,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -148,7 +148,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -237,7 +237,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -298,7 +298,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -342,7 +342,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -399,7 +399,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
@@ -435,7 +435,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return BadRequest();
             }
 
-            if (dish.CateringCompanyId.ToString() != cateringCompanyId)
+            if (dish.CateringCompanyId != Guid.Parse(cateringCompanyId))
             {
                 logger.LogWarning("Unauthorized access.");
                 return Unauthorized();
