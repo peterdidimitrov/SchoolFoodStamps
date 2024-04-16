@@ -20,8 +20,6 @@ namespace SchoolFoodStamps.Services.Tests
         {
             this.dbOptions = new DbContextOptionsBuilder<SchoolFoodStampsDbContext>()
                 .UseInMemoryDatabase("SchoolFoodStampInMemory" + Guid.NewGuid().ToString())
-                //.EnableSensitiveDataLogging()
-                //.LogTo(Console.WriteLine)
                 .Options;
 
             this.dbContext = new SchoolFoodStampsDbContext(dbOptions);
@@ -40,9 +38,6 @@ namespace SchoolFoodStamps.Services.Tests
 
             repositoryMock.Setup(r => r.SaveChangesAsync())
                 .Returns(() => this.dbContext.SaveChangesAsync());
-
-            //repositoryMock.Setup(r => r.Delete(It.IsAny<AllergenDish>()))
-            //    .Callback<AllergenDish>(entity => this.dbContext.AllergenDishes.Remove(entity));
 
             this.allergenDishService = new AllergenDishService(repositoryMock.Object);
         }
@@ -70,22 +65,6 @@ namespace SchoolFoodStamps.Services.Tests
             Assert.That(allergenDish!.DishId, Is.EqualTo(dish.Id));
             Assert.That(allergenDish!.AllergenId, Is.EqualTo(allergen.Id));
         }
-
-        //[Test]
-        //public async Task RemoveAllergenFromDishAsyncShouldRemoveAllergenFromDish()
-        //{
-        //    Dish? dish = await this.dbContext.Dishes.FirstOrDefaultAsync(d => d.Id == 3);
-
-        //    Allergen? allergen = await this.dbContext.Allergens.FirstOrDefaultAsync(a => a.Id == 9);
-
-        //    AllergenDish? allergenDish = await this.allergenDishService.GetAllergenDishByDishIdAndAllergenIdAsync(dish!.Id, allergen!.Id);
-
-        //    await this.allergenDishService.RemoveAllergenFromDishAsync(dish!, allergen!, allergenDish!);
-
-        //    AllergenDish? removedAllergenDish = await this.allergenDishService.GetAllergenDishByDishIdAndAllergenIdAsync(dish!.Id, allergen!.Id);
-
-        //    Assert.That(removedAllergenDish, Is.Null);
-        //}
 
         [OneTimeTearDown]
         public void OneTimeTearDown()

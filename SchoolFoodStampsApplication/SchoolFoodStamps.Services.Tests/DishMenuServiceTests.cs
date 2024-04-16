@@ -39,19 +39,6 @@ namespace SchoolFoodStamps.Services.Tests
             repositoryMock.Setup(r => r.SaveChangesAsync())
                 .Returns(() => this.dbContext.SaveChangesAsync());
 
-            //repositoryMock.Setup(r => r.Delete(It.IsAny<DishMenu>()))
-            //    .Callback<DishMenu>(entity =>
-            //    {
-            //        // Detach the entity from the context
-            //        this.dbContext.Entry(entity).State = EntityState.Detached;
-
-            //        // Remove the entity from the DbSet
-            //        this.dbContext.DishMenus.Remove(entity);
-            //    });
-
-            //repositoryMock.Setup(r => r.Delete(It.IsAny<DishMenu>()))
-            //    .Callback<DishMenu>(entity => this.dbContext.DishMenus.Remove(entity));
-
             this.dishMenuService = new DishMenuService(repositoryMock.Object);
         }
 
@@ -79,20 +66,11 @@ namespace SchoolFoodStamps.Services.Tests
             Assert.That(dishMenu!.MenuId, Is.EqualTo(menu.Id));
         }
 
-        //[Test]
-        //public async Task RemoveDishFromMenuAsyncShouldRemoveDishFromMenu()
-        //{
-        //    Dish? dish = await this.dbContext.Dishes.FirstOrDefaultAsync(d => d.Id == 3);
-
-        //    Menu? menu = await this.dbContext.Menus.FirstOrDefaultAsync(m => m.Id == 1);
-
-        //    DishMenu? dishMenu = await this.dishMenuService.GetDishMenuByMenuIdAndDishIdAsync(dish!.Id, menu!.Id);
-
-        //    await this.dishMenuService.RemoveDishFromMenuAsync(dish!, menu!, dishMenu!);
-
-        //    DishMenu? removedDishMenu = await this.dishMenuService.GetDishMenuByMenuIdAndDishIdAsync(dish!.Id, menu!.Id);
-
-        //    Assert.That(removedDishMenu, Is.Null);
-        //}
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            this.dbContext.Database.EnsureDeleted();
+            this.dbContext.Dispose();
+        }
     }
 }
