@@ -6,6 +6,7 @@ using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
 using System.Security.Claims;
 using static SchoolFoodStamps.Common.NotificationMessagesConstants;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
@@ -14,8 +15,6 @@ namespace SchoolFoodStamps.Web.Controllers
     {
         private readonly ILogger<HomeController> logger;
         private readonly SignInManager<ApplicationUser> signInManager;
-
-
 
         public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
         {
@@ -27,6 +26,10 @@ namespace SchoolFoodStamps.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (this.User.IsInRole(AdministratorRoleName))
+            {
+                return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
             if (signInManager.IsSignedIn(User))
             {
 

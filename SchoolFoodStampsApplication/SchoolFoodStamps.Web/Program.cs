@@ -20,7 +20,11 @@ builder.Services.AddControllersWithViews(options =>
 
 builder.Services.AddApplicationServices(typeof(IFoodStampService));
 
-builder.Services.AddScoped<IFoodStampStatusValidationService, FoodStampStatusValidationService>();
+builder.Services.ConfigureApplicationCookie(cfg => 
+{ 
+    cfg.LoginPath = "/User/Login";
+    cfg.AccessDeniedPath = "/Home/Error/401";
+});
 
 WebApplication app = builder.Build();
 
@@ -46,7 +50,18 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
+
+    endpoints.MapControllerRoute(
+               name: "ProtectingUrlRoute",
+                      pattern: "{controller}/{action}/{id}/{information}",
+                      defaults: new { Controler = "", Action = "" });
+
     endpoints.MapDefaultControllerRoute();
+
     endpoints.MapRazorPages();
 });
 
