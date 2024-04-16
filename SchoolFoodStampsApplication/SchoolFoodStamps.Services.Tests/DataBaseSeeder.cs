@@ -203,7 +203,8 @@ namespace SchoolFoodStamps.Services.Tests
                     ClassNumber = 3,
                     ClassLetter = 'B',
                     ParentId = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
-                    SchoolId = Guid.Parse("E3AF4B8E-8F07-4962-838E-670BD305758F")
+                    SchoolId = Guid.Parse("E3AF4B8E-8F07-4962-838E-670BD305758F"),
+                    IsActive = true
                 },
                 new Student
                 {
@@ -214,7 +215,8 @@ namespace SchoolFoodStamps.Services.Tests
                     ClassNumber = 1,
                     ClassLetter = 'A',
                     ParentId = Guid.Parse("63281334-434E-4327-B1B7-84B32A9D3D82"),
-                    SchoolId = Guid.Parse("E3AF4B8E-8F07-4962-838E-670BD305758F")
+                    SchoolId = Guid.Parse("E3AF4B8E-8F07-4962-838E-670BD305758F"),
+                    IsActive = true
                 },
                 new Student
                 {
@@ -225,7 +227,8 @@ namespace SchoolFoodStamps.Services.Tests
                     ClassNumber = 1,
                     ClassLetter = 'B',
                     ParentId = Guid.Parse("FEC4E958-BF56-4247-A6C8-51FAE40D852D"),
-                    SchoolId = Guid.Parse("6CD00C11-B0CB-428A-9143-DF5743105A92")
+                    SchoolId = Guid.Parse("6CD00C11-B0CB-428A-9143-DF5743105A92"),
+                    IsActive = true
                 }
             };
             DishMenus = new List<DishMenu>()

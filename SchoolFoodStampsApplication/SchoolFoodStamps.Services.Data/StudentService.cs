@@ -33,12 +33,6 @@ namespace SchoolFoodStamps.Services.Data
                 IsActive = true
             };
 
-            Parent? parent = await repository.GetByIdAsync<Parent>(Guid.Parse(formModel.ParentId));
-            parent!.Students.Add(student);
-
-            School? school = await repository.GetByIdAsync<School>(Guid.Parse(formModel.SchoolId));
-            school!.Students.Add(student);
-
             await this.repository.AddAsync(student);
             await this.repository.SaveChangesAsync();
         }
@@ -51,8 +45,6 @@ namespace SchoolFoodStamps.Services.Data
             student.LastName = string.Empty;
             student.DateOfBirth = null;
             student.IsActive = false;
-
-            await this.repository.SaveChangesAsync();
 
             return await this.repository.SaveChangesAsync();
         }
