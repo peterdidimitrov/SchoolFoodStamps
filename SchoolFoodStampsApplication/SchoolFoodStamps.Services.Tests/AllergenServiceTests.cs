@@ -59,6 +59,7 @@ namespace SchoolFoodStamps.Services.Tests
         public void OneTimeTearDown()
         {
             this.dbContext.Database.EnsureDeleted();
+            this.dbContext.Dispose();
         }
     }
 }

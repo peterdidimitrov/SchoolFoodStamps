@@ -65,7 +65,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             return await this.repository
                 .AllReadOnly<Menu>()
-                .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId && m.IsActive == true)
+                .Where(m => m.CateringCompanyId == Guid.Parse(cateringCompanyId) && m.IsActive == true)
                 .Include(m => m.DishesMenus)
                 .OrderBy(m => m.DayOfWeek)
                 .Select(m => new MenuViewModel
@@ -97,7 +97,7 @@ namespace SchoolFoodStamps.Services.Data
         {
             return await this.repository
                 .AllReadOnly<Menu>()
-                .Where(m => m.CateringCompanyId.ToString() == cateringCompanyId && m.DayOfWeek == day && m.IsActive == true)
+                .Where(m => m.CateringCompanyId == Guid.Parse(cateringCompanyId) && m.DayOfWeek == day && m.IsActive == true)
                 .Include(m => m.DishesMenus)
                 .Select(m => new Menu
                 {
