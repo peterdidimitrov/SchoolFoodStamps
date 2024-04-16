@@ -22,8 +22,9 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly ICateringCompanyService cateringCompanyService;
         private readonly IMenuService menuService;
         private readonly ILogger<HomeController> logger;
+        private readonly IFoodStampStatusValidationService foodStampStatusValidationService;
 
-        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService, ICateringCompanyService cateringCompanyService, IMenuService menuService)
+        public FoodStampController(IFoodStampService foodStampService, ILogger<HomeController> logger, ISchoolService schoolService, IStudentService studentService, IParentService parentService, ICateringCompanyService cateringCompanyService, IMenuService menuService, IFoodStampStatusValidationService foodStampStatusValidationService)
         {
             this.foodStampService = foodStampService;
             this.logger = logger;
@@ -32,6 +33,7 @@ namespace SchoolFoodStamps.Web.Controllers
             this.parentService = parentService;
             this.cateringCompanyService = cateringCompanyService;
             this.menuService = menuService;
+            this.foodStampStatusValidationService = foodStampStatusValidationService;
         }
 
         [HttpGet]
@@ -39,6 +41,10 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Index([FromQuery] AllFoodStampsQueryModel<StudentViewModel> queryModel)
         {
+            DateTime currentTime = DateTime.UtcNow;
+
+            await foodStampStatusValidationService.ValidateFoodStampStatusesAsync(currentTime);
+
             string? parentId = await parentService.GetParentIdAsync(User.GetId()!);
 
             if (parentId == null)
@@ -70,6 +76,10 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "School")]
         public async Task<IActionResult> AllFoodStampsByStudent([FromQuery] AllFoodStampsQueryModel<StudentViewModel> queryModel, string id)
         {
+            DateTime currentTime = DateTime.UtcNow;
+
+            await foodStampStatusValidationService.ValidateFoodStampStatusesAsync(currentTime);
+
             string? schoolId = await schoolService.GetSchoolIdAsync(User.GetId()!);
 
             if (schoolId == null)
@@ -106,6 +116,10 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "CateringCompany")]
         public async Task<IActionResult> AllFoodStampsBySchool([FromQuery] AllFoodStampsQueryModel<SchoolViewModel> queryModel)
         {
+            DateTime currentTime = DateTime.UtcNow;
+
+            await foodStampStatusValidationService.ValidateFoodStampStatusesAsync(currentTime);
+
             string? cateringCompany = await cateringCompanyService.GetCateringCompanyIdAsync(User.GetId()!);
 
             if (cateringCompany == null)
@@ -197,6 +211,10 @@ namespace SchoolFoodStamps.Web.Controllers
         [Authorize(Roles = "Parent")]
         public async Task<IActionResult> Renew(string id)
         {
+            DateTime currentTime = DateTime.UtcNow;
+
+            await foodStampStatusValidationService.ValidateFoodStampStatusesAsync(currentTime);
+
             ParentFormViewModel? parent = await parentService.GetParentByUserIdAsync(User.GetId()!);
 
             if (parent == null)
@@ -256,6 +274,10 @@ namespace SchoolFoodStamps.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Renew(FoodStampFormViewModel model)
         {
+            DateTime currentTime = DateTime.UtcNow;
+
+            await foodStampStatusValidationService.ValidateFoodStampStatusesAsync(currentTime);
+
             ParentFormViewModel? parent = await parentService.GetParentByUserIdAsync(User.GetId()!);
 
             if (parent == null)

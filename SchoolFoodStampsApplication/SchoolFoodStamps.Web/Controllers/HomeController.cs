@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.ViewModels.Home;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -15,6 +16,7 @@ namespace SchoolFoodStamps.Web.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
 
 
+
         public HomeController(ILogger<HomeController> logger, SignInManager<ApplicationUser> signInManager)
         {
             this.logger = logger;
@@ -27,6 +29,7 @@ namespace SchoolFoodStamps.Web.Controllers
         {
             if (signInManager.IsSignedIn(User))
             {
+
                 string userEmail = User.GetEmail();
 
                 if (!string.IsNullOrEmpty(User.GetRole()))

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolFoodStamps.Data.Roles;
+using SchoolFoodStamps.Services.Data;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
 using SchoolFoodStamps.Web.Infrastructure.ModelBinders;
@@ -19,14 +20,7 @@ builder.Services.AddControllersWithViews(options =>
 
 builder.Services.AddApplicationServices(typeof(IFoodStampService));
 
-//builder.Services.AddAuthentication()
-//   .AddFacebook(options =>
-//   {
-//       IConfigurationSection FBAuthNSection =
-//       config.GetSection("Authentication:FB");
-//       options.ClientId = FBAuthNSection["ClientId"];
-//       options.ClientSecret = FBAuthNSection["ClientSecret"];
-//   });
+builder.Services.AddScoped<IFoodStampStatusValidationService, FoodStampStatusValidationService>();
 
 WebApplication app = builder.Build();
 
@@ -52,10 +46,6 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    //endpoints.MapControllerRoute(
-    //   name: "default",
-    //   pattern: "{controller=Home}/{action=Index}/{id?}",
-    //   defaults: new { Controller = "", Action = "" });
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();
 });
@@ -64,7 +54,6 @@ using (IServiceScope scope = app.Services.CreateScope())
 {
     IServiceProvider services = scope.ServiceProvider;
 
-    // Seed roles if needed
     await InsertRoles.AddRoles(services);
     await AssignRoles.AssignRolesToUsers(services);
 }

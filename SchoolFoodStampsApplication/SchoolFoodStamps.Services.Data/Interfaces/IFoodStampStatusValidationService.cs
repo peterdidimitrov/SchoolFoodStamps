@@ -2,6 +2,6 @@
 {
     public interface IFoodStampStatusValidationService
     {
-        Task ValidateFoodStampStatusesAsync();
+        Task ValidateFoodStampStatusesAsync(DateTime currentTime);
     }
 }
