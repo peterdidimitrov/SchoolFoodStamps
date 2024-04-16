@@ -12,7 +12,6 @@
         public const int EntitiesPerPage = 10;
 
         public const string AdminAreaName = "Admin";
-        public const string AdministratorRoleName = "Administrator";
-        public const string DeveloperAdminEmail = "admin@foodstamp.bg";
+        public const string AdministratorRoleName = "Admin";
     }
 }

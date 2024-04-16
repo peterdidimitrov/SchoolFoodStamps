@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using static SchoolFoodStamps.Common.GeneralApplicationConstants;
 
 namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
 {
@@ -142,6 +143,10 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
                             else if (role == "CateringCompany")
                             {
                                 return RedirectToAction("Index", "CateringCompany");
+                            }
+                            else if (role == AdministratorRoleName)
+                            {
+                                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
                             }
                             else
                             {
