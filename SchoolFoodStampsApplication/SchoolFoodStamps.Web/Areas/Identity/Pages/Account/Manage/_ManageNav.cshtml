@@ -9,15 +9,15 @@
 
     @if (User.IsInRole("Parent"))
     {
-        <li class="nav-item"><a class="nav-link" asp-controller="Parent" asp-action="Edit">Personal info</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area=" " asp-controller="Parent" asp-action="Edit">Personal info</a></li>
     }
     else if (User.IsInRole("School"))
     {
-        <li class="nav-item"><a class="nav-link" asp-controller="School" asp-action="Edit">Personal info</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area=" " asp-controller="School" asp-action="Edit">Personal info</a></li>
     }
     else if (User.IsInRole("CateringCompany"))
     {
-        <li class="nav-item"><a class="nav-link" asp-controller="CateringCompany" asp-action="Edit">Personal info</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area=" " asp-controller="CateringCompany" asp-action="Edit">Personal info</a></li>
     }
 
     @if (hasExternalLogins)

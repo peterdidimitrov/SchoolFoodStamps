@@ -171,7 +171,7 @@ namespace SchoolFoodStamps.Web.Controllers
             {
                 FirstName = student.FirstName!,
                 LastName = student.LastName!,
-                DateOfBirth = student.DateOfBirth.ToString()!,
+                DateOfBirth = student.DateOfBirth?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)!,
                 ClassNumber = student.ClassNumber.ToString(),
                 ClassLetter = student.ClassLetter.ToString(),
                 SchoolId = student.SchoolId.ToString(),

@@ -138,7 +138,7 @@ namespace SchoolFoodStamps.Services.Data
                     }
                 }
 
-                if (roles.Contains("CatringCompany"))
+                if (roles.Contains("CateringCompany"))
                 {
                     CateringCompany? cateringCompany = this.repository
                         .AllReadOnly<CateringCompany>()

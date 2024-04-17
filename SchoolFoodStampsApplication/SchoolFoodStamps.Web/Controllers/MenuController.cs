@@ -302,7 +302,7 @@ namespace SchoolFoodStamps.Web.Controllers
                 return Unauthorized();
             }
 
-            if (cateringCompany.Menus.Any(m => m.DayOfWeek.ToString() == model.DayOfWeek))
+            if (cateringCompany.Menus.Where(m => m.IsActive == true).Any(m => m.DayOfWeek.ToString() == model.DayOfWeek))
             {
                 this.TempData[ErrorMessage] = $"Menu for {model.DayOfWeek} is already added!";
                 return View(model);

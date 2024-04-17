@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SchoolFoodStamps.Services.Data.Interfaces;
-using SchoolFoodStamps.Web.ViewModels.Home;
-using System.Diagnostics;
 using System.Security.Claims;
-using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 using static SchoolFoodStamps.Common.GeneralApplicationConstants;
+using static SchoolFoodStamps.Common.NotificationMessagesConstants;
 
 namespace SchoolFoodStamps.Web.Controllers
 {
