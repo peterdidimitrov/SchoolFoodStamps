@@ -143,7 +143,7 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
                     else
                     {
                         await signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Customization", "Home");
+                        return RedirectToAction("Customization", "Home", new { Area = " " });
                     }
                 }
                 foreach (IdentityError error in result.Errors)

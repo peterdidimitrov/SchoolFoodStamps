@@ -134,15 +134,15 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
                         {
                             if (role == "Parent")
                             {
-                                return RedirectToAction("Index", "Parent");
+                                return RedirectToAction("Index", "Parent", new { Area = " " });
                             }
                             else if (role == "School")
                             {
-                                return RedirectToAction("Index", "School");
+                                return RedirectToAction("Index", "School", new { Area = " " });
                             }
                             else if (role == "CateringCompany")
                             {
-                                return RedirectToAction("Index", "CateringCompany");
+                                return RedirectToAction("Index", "CateringCompany", new { Area = " " });
                             }
                             else if (role == AdministratorRoleName)
                             {
@@ -150,12 +150,12 @@ namespace SchoolFoodStamps.Web.Areas.Identity.Pages.Account
                             }
                             else
                             {
-                                return RedirectToAction("Index", "Home");
+                                return RedirectToAction("Index", "Home", new { Area = " " });
                             }
                         }
                     }
 
-                    return RedirectToAction("Customization", "Home");
+                    return RedirectToAction("Customization", "Home", new { Area = " " });
                 }
                 if (result.RequiresTwoFactor)
                 {
