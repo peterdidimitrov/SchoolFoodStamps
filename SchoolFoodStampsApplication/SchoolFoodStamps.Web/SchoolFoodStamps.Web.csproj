@@ -47,8 +47,4 @@
     <ProjectReference Include="..\SchoolFoodStamps.Web.ViewModels\SchoolFoodStamps.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\ViewModels\" />
-  </ItemGroup>
-
 </Project>

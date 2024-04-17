@@ -1,12 +1,14 @@
-﻿﻿@{
+﻿@model StatisticsServiceModel;
+
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="mt-4 p-5 bg-light text-center">
     <h2 class="display-4">Hello, Admin!</h2>
     <p class="lead mb-1 mt-3">
-        This is your administrator area - you can <b>search</b> for specific <b>student</b>, <b>user</b> or <b>food stamp</b>.
-        <br />You can <b>rent</b> and <b>leave</b> the free ones, too!
+        This is your administrator area you can <b>search</b> for specific <b>student</b>, <b>user</b> or <b>food stamp</b>.
+        <br />You can see the <b>Statistic</b>, too!
     </p>
     <hr class="my-4">
     <div class="mt-1 p-1 bg-light text-center">
@@ -15,3 +17,52 @@
         <a asp-area="Admin" asp-controller="User" asp-action="Index" class="btn btn-primary btn-lg">All Users</a>
     </div>
 </div>
+
+<h2 class="display-4 text-center">Statistic</h2>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TotalFoodStamps)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TotalStudents)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TotalStudentsWithFoodStamps)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TotalSchools)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TotalCateringCompanies)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.TotalUsers)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => Model.TotalFoodStamps)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => Model.TotalStudents)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => Model.TotalStudentsWithFoodStamps)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => Model.TotalSchools)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => Model.TotalCateringCompanies)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => Model.TotalUsers)
+            </td>
+        </tr>
+    </tbody>
+</table>
