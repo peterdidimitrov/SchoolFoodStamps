@@ -18,6 +18,8 @@ namespace SchoolFoodStamps.Services.Data.Interfaces
 
         Task<FoodStamp?> GetFoodStampByIdAsync(string foodStampId);
 
+        Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsAsync(AllFoodStampsQueryAdminModel querymodel);
+
         Task<DateTime> GenerateExpiryDate(int menuId, DateTime startDate, bool isRenew);
 
         Task<int> UpdateFoodStampAsync(FoodStamp foodStamp, FoodStampFormViewModel model);

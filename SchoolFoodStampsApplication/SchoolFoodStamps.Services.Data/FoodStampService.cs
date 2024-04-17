@@ -277,5 +277,58 @@ namespace SchoolFoodStamps.Services.Data
             await repository.UpdateAsync(foodStamp);
             return await repository.SaveChangesAsync();
         }
+
+        public async Task<AllFoodStampsFilteredAndPagedServiceModel> GetAllFoodStampsAsync(AllFoodStampsQueryAdminModel queryModel)
+        {
+            IQueryable<FoodStamp> foodStampQuery = repository
+                .AllReadOnly<FoodStamp>()
+                .AsQueryable();
+
+            foodStampQuery = queryModel.Status switch
+            {
+                "Valid" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Valid),
+                "Used" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Used),
+                "Renewed" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Renewed),
+                "Expired" => foodStampQuery
+                    .Where(fs => fs.Status == FoodStampStatus.Expired),
+                _ => foodStampQuery
+            };
+
+            foodStampQuery = queryModel.FoodStampSorting switch
+            {
+                FoodStampSorting.IssueDate => foodStampQuery
+                    .OrderBy(s => s.IssueDate),
+                FoodStampSorting.ExpiryDate => foodStampQuery
+                    .OrderBy(s => s.ExpiryDate),
+                FoodStampSorting.RenewedDate => foodStampQuery
+                    .OrderBy(s => s.RenewedDate),
+                _ => foodStampQuery
+                    .OrderBy(s => s.IssueDate)
+            };
+
+            IEnumerable<FoodStampViewModel> allFoodStamps = await foodStampQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.FoodStampsPerPage)
+                .Take(queryModel.FoodStampsPerPage)
+                .Select(fs => new FoodStampViewModel
+                {
+                    IssueDate = fs.IssueDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+                    ExpiryDate = fs.ExpiryDate.ToString(DateFormat, CultureInfo.InvariantCulture),
+                    RenewedDate = fs.RenewedDate.HasValue ? fs.RenewedDate.Value.ToString(DateFormat, CultureInfo.InvariantCulture) : null!,
+                    Status = fs.Status.ToString(),
+                    StudentName = fs.Student.FirstName + " " + fs.Student.LastName
+                })
+                .ToListAsync();
+
+            int totalFoodstamps = await foodStampQuery.CountAsync();
+
+            return new AllFoodStampsFilteredAndPagedServiceModel()
+            {
+                TotalFoodStampsCount = totalFoodstamps,
+                FoodStamps = allFoodStamps
+            };
+        }
     }
 }

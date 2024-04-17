@@ -1,13 +1,11 @@
-﻿@model AllFoodStampsQueryModel<SchoolViewModel>;
+﻿@model AllFoodStampsQueryAdminModel;
 
 @{
-    ViewBag.Title = $"Food stamp orders to the catering company";
+    ViewBag.Title = $"All food stamps.";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-<hr />
 
-<form method="get">
+<form asp-area="Admin" asp-controller="FoodStamp" asp-action="Index" method="get">
     <div class="row">
         <div class="form-group col-md-2">
             <label asp-for="FoodStampsPerPage"></label>
@@ -19,17 +17,6 @@
                 <option value="9">9</option>
             </select>
         </div>
-        <div class="form-group col-md-2">
-            <label asp-for="SearchId"></label>
-            <select asp-for="SearchId" class="form-control">
-                <option value="">All</option>
-                @foreach (var school in Model.Filter)
-                {
-                    <option value="@school.Id">@school.Name</option>
-                }
-            </select>
-        </div>
-
         <div class="form-group col-md-2">
             <label asp-for="Status"></label>
             <select asp-for="Status" class="form-control">
@@ -47,7 +34,7 @@
                     @{
                         int enumCount = Enum.GetValues(typeof(FoodStampSorting)).Length;
 
-                        for (int i = 0; i < enumCount - 1; i++)
+                        for (int i = 0; i < enumCount; i++)
                         {
                             FoodStampSorting sort = (FoodStampSorting)Enum.GetValues(typeof(FoodStampSorting)).GetValue(i)!;
                             <option value="@sort">@Html.DisplayFor(FoodStampSorting => sort)</option>
@@ -62,6 +49,13 @@
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
         </div>
+    </div>
+</form>
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<form method="get">
+    <div class="row">
     </div>
 </form>
 
@@ -82,11 +76,11 @@
     <div class="d-flex justify-content-between mt-4 mb-4">
         <div class="fill flex">
             <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+               asp-area="Admin"
                asp-controller="FoodStamp"
-               asp-action="AllFoodStampsBySchool"
+               asp-action="Index"
                asp-route-CurrentPage="@previousPage"
                asp-route-FoodStampsPerPage="@Model.FoodStampsPerPage"
-               asp-route-SearchId="@Model.SearchId"
                asp-route-Status="@Model.Status"
                asp-route-FoodStampSorting="@((int)Model.FoodStampSorting)">&lt;&lt;</a>
         </div>
@@ -104,11 +98,11 @@
         <div class="fill flex">
             <a class="btn btn-primary
            @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+               asp-asp-area="Admin"
                asp-controller="FoodStamp"
-               asp-action="AllFoodStampsBySchool"
+               asp-action="Index"
                asp-route-CurrentPage="@(Model.CurrentPage + 1)"
                asp-route-FoodStampsPerPage="@Model.FoodStampsPerPage"
-               asp-route-SearchId="@Model.SearchId"
                asp-route-Status="@Model.Status"
                asp-route-FoodStampSorting="@((int)Model.FoodStampSorting)">&gt;&gt;</a>
         </div>
@@ -138,11 +132,14 @@ else
                 Expiry date
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SearchString)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
                 Renewed date
-            <th></th>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -154,6 +151,9 @@ else
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ExpiryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
                 </td>
                 @if (item.Status == "Expired")
                 {

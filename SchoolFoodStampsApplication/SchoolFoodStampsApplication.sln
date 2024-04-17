@@ -29,11 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolFoodStamps.Services.T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33B4F71E-CBF4-41B8-B016-373CBDCB1371}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BDEF394-4153-4658-BDD6-1ADF084A2B65}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
