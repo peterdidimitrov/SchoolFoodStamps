@@ -83,8 +83,8 @@ namespace SchoolFoodStamps.Services.Tests
             {
                 Id = "FB33981C-AE8C-48EA-BF27-3DC5A763D7F9",
                 StudentId = "A1ABC1D5-3718-4639-AB42-D7A1E9A0FCB0",
-                ExpiryDate = expiryDate.ToString("dd/MM/yyyy HH:mm"),
-                RenewedDate = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm"),
+                ExpiryDate = expiryDate.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                RenewedDate = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
                 Status = "Renewed",
                 MenuId = "1",
             };
