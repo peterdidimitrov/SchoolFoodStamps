@@ -57,3 +57,4 @@ Detailed documentation for the School Food Stamps web application can be found i
 This project is licensed under the [MIT License](LICENSE).
 
 ## Screenshots:
+![AppHomePage](https://github.com/peterdidimitrov/SchoolFoodStamps/assets/113916372/2674f9e4-238d-4ebb-9ee9-671002c12ede)
