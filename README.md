@@ -10,6 +10,7 @@ This repository contains the source code for the School Food Stamps web applicat
 - [Usage](#usage)
 - [Documentation](#documentation)
 - [License](#license)
+- [Screenshot](#screenshots)
 
 ## Introduction
 
@@ -54,3 +55,5 @@ Detailed documentation for the School Food Stamps web application can be found i
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Screenshot:
