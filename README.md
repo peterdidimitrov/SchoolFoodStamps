@@ -20,7 +20,7 @@ The School Food Stamps web application is designed to streamline the management 
 ## Features
 
 - **Parent Interface:** Parents can view and manage food stamps for their children, renew food stamps, and purchase new food stamps.
-- **School Interface:** Schools can view food stamps for their students and manage their catering company partnerships.
+- **School Interface:** Schools can view food stamps for their students.
 - **Catering Company Interface:** Catering companies can manage their profiles, add dishes, and view food stamps for schools they serve.
 
 ## Installation
@@ -42,12 +42,13 @@ To run the School Food Stamps web application locally, follow these steps:
 2. **School Interface:**
    - Log in with your credentials.
    - View food stamps for your students.
-   - Manage catering company partnerships.
 
 3. **Catering Company Interface:**
    - Log in with your credentials.
    - Manage your catering company profile.
+   - Create dishes and menus.
    - Add new dishes to your menu.
+   - Add allergens to your dishes.
 
 ## Documentation
 
