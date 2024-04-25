@@ -23,6 +23,9 @@
 
             public const int DescriptionMaxLength = 500;
             public const int DescriptionMinLength = 10;
+
+            public const int WeightMax = 1000;
+            public const int WeightMin = 1;
         }
 
         public static class Allergen
@@ -86,6 +89,7 @@
             public const string ClassNumberErrorMessage = "The Class Number must be between 1 and 12.";
             public const string DateOfBirthErrorMessage = "The Date of Birth must be in the format dd/MM/yyyy.";
             public const string UnexpectedErrorMessage = "Unexpected error occurred while trying to add new {0}! Please try again or contact administrator.";
+            public const string DishWeightErrorMessage = "The Weight must be between 1 and 1000 grams.";
         }
     }
 }

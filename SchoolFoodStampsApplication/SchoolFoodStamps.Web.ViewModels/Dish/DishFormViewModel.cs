@@ -21,13 +21,10 @@ namespace SchoolFoodStamps.Web.ViewModels.Dish
         public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequireErrorMessage)]
+        [Range(WeightMin, WeightMax, ErrorMessage = DishWeightErrorMessage)]
         public string Weight { get; set; } = string.Empty;
 
         public string CateringCompanyId { get; set; } = string.Empty;
-
-        //[Required(ErrorMessage = RequireErrorMessage)]
-        //[Display(Name = "Allergen")]
-        //public string AllergenId { get; set; } = string.Empty;
 
         public IEnumerable<AllergenViewModel> Allergens { get; set; }
     }
