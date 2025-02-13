@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_container
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    restart: unless-stopped
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  app:
+    build: .
+    container_name: dotnet_app
+    ports:
+      - "8080:80"
+    depends_on:
+      - mssql
+    environment:
+      ConnectionStrings__DefaultConnection: ${DB_CONNECTION_STRING_DOCKER}
+    restart: unless-stopped
+
+volumes:
+  mssql_data:
