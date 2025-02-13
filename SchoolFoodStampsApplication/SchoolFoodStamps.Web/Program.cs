@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SchoolFoodStamps.Data;
 using SchoolFoodStamps.Data.Roles;
 using SchoolFoodStamps.Services.Data.Interfaces;
 using SchoolFoodStamps.Web.Infrastructure.Extensions;
@@ -26,6 +28,7 @@ builder.Services.ConfigureApplicationCookie(cfg =>
 });
 
 WebApplication app = builder.Build();
+MigrateDatabase(app.Services);  
 
 if (app.Environment.IsDevelopment())
 {
@@ -73,3 +76,13 @@ using (IServiceScope scope = app.Services.CreateScope())
 }
 
 await app.RunAsync();
+
+static void MigrateDatabase(IServiceProvider serviceProvider)
+{
+    using (var scope = serviceProvider.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<SchoolFoodStampsDbContext>();
+
+        dbContext.Database.Migrate(); // Apply pending migrations
+    }
+}

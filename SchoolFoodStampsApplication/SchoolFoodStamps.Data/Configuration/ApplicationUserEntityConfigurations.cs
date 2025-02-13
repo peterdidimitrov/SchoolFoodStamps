@@ -26,7 +26,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "dimitrichko_admin@org.bg",
                 NormalizedUserName = "DIMITRICHKO_ADMIN@ORG.BG",
                 Email = "dimitrichko_admin@org.bg",
-                NormalizedEmail = "DIMITRICHKO_ADMIN@ORG.BG"
+                NormalizedEmail = "DIMITRICHKO_ADMIN@ORG.BG",
+                EmailConfirmed = true
             };
 
             userZero.PasswordHash = hasher.HashPassword(userZero, "Dimitrichko!2#");
@@ -40,7 +41,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "test@test.bg",
                 NormalizedUserName = "TEST@TEST.BG",
                 Email = "test@test.bg",
-                NormalizedEmail = "TEST@TEST.BG"
+                NormalizedEmail = "TEST@TEST.BG",
+                EmailConfirmed = true
             };
 
             userOne.PasswordHash = hasher.HashPassword(userOne, "123456");
@@ -54,7 +56,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "pesho@abv.bg",
                 NormalizedUserName = "PESHO@ABV.BG",
                 Email = "pesho@abv.bg",
-                NormalizedEmail = "PESHO@ABV.BG"
+                NormalizedEmail = "PESHO@ABV.BG",
+                EmailConfirmed = true
             };
 
             userTwo.PasswordHash = hasher.HashPassword(userTwo, "123456");
@@ -68,7 +71,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "patriarh.evtimi@abv.bg",
                 NormalizedUserName = "PATRIARH.EVTIMI@ABV.BG",
                 Email = "patriarh.evtimi@abv.bg",
-                NormalizedEmail = "PATRIARH.EVTIMI@ABV.BG"
+                NormalizedEmail = "PATRIARH.EVTIMI@ABV.BG",
+                EmailConfirmed = true
             };
 
             userThree.PasswordHash = hasher.HashPassword(userThree, "123456");
@@ -82,7 +86,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "hristo.botev@abv.bg",
                 NormalizedUserName = "HRISTO.BOTEV@ABV.BG",
                 Email = "hristo.botev@abv.bg",
-                NormalizedEmail = "HRISTO.BOTEV@ABV.BG"
+                NormalizedEmail = "HRISTO.BOTEV@ABV.BG",
+                EmailConfirmed = true
             };
 
             userFour.PasswordHash = hasher.HashPassword(userFour, "123456");
@@ -96,7 +101,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "pesho@yahoo.com",
                 NormalizedUserName = "PESHO@YAHOO.COM",
                 Email = "pesho@yahoo.com",
-                NormalizedEmail = "PESHO@YAHOO.COM"
+                NormalizedEmail = "PESHO@YAHOO.COM",
+                EmailConfirmed = true
             };
 
             userFive.PasswordHash = hasher.HashPassword(userFive, "123456");
@@ -110,7 +116,8 @@ namespace SchoolFoodStamps.Data.Configuration
                 UserName = "gosho@yahoo.com",
                 NormalizedUserName = "GOSHO@YAHOO.COM",
                 Email = "gosho@yahoo.com",
-                NormalizedEmail = "GOSHO@YAHOO.COM"
+                NormalizedEmail = "GOSHO@YAHOO.COM",
+                EmailConfirmed = true
             };
 
             userSix.PasswordHash = hasher.HashPassword(userSix, "123456");
