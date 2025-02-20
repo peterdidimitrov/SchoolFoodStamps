@@ -1,7 +1,9 @@
 # School Food Stamps Web Application 
+This is a school project presented at the ASP.NET Advanced final course defense, in conjunction with the completion of SoftUni's software engineering professional modules.
+
 🚀 **Live Project URL:**  <a href="http://schoolfoodstamps-app.northeurope.azurecontainer.io/" target="_blank" rel="noopener noreferrer">School Food Stamps Web App</a>
 
-This is a school project presented at the ASP.NET Advanced final course defense, in conjunction with the completion of SoftUni's software engineering professional modules.
+
 
 This repository contains the source code for the School Food Stamps web application. The application has been developed on ASP.Net Core MVC and allows parents, schools, and catering companies to manage food stamp services for students.
 
