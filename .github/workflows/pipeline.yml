@@ -35,32 +35,32 @@ jobs:
         run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
         working-directory: ./SchoolFoodStampsApplication
 
-build-and-push-docker:
-  needs: build-and-test
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
-    
-    - name: Build Docker image
-      run: |
-        docker build -t ogmos/schoolfoodstamps-app:latest .
-        TIMESTAMP=$(date +%Y%m%d%H%M%S)
-        docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$TIMESTAMP
-    
-    - name: Print TIMESTAMP
-      run: echo "TIMESTAMP is $TIMESTAMP"
-    
-    - name: List Docker images
-      run: docker images
-    
-    - name: Push Docker image
-      run: |
-        docker push ogmos/schoolfoodstamps-app:latest
-        docker push ogmos/schoolfoodstamps-app:$TIMESTAMP
+  build-and-push-docker:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
+      
+      - name: Build Docker image
+        run: |
+          docker build -t ogmos/schoolfoodstamps-app:latest .
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$TIMESTAMP
+      
+      - name: Print TIMESTAMP
+        run: echo "TIMESTAMP is $TIMESTAMP"
+      
+      - name: List Docker images
+        run: docker images
+      
+      - name: Push Docker image
+        run: |
+          docker push ogmos/schoolfoodstamps-app:latest
+          docker push ogmos/schoolfoodstamps-app:$TIMESTAMP
 
   deploy:
     needs: build-and-push-docker
