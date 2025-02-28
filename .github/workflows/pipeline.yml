@@ -12,28 +12,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: List files in repository
-        run: ls -la
-      
       - name: Print working directory
         run: pwd
+      
+      - name: List files in repository
+        run: ls -la
       
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
       
-      - name: Check .NET version
-        run: dotnet --version
-      
       - name: Restore dependencies
-        run: dotnet restore SchoolFoodStampsApplication.sln
+        run: dotnet restore ./SchoolFoodStampsApplication.sln
       
       - name: Build application
-        run: dotnet build SchoolFoodStampsApplication.sln --configuration Release --no-restore
+        run: dotnet build ./SchoolFoodStampsApplication.sln --configuration Release --no-restore
       
       - name: Run unit tests
-        run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
+        run: dotnet test ./SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
 
   build-and-push-docker:
     needs: build-and-test
