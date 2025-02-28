@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build application
+        run: dotnet build --configuration Release --no-restore
+      - name: Run unit tests
+        run: dotnet test --configuration Release --no-restore --verbosity normal
+  build-and-push-docker:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
+      - name: Build Docker image
+        run: |
+          docker build -t ogmos/schoolfoodstamps-app:latest .
+          docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$(date +%Y%m%d%H%M%S)
+      - name: Push Docker image
+        run: |
+          docker push ogmos/schoolfoodstamps-app:latest
+          docker push ogmos/schoolfoodstamps-app:$(date +%Y%m%d%H%M%S)
+  deploy:
+    needs: build-and-push-docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+      - name: Initialize Terraform
+        run: terraform init
+      - name: Apply Terraform
+        run: |
+          terraform apply -auto-approve \
+            -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
+            -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
+            -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
+            -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}"
