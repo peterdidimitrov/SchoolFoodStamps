@@ -116,10 +116,12 @@ jobs:
           terraform_version: latest
 
       - name: Initialize Terraform
+        working-directory: ./SchoolFoodStampsApplication
         run: terraform init
 
       - name: Check for changes in infrastructure code
         id: check-infra-changes
+        working-directory: ./SchoolFoodStampsApplication
         run: |
           terraform plan -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
                          -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
@@ -129,6 +131,7 @@ jobs:
 
       - name: Apply Terraform
         if: steps.check-infra-changes.outputs.has_changes == '1'
+        working-directory: ./SchoolFoodStampsApplication
         run: |
           terraform apply -auto-approve \
             -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
