@@ -24,13 +24,16 @@ jobs:
           dotnet-version: '6.0.x'
       
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore SchoolFoodStampsApplication.sln
+        working-directory: ./SchoolFoodStampsApplication
       
       - name: Build application
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build SchoolFoodStampsApplication.sln --configuration Release --no-restore
+        working-directory: ./SchoolFoodStampsApplication
       
       - name: Run unit tests
-        run: dotnet test --configuration Release --no-restore --verbosity normal
+        run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
+        working-directory: ./SchoolFoodStampsApplication
 
   build-and-push-docker:
     needs: build-and-test
@@ -46,6 +49,7 @@ jobs:
         run: |
           docker build -t ogmos/schoolfoodstamps-app:latest .
           docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$(date +%Y%m%d%H%M%S)
+        working-directory: ./SchoolFoodStampsApplication
       
       - name: Push Docker image
         run: |
