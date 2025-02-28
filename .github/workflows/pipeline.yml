@@ -50,12 +50,7 @@ jobs:
           docker build -t ogmos/schoolfoodstamps-app:latest .
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$TIMESTAMP
-      
-      - name: Print TIMESTAMP
-        run: echo "TIMESTAMP is $TIMESTAMP"
-      
-      - name: List Docker images
-        run: docker images
+        working-directory: ./SchoolFoodStampsApplication
       
       - name: Push Docker image
         run: |
