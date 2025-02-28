@@ -11,27 +11,39 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Print working directory
-        run: pwd
-      
-      - name: List files in repository
-        run: ls -la
-      
+
+      - name: Check for changes in application code
+        id: check-app-changes
+        run: |
+          git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication
+          echo "has_changes=$?" >> $GITHUB_OUTPUT
+
+      - name: Cache .NET dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Setup .NET
+        if: steps.check-app-changes.outputs.has_changes == '1'
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      
+
       - name: Restore dependencies
+        if: steps.check-app-changes.outputs.has_changes == '1'
         run: dotnet restore SchoolFoodStampsApplication.sln
         working-directory: ./SchoolFoodStampsApplication
-      
+
       - name: Build application
+        if: steps.check-app-changes.outputs.has_changes == '1'
         run: dotnet build SchoolFoodStampsApplication.sln --configuration Release --no-restore
         working-directory: ./SchoolFoodStampsApplication
-      
+
       - name: Run unit tests
+        if: steps.check-app-changes.outputs.has_changes == '1'
         run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
         working-directory: ./SchoolFoodStampsApplication
 
@@ -41,11 +53,28 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
+      - name: Check for changes in application code
+        id: check-app-changes
+        run: |
+          git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication
+          echo "has_changes=$?" >> $GITHUB_OUTPUT
+
       - name: Log in to Docker Hub
+        if: steps.check-app-changes.outputs.has_changes == '1'
         run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
-      
+
+      - name: Cache Docker layers
+        if: steps.check-app-changes.outputs.has_changes == '1'
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Build Docker image
+        if: steps.check-app-changes.outputs.has_changes == '1'
         id: build
         run: |
           docker build -t ogmos/schoolfoodstamps-app:latest .
@@ -53,12 +82,11 @@ jobs:
           docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$TIMESTAMP
           echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
         working-directory: ./SchoolFoodStampsApplication
-      
-      - name: Print TIMESTAMP
-        run: echo "TIMESTAMP is $TIMESTAMP"
-      
+
       - name: Push Docker image
+        if: steps.check-app-changes.outputs.has_changes == '1'
         run: |
+          docker push ogmos/schoolfoodstamps-app:latest
           docker push ogmos/schoolfoodstamps-app:$TIMESTAMP
 
   deploy:
@@ -67,16 +95,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
-      
+
       - name: Initialize Terraform
         run: terraform init
-      
+
+      - name: Check for changes in infrastructure code
+        id: check-infra-changes
+        run: |
+          terraform plan -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
+                         -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
+                         -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
+                         -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}"
+          echo "has_changes=$?" >> $GITHUB_OUTPUT
+
       - name: Apply Terraform
+        if: steps.check-infra-changes.outputs.has_changes == '1'
         run: |
           terraform apply -auto-approve \
             -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
