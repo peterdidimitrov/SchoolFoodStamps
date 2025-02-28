@@ -55,12 +55,12 @@ jobs:
         working-directory: ./SchoolFoodStampsApplication
       
       - name: Print TIMESTAMP
-        run: echo "TIMESTAMP is ${{ steps.build.outputs.TIMESTAMP }}"
+        run: echo "TIMESTAMP is $TIMESTAMP"
       
       - name: Push Docker image
         run: |
           docker push ogmos/schoolfoodstamps-app:latest
-          docker push ogmos/schoolfoodstamps-app:${{ steps.build.outputs.TIMESTAMP }}
+          docker push ogmos/schoolfoodstamps-app:$TIMESTAMP
 
   deploy:
     needs: build-and-push-docker
