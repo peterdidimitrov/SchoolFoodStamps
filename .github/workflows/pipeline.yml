@@ -21,13 +21,13 @@ jobs:
           dotnet-version: '6.0.x'
       
       - name: Restore dependencies
-        run: dotnet restore SchoolFoodStampsApplication.sln
+        run: dotnet restore
       
       - name: Build application
-        run: dotnet build SchoolFoodStampsApplication.sln --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore
       
       - name: Run unit tests
-        run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
+        run: dotnet test --configuration Release --no-restore --verbosity normal
 
   build-and-push-docker:
     needs: build-and-test
