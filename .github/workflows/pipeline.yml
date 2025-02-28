@@ -46,16 +46,21 @@ jobs:
         run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
       
       - name: Build Docker image
+        id: build
         run: |
           docker build -t ogmos/schoolfoodstamps-app:latest .
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$TIMESTAMP
+          echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
         working-directory: ./SchoolFoodStampsApplication
+      
+      - name: Print TIMESTAMP
+        run: echo "TIMESTAMP is ${{ steps.build.outputs.TIMESTAMP }}"
       
       - name: Push Docker image
         run: |
           docker push ogmos/schoolfoodstamps-app:latest
-          docker push ogmos/schoolfoodstamps-app:$TIMESTAMP
+          docker push ogmos/schoolfoodstamps-app:${{ steps.build.outputs.TIMESTAMP }}
 
   deploy:
     needs: build-and-push-docker
