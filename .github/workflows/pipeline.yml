@@ -113,6 +113,13 @@ jobs:
         working-directory: ./SchoolFoodStampsApplication
         run: terraform init
 
+      - name: Authenticate with Azure
+        run: |
+          az login --service-principal \
+            --username "${{ secrets.AZURE_CLIENT_ID }}" \
+            --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
+
       - name: Check and Import Azure Resource Group if Needed
         working-directory: ./SchoolFoodStampsApplication
         run: |
@@ -124,8 +131,6 @@ jobs:
           else
             echo "Resource group does not exist. Terraform will create it if needed."
           fi
-        env:
-          AZURE_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
 
       - name: Plan Terraform changes (only update container group)
         working-directory: ./SchoolFoodStampsApplication
