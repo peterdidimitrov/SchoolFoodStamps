@@ -128,6 +128,7 @@ jobs:
             -var="client_id=${{ secrets.AZURE_CLIENT_ID }}" \
             -var="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \
             -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}"
+            -replace="azurerm_container_group.app"
 
       - name: Apply Terraform changes
         working-directory: ./SchoolFoodStampsApplication
