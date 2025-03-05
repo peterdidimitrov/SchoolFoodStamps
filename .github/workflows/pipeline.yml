@@ -8,20 +8,24 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check-app-changes.outputs.has_changes }}  # Output change flag
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Fetch the last 2 commits to ensure HEAD^ exists
+          fetch-depth: 2
 
       - name: Check for changes in application code
         id: check-app-changes
         run: |
           if git rev-list --count HEAD > /dev/null 2>&1 && [ $(git rev-list --count HEAD) -gt 1 ]; then
             git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication
+            echo "has_changes=$?" >> $GITHUB_ENV
             echo "has_changes=$?" >> $GITHUB_OUTPUT
           else
             echo "No previous commit found. Assuming changes exist."
+            echo "has_changes=1" >> $GITHUB_ENV
             echo "has_changes=1" >> $GITHUB_OUTPUT
           fi
 
@@ -34,34 +38,35 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Setup .NET
-        if: steps.check-app-changes.outputs.has_changes == '1'
+        if: env.has_changes == '1'
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
 
       - name: Restore dependencies
-        if: steps.check-app-changes.outputs.has_changes == '1'
+        if: env.has_changes == '1'
         run: dotnet restore SchoolFoodStampsApplication.sln
         working-directory: ./SchoolFoodStampsApplication
 
       - name: Build application
-        if: steps.check-app-changes.outputs.has_changes == '1'
+        if: env.has_changes == '1'
         run: dotnet build SchoolFoodStampsApplication.sln --configuration Release --no-restore
         working-directory: ./SchoolFoodStampsApplication
 
       - name: Run unit tests
-        if: steps.check-app-changes.outputs.has_changes == '1'
+        if: env.has_changes == '1'
         run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
         working-directory: ./SchoolFoodStampsApplication
 
   build-and-push-docker:
     needs: build-and-test
     runs-on: ubuntu-latest
+    if: needs.build-and-test.outputs.has_changes == '1'  # Only run if there are changes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # Fetch the last 2 commits to ensure HEAD^ exists
+          fetch-depth: 2
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
@@ -104,11 +109,22 @@ jobs:
         working-directory: ./SchoolFoodStampsApplication
         run: terraform init
 
-      - name: Apply Terraform changes
+      - name: Mark container for replacement
+        working-directory: ./SchoolFoodStampsApplication
+        run: terraform taint azurerm_container_group.app || true
+
+      - name: Plan Terraform changes
         working-directory: ./SchoolFoodStampsApplication
         run: |
-          terraform apply -auto-approve \
+          terraform plan -out=tfplan \
             -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
             -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
             -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
-            -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}"
+            -var="subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}" \
+            -var="client_id=${{ secrets.TF_VAR_CLIENT_ID }}" \
+            -var="client_secret=${{ secrets.TF_VAR_CLIENT_SECRET }}" \
+            -var="tenant_id=${{ secrets.TF_VAR_TENANT_ID }}"
+
+      - name: Apply Terraform changes
+        working-directory: ./SchoolFoodStampsApplication
+        run: terraform apply -auto-approve tfplan
