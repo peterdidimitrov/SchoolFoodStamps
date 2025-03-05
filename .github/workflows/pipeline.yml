@@ -113,11 +113,7 @@ jobs:
         working-directory: ./SchoolFoodStampsApplication
         run: terraform init
 
-      - name: Mark container for replacement
-        working-directory: ./SchoolFoodStampsApplication
-        run: terraform taint azurerm_container_group.app || true
-
-      - name: Plan Terraform changes
+      - name: Plan Terraform changes (only update container group)
         working-directory: ./SchoolFoodStampsApplication
         run: |
           terraform plan -out=tfplan \
@@ -127,8 +123,8 @@ jobs:
             -var="subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}" \
             -var="client_id=${{ secrets.AZURE_CLIENT_ID }}" \
             -var="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \
-            -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}"
-            -replace="azurerm_container_group.app"
+            -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
+            -target="azurerm_container_group.app"
 
       - name: Apply Terraform changes
         working-directory: ./SchoolFoodStampsApplication

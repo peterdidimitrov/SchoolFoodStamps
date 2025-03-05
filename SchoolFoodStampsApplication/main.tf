@@ -40,6 +40,10 @@ resource "azurerm_container_group" "app" {
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
 
+  lifecycle {
+    ignore_changes = [tags, container, image_registry_credential]
+  }
+
   container {
     name   = "dotnet-app"
     image  = "ogmos/schoolfoodstamps-app:latest"
