@@ -9,7 +9,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     outputs:
-      has_changes: ${{ steps.check-app-changes.outputs.has_changes }}  # Output change flag
+      has_changes: ${{ steps.check-app-changes.outputs.has_changes }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
   build-and-push-docker:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: needs.build-and-test.outputs.has_changes == '1'  # Only run if there are changes
+    if: needs.build-and-test.outputs.has_changes == '1'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -112,6 +112,20 @@ jobs:
       - name: Initialize Terraform
         working-directory: ./SchoolFoodStampsApplication
         run: terraform init
+
+      - name: Check and Import Azure Resource Group if Needed
+        working-directory: ./SchoolFoodStampsApplication
+        run: |
+          RESOURCE_GROUP_EXISTS=$(az group exists --name schoolfoodstamps-rg)
+
+          if [ "$RESOURCE_GROUP_EXISTS" = "true" ]; then
+            echo "Resource group exists. Importing into Terraform state..."
+            terraform import azurerm_resource_group.rg "/subscriptions/${{ secrets.TF_VAR_SUBSCRIPTION_ID }}/resourceGroups/schoolfoodstamps-rg" || echo "Already imported or not needed."
+          else
+            echo "Resource group does not exist. Terraform will create it if needed."
+          fi
+        env:
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
 
       - name: Plan Terraform changes (only update container group)
         working-directory: ./SchoolFoodStampsApplication
