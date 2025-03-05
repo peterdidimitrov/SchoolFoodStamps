@@ -17,7 +17,7 @@ jobs:
       - name: Check for changes in application code
         id: check-app-changes
         run: |
-          if git rev-parse --verify HEAD^ > /dev/null 2>&1; then
+          if git rev-list --count HEAD > /dev/null 2>&1 && [ $(git rev-list --count HEAD) -gt 1 ]; then
             git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication
             echo "has_changes=$?" >> $GITHUB_OUTPUT
           else
