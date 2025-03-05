@@ -19,15 +19,19 @@ jobs:
       - name: Check for changes in application code
         id: check-app-changes
         run: |
-          if git rev-list --count HEAD > /dev/null 2>&1 && [ $(git rev-list --count HEAD) -gt 1 ]; then
-            git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication
-            echo "has_changes=$?" >> $GITHUB_ENV
-            echo "has_changes=$?" >> $GITHUB_OUTPUT
-          else
-            echo "No previous commit found. Assuming changes exist."
-            echo "has_changes=1" >> $GITHUB_ENV
-            echo "has_changes=1" >> $GITHUB_OUTPUT
-          fi
+            if git rev-list --count HEAD > /dev/null 2>&1 && [ $(git rev-list --count HEAD) -gt 1 ]; then
+              if git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication; then
+                echo "has_changes=0" >> $GITHUB_ENV
+                echo "has_changes=0" >> $GITHUB_OUTPUT
+              else
+                echo "has_changes=1" >> $GITHUB_ENV
+                echo "has_changes=1" >> $GITHUB_OUTPUT
+              fi
+            else
+              echo "No previous commit found. Assuming changes exist."
+              echo "has_changes=1" >> $GITHUB_ENV
+              echo "has_changes=1" >> $GITHUB_OUTPUT
+            fi
 
       - name: Cache .NET dependencies
         uses: actions/cache@v3
