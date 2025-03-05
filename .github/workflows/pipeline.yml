@@ -104,15 +104,15 @@ jobs:
         working-directory: ./SchoolFoodStampsApplication
         run: terraform init
 
-      - name: Taint the container group (force image update)
-        working-directory: ./SchoolFoodStampsApplication
-        run: terraform taint azurerm_container_group.app
-
-      - name: Apply Terraform changes
+      - name: Apply Terraform changes (with replace)
         working-directory: ./SchoolFoodStampsApplication
         run: |
           terraform apply -auto-approve \
             -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
             -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
             -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
-            -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}"
+            -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}" \
+            -var="client_id=${{ secrets.TF_VAR_CLIENT_ID }}" \
+            -var="client_secret=${{ secrets.TF_VAR_CLIENT_SECRET }}" \
+            -var="tenant_id=${{ secrets.TF_VAR_TENANT_ID }}" \
+            -replace="azurerm_container_group.app"
