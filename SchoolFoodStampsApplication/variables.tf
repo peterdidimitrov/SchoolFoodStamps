@@ -16,7 +16,25 @@ variable "dockerhub_password" {
   sensitive   = true
 }
 
-variable "azure_subscription_id" {
+variable "subscription_id" {
+  description = "Subscription ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "client_id" {
+  description = "Subscription ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "client_secret" {
+  description = "Subscription ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "tenant_id" {
   description = "Subscription ID"
   type        = string
   sensitive   = true
