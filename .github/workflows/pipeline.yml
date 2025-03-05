@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 2  # Fetch the last 2 commits to ensure HEAD^ exists
 
       - name: Check for changes in application code
         id: check-app-changes
@@ -57,12 +57,11 @@ jobs:
   build-and-push-docker:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: needs.build-and-test.outputs.has_changes == '1'  # Only run if there are changes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 2  # Fetch the last 2 commits to ensure HEAD^ exists
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
@@ -105,24 +104,11 @@ jobs:
         working-directory: ./SchoolFoodStampsApplication
         run: terraform init
 
-      - name: Plan Terraform changes
-        working-directory: ./SchoolFoodStampsApplication
-        run: |
-          terraform plan -out=tfplan \
-            -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
-            -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
-            -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
-            -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}" \
-            -var="client_id=${{ secrets.TF_VAR_CLIENT_ID }}" \
-            -var="client_secret=${{ secrets.TF_VAR_CLIENT_SECRET }}" \
-            -var="tenant_id=${{ secrets.TF_VAR_TENANT_ID }}" \
-            -replace="azurerm_container_group.app"
-
       - name: Apply Terraform changes
         working-directory: ./SchoolFoodStampsApplication
         run: |
-          terraform apply -auto-approve tfplan
-          if [ $? -ne 0 ]; then
-            echo "Terraform apply failed"
-            exit 1
-          fi
+          terraform apply -auto-approve \
+            -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
+            -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
+            -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
+            -var="azure_subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}"
