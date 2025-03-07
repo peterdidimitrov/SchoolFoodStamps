@@ -19,53 +19,45 @@ jobs:
       - name: Check for changes in application code
         id: check-app-changes
         run: |
-            if git rev-list --count HEAD > /dev/null 2>&1 && [ $(git rev-list --count HEAD) -gt 1 ]; then
-              if git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication; then
-                echo "has_changes=0" >> $GITHUB_ENV
-                echo "has_changes=0" >> $GITHUB_OUTPUT
-              else
-                echo "has_changes=1" >> $GITHUB_ENV
-                echo "has_changes=1" >> $GITHUB_OUTPUT
-              fi
-            else
-              echo "No previous commit found. Assuming changes exist."
-              echo "has_changes=1" >> $GITHUB_ENV
-              echo "has_changes=1" >> $GITHUB_OUTPUT
-            fi
+          if [ $(git rev-list --count HEAD) -eq 1 ] || ! git diff --quiet HEAD^ HEAD -- ./SchoolFoodStampsApplication; then
+            echo "has_changes=1" | tee -a $GITHUB_ENV $GITHUB_OUTPUT
+          else
+            echo "has_changes=0" | tee -a $GITHUB_ENV $GITHUB_OUTPUT
+          fi
 
       - name: Cache .NET dependencies
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-
+            ${{ runner.os }}-dotnet-
 
       - name: Setup .NET
-        if: env.has_changes == '1'
+        if: ${{ steps.check-app-changes.outputs.has_changes == '1' }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
 
       - name: Restore dependencies
-        if: env.has_changes == '1'
-        run: dotnet restore SchoolFoodStampsApplication.sln
+        if: ${{ steps.check-app-changes.outputs.has_changes == '1' }}
+        run: dotnet restore --packages ~/.nuget/packages SchoolFoodStampsApplication.sln
         working-directory: ./SchoolFoodStampsApplication
 
       - name: Build application
-        if: env.has_changes == '1'
+        if: ${{ steps.check-app-changes.outputs.has_changes == '1' }}
         run: dotnet build SchoolFoodStampsApplication.sln --configuration Release --no-restore
         working-directory: ./SchoolFoodStampsApplication
 
       - name: Run unit tests
-        if: env.has_changes == '1'
+        if: ${{ steps.check-app-changes.outputs.has_changes == '1' }}
         run: dotnet test SchoolFoodStampsApplication.sln --configuration Release --no-restore --verbosity normal
         working-directory: ./SchoolFoodStampsApplication
 
   build-and-push-docker:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: needs.build-and-test.outputs.has_changes == '1'
+    if: ${{ needs.build-and-test.outputs.has_changes == '1' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -79,7 +71,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile', '**/SchoolFoodStampsApplication/**') }}
           restore-keys: |
             ${{ runner.os }}-docker-
 
@@ -89,7 +81,7 @@ jobs:
           docker build -t ogmos/schoolfoodstamps-app:latest .
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           docker tag ogmos/schoolfoodstamps-app:latest ogmos/schoolfoodstamps-app:$TIMESTAMP
-          echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+          echo "TIMESTAMP=$TIMESTAMP" | tee -a $GITHUB_ENV
         working-directory: ./SchoolFoodStampsApplication
 
       - name: Push Docker image
@@ -97,54 +89,22 @@ jobs:
           docker push ogmos/schoolfoodstamps-app:latest
           docker push ogmos/schoolfoodstamps-app:$TIMESTAMP
 
-  deploy:
-    needs: build-and-push-docker
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: latest
-
-      - name: Initialize Terraform
-        working-directory: ./SchoolFoodStampsApplication
-        run: terraform init
-
-      - name: Authenticate with Azure
+      - name: Deploy to Azure Container Instance
+        env:
+          AZURE_RESOURCE_GROUP: "schoolfoodstamps-rg"
+          AZURE_CONTAINER_NAME: "schoolfoodstamps-app"
+          AZURE_REGION: "northeurope"
         run: |
-          az login --service-principal \
-            --username "${{ secrets.AZURE_CLIENT_ID }}" \
-            --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
-            --tenant "${{ secrets.AZURE_TENANT_ID }}"
-
-      - name: Check and Import Azure Resource Group if Needed
-        working-directory: ./SchoolFoodStampsApplication
-        run: |
-          RESOURCE_GROUP_EXISTS=$(az group exists --name schoolfoodstamps-rg)
-
-          if [ "$RESOURCE_GROUP_EXISTS" = "true" ]; then
-            echo "Resource group exists. Importing into Terraform state..."
-            terraform import azurerm_resource_group.rg "/subscriptions/${{ secrets.TF_VAR_SUBSCRIPTION_ID }}/resourceGroups/schoolfoodstamps-rg" || echo "Already imported or not needed."
-          else
-            echo "Resource group does not exist. Terraform will create it if needed."
-          fi
-
-      - name: Plan Terraform changes (only update container group)
-        working-directory: ./SchoolFoodStampsApplication
-        run: |
-          terraform plan -out=tfplan \
-            -var="sql_admin_password=${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}" \
-            -var="dockerhub_username=${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
-            -var="dockerhub_password=${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
-            -var="subscription_id=${{ secrets.TF_VAR_SUBSCRIPTION_ID }}" \
-            -var="client_id=${{ secrets.AZURE_CLIENT_ID }}" \
-            -var="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}" \
-            -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
-            -target="azurerm_container_group.app"
-
-      - name: Apply Terraform changes
-        working-directory: ./SchoolFoodStampsApplication
-        run: terraform apply -auto-approve tfplan
+          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+          
+          az container delete --name $AZURE_CONTAINER_NAME --resource-group $AZURE_RESOURCE_GROUP --yes
+          
+          az container create \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --name $AZURE_CONTAINER_NAME \
+            --image ogmos/schoolfoodstamps-app:$TIMESTAMP \
+            --dns-name-label schoolfoodstamps-app \
+            --ports 80 \
+            --cpu 1 --memory 1.5 \
+            --restart-policy Always \
+            --environment-variables "DB_CONNECTION_STRING=${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
