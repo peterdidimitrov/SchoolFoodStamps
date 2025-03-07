@@ -69,6 +69,10 @@ jobs:
             export AZURE_SQL_CONNECTIONSTRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
             envsubst < SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json > SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp
             mv SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
+            
+            # Print the modified appsettings.json to verify the replacement
+            echo "Modified appsettings.json:"
+            cat SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
         shell: bash
 
       - name: Log in to Docker Hub
