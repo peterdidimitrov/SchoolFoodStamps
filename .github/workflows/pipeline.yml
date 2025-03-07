@@ -64,6 +64,11 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Replace placeholder in appsettings.json
+        run: |
+          sed -i "s|%AZURE_SQL_CONNECTIONSTRING%|${{ secrets.AZURE_SQL_CONNECTIONSTRING }}|g" SchoolFoodStampsApplication/appsettings.json
+        shell: bash
+
       - name: Log in to Docker Hub
         run: echo "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" --password-stdin
 
