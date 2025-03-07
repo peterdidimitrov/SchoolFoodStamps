@@ -67,8 +67,8 @@ jobs:
       - name: Replace placeholder in appsettings.json
         run: |
             export AZURE_SQL_CONNECTIONSTRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
-            envsubst < SchoolFoodStampsApplication/appsettings.json > SchoolFoodStampsApplication/appsettings.json.tmp
-            mv SchoolFoodStampsApplication/appsettings.json.tmp SchoolFoodStampsApplication/appsettings.json
+            envsubst < SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json > SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp
+            mv SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
         shell: bash
 
       - name: Log in to Docker Hub
