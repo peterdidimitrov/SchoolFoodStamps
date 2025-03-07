@@ -66,8 +66,9 @@ jobs:
 
       - name: Replace placeholder in appsettings.json
         run: |
-            CONNECTION_STRING=$(echo "${{ secrets.AZURE_SQL_CONNECTIONSTRING }}" | sed 's/[\/&]/\\&/g')
-            sed -i "s|%AZURE_SQL_CONNECTIONSTRING%|$CONNECTION_STRING|g" SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
+            export AZURE_SQL_CONNECTIONSTRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
+            envsubst < SchoolFoodStampsApplication/appsettings.json > SchoolFoodStampsApplication/appsettings.json.tmp
+            mv SchoolFoodStampsApplication/appsettings.json.tmp SchoolFoodStampsApplication/appsettings.json
         shell: bash
 
       - name: Log in to Docker Hub
