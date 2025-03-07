@@ -102,7 +102,7 @@ jobs:
           az container create \
             --resource-group $AZURE_RESOURCE_GROUP \
             --name $AZURE_CONTAINER_NAME \
-            --image ogmos/schoolfoodstamps-app:$TIMESTAMP \
+            --image ogmos/schoolfoodstamps-app:latest \
             --dns-name-label schoolfoodstamps-app \
             --ports 80 \
             --cpu 1 --memory 1.5 \
