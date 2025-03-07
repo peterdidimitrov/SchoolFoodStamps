@@ -102,10 +102,13 @@ jobs:
           az container create \
             --resource-group $AZURE_RESOURCE_GROUP \
             --name $AZURE_CONTAINER_NAME \
-            --image ogmos/schoolfoodstamps-app:latest \
+            --image ***/schoolfoodstamps-app:$TIMESTAMP \
             --dns-name-label schoolfoodstamps-app \
             --ports 80 \
             --cpu 1 --memory 1.5 \
             --restart-policy Always \
             --os-type Linux \
+            --registry-login-server index.docker.io \
+            --registry-username "DOCKER_HUB_USERNAME=${{secrets.TF_VAR_DOCKERHUB_USERNAME}}"> \
+            --registry-password "DOCKER_HUB_PASSWORD=${{secrets.TF_VAR_DOCKERHUB_PASSWORD}}"> \
             --environment-variables "DB_CONNECTION_STRING=${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
