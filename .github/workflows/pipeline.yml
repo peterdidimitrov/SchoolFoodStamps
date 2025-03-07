@@ -109,6 +109,6 @@ jobs:
             --restart-policy Always \
             --os-type Linux \
             --registry-login-server index.docker.io \
-            --registry-username "DOCKER_HUB_USERNAME=${{secrets.TF_VAR_DOCKERHUB_USERNAME}}"> \
-            --registry-password "DOCKER_HUB_PASSWORD=${{secrets.TF_VAR_DOCKERHUB_PASSWORD}}"> \
-            --environment-variables "DB_CONNECTION_STRING=${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
+            --registry-username "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
+            --registry-password "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
+            --environment-variables DB_CONNECTION_STRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
