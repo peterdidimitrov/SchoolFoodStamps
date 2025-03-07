@@ -97,7 +97,7 @@ jobs:
         run: |
           az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
           
-          az container delete --name $AZURE_CONTAINER_NAME --resource-group $AZURE_RESOURCE_GROUP --yes
+          # az container delete --name $AZURE_CONTAINER_NAME --resource-group $AZURE_RESOURCE_GROUP --yes
           
           az container create \
             --resource-group $AZURE_RESOURCE_GROUP \
@@ -107,4 +107,5 @@ jobs:
             --ports 80 \
             --cpu 1 --memory 1.5 \
             --restart-policy Always \
+            --os-type Linux \
             --environment-variables "DB_CONNECTION_STRING=${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
