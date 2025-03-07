@@ -127,4 +127,4 @@ jobs:
             --registry-login-server index.docker.io \
             --registry-username "${{ secrets.TF_VAR_DOCKERHUB_USERNAME }}" \
             --registry-password "${{ secrets.TF_VAR_DOCKERHUB_PASSWORD }}" \
-            --environment-variables "DB_CONNECTION_STRING=${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
+            --environment-variables "ConnectionStrings__DefaultConnection=${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
