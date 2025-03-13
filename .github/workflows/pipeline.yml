@@ -5,10 +5,6 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -70,9 +66,13 @@ jobs:
 
       - name: Replace placeholder in appsettings.json
         run: |
-          export AZURE_SQL_CONNECTIONSTRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
-          envsubst < SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json > SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp
-          mv SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
+            export AZURE_SQL_CONNECTIONSTRING="${{ secrets.AZURE_SQL_CONNECTIONSTRING }}"
+            envsubst < SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json > SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp
+            mv SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json.tmp SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
+            
+            # Print the modified appsettings.json to verify the replacement
+            echo "Modified appsettings.json:"
+            cat SchoolFoodStampsApplication/SchoolFoodStamps.Web/appsettings.json
         shell: bash
 
       - name: Log in to Docker Hub
@@ -107,13 +107,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Azure OIDC Login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          allow-no-subscriptions: true
+      - name: Log in to Azure
+        run: |
+          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }} 
 
       - name: Create or Update Azure Container Instance
         run: |
